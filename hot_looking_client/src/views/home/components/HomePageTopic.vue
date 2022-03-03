@@ -4,12 +4,12 @@
       <div class="section">
         <!--        标题-->
         <h2 class="title">
-          <a href="#"
-            >专题
+          <RouterLink to="/collections"
+            >{{ title }}
             <span class="pm_3">
               <svg
                 t="1645494758486"
-                class="icon"
+                class="title_icon"
                 viewBox="0 0 1024 1024"
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
@@ -20,14 +20,17 @@
                   p-id="3357"
                 ></path>
               </svg> </span
-          ></a>
+          ></RouterLink>
         </h2>
         <!--      专题列表-->
         <div class="topics_list row">
-          <div class="topics_item"><a href="#"></a></div>
-          <div class="topics_item"><a href="#"></a></div>
-          <div class="topics_item"><a href="#"></a></div>
-          <div class="topics_item"><a href="#"></a></div>
+          <div
+            class="topics_item"
+            v-for="item in collections"
+            :key="item.colId"
+          >
+            <a href="#" class="a_cover"><img :src="item.colImg" alt="" /></a>
+          </div>
         </div>
       </div>
     </div>
@@ -35,14 +38,40 @@
 </template>
 
 <script>
+import { ref } from "vue";
+
+import { getCollections } from "../../../api/home";
+
 export default {
   name: "HomeMainTopic",
+  props: ["title"],
+  setup() {
+    const { collections } = useCollections();
+
+    return { collections };
+  },
 };
+
+function useCollections() {
+  //存储专题数据
+  const collections = ref();
+
+  //获取专题数据
+  const getData = () => {
+    getCollections().then((data) => {
+      collections.value = data.result;
+    });
+  };
+
+  getData();
+
+  return { collections };
+}
 </script>
 
 <style scoped>
 .newsBanner {
-  background-color: #fcfcfc;
+  background-color: #f8f8f8;
   padding: 1.875rem 0;
   overflow: hidden;
 }
@@ -72,14 +101,15 @@ export default {
 .topics_item a {
   display: block;
   padding-bottom: 119.84733%;
-  height: 0;
   position: relative;
-  overflow: hidden;
-  background-color: #5a5a5a;
-  background-repeat: no-repeat;
-  background-position: 50%;
-  background-size: cover;
   border-radius: 4px;
-  background-image: url(https://image.gcores.com/255d17a0-0342-429d-8202-d3493da1fc5b.jpg?x-oss-process=image/resize,limit_1,m_fill,w_524,h_632/quality,q_90);
+  overflow: hidden;
+}
+
+.topics_item a img {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>

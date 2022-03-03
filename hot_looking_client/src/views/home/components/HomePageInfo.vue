@@ -4,12 +4,12 @@
       <div class="section">
         <!--        标题-->
         <h2 class="title">
-          <a href="#"
+          <RouterLink to="/news"
             >资讯
             <span class="pm_3">
               <svg
                 t="1645494758486"
-                class="icon"
+                class="title_icon"
                 viewBox="0 0 1024 1024"
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
@@ -20,111 +20,38 @@
                   p-id="3357"
                 ></path>
               </svg> </span
-          ></a>
+          ></RouterLink>
         </h2>
 
         <!--        列表-->
         <div class="news_list">
-          <div class="slick_item">
-            <a href="#" class="news">
-              <div class="news_imgArea">
-                <div class="news_imgArea_cover"></div>
+          <el-row :gutter="24">
+            <el-col :span="4" v-for="item in news" :key="item.nId">
+              <div class="slick_item">
+                <a href="#" class="news">
+                  <div class="news_imgArea">
+                    <img :src="item.img" alt="" />
+                    <div class="news_imgArea_cover"></div>
+                  </div>
+                  <div class="news_content">
+                    <h3>{{ item.title }}</h3>
+                  </div>
+                  <div class="news_meta">
+                    <span class="mr_3">11小时前</span>
+                    <span
+                      >{{ item.likes
+                      }}<!-- -->
+                      喜欢 •
+                      <!-- -->
+                      <!-- -->{{ item.cCount
+                      }}<!-- -->
+                      评论</span
+                    >
+                  </div>
+                </a>
               </div>
-              <div class="news_content">
-                <h3>这是标题</h3>
-              </div>
-              <div class="news_meta">
-                <span class="mr_3">11小时前</span>
-                <span
-                  >15<!-- -->
-                  喜欢 •
-                  <!-- -->
-                  <!-- -->8<!-- -->
-                  评论</span
-                >
-              </div>
-            </a>
-          </div>
-          <div class="slick_item">
-            <a href="#" class="news">
-              <div class="news_imgArea">
-                <div class="news_imgArea_cover"></div>
-              </div>
-              <div class="news_content">
-                <h3>这是标题</h3>
-              </div>
-              <div class="news_meta">
-                <span class="mr_3">11小时前</span>
-                <span
-                  >15<!-- -->
-                  喜欢 •
-                  <!-- -->
-                  <!-- -->8<!-- -->
-                  评论</span
-                >
-              </div>
-            </a>
-          </div>
-          <div class="slick_item">
-            <a href="#" class="news">
-              <div class="news_imgArea">
-                <div class="news_imgArea_cover"></div>
-              </div>
-              <div class="news_content">
-                <h3>这是标题</h3>
-              </div>
-              <div class="news_meta">
-                <span class="mr_3">11小时前</span>
-                <span
-                  >15<!-- -->
-                  喜欢 •
-                  <!-- -->
-                  <!-- -->8<!-- -->
-                  评论</span
-                >
-              </div>
-            </a>
-          </div>
-          <div class="slick_item">
-            <a href="#" class="news">
-              <div class="news_imgArea">
-                <div class="news_imgArea_cover"></div>
-              </div>
-              <div class="news_content">
-                <h3>这是标题</h3>
-              </div>
-              <div class="news_meta">
-                <span class="mr_3">11小时前</span>
-                <span
-                  >15<!-- -->
-                  喜欢 •
-                  <!-- -->
-                  <!-- -->8<!-- -->
-                  评论</span
-                >
-              </div>
-            </a>
-          </div>
-          <div class="slick_item">
-            <a href="#" class="news">
-              <div class="news_imgArea">
-                <div class="news_imgArea_cover"></div>
-              </div>
-              <div class="news_content">
-                <h3>这是标题</h3>
-              </div>
-              <div class="news_meta">
-                <span class="mr_3">11小时前</span>
-                <span
-                  >15<!-- -->
-                  喜欢 •
-                  <!-- -->
-                  <!-- -->8<!-- -->
-                  评论</span
-                >
-              </div>
-            </a>
-          </div>
+            </el-col>
+          </el-row>
         </div>
       </div>
     </div>
@@ -132,9 +59,28 @@
 </template>
 
 <script>
+import { ref } from "vue";
+import { getUpNews } from "../../../api/home";
+
 export default {
   name: "HomeMainInfo",
+  setup() {
+    const { news } = useUpNews();
+    return { news };
+  },
 };
+
+function useUpNews() {
+  const news = ref();
+
+  const getData = () => {
+    getUpNews().then((data) => {
+      news.value = data.result;
+    });
+  };
+  getData();
+  return { news };
+}
 </script>
 
 <style scoped>
@@ -143,11 +89,9 @@ export default {
   overflow: hidden;
 }
 
-.slick_item {
-  float: left;
-  width: 228px;
-  padding-left: 15px;
-  padding-right: 15px;
+.el-col-4 {
+  max-width: 19.6666666667%;
+  flex: 0 0 19.6666666667%;
 }
 
 .container {
@@ -166,19 +110,19 @@ export default {
 .news_list {
   overflow: hidden;
   margin: 0;
-  padding: 0;
+  padding: 0 15px;
 }
 
 .news_imgArea {
   position: relative;
-  padding-bottom: 53.92157%;
   border-radius: 4px;
   overflow: hidden;
-  background-color: #5a5a5a;
-  background-repeat: no-repeat;
-  background-position: 50%;
-  background-size: cover;
-  background-image: url(https://image.gcores.com/b18a2bf8-0d61-46b4-9867-9d7c3c202baa.jpg?x-oss-process=image/resize,limit_1,m_fill,w_408,h_220/quality,q_90);
+  height: 6.96rem;
+}
+
+.news_imgArea > img {
+  width: 100%;
+  height: 100%;
 }
 
 .news_imgArea_cover {
@@ -201,13 +145,15 @@ export default {
   font-size: 13px;
   line-height: 1.4em;
   height: 2.8em;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .news_meta {
+  padding-top: 20px;
   line-height: 1;
   font-size: 0.75rem;
   white-space: nowrap;

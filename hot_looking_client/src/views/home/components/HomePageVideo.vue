@@ -1,15 +1,15 @@
 <template>
-  <div class="newsBanner">
+  <div class="newsBanner" v-if="playList">
     <div class="container">
       <div class="section">
         <!--        标题-->
         <h2 class="title">
-          <a href="#"
+          <RouterLink to="/videos"
             >视频
             <span class="pm_3">
               <svg
                 t="1645494758486"
-                class="icon"
+                class="title_icon"
                 viewBox="0 0 1024 1024"
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,7 @@
                   p-id="3357"
                 ></path>
               </svg> </span
-          ></a>
+          ></RouterLink>
         </h2>
 
         <div class="video_showcase">
@@ -28,130 +28,89 @@
           <div class="video_player_container">
             <div class="video_player_embed">
               <iframe
-                src=""
+                :src="topVideo"
                 allowfullscreen="true"
                 width="100%"
                 height="100%"
+                ref="playVideo"
               ></iframe>
             </div>
           </div>
           <!--        视频列表-->
-          <div class="video_showcase_list">
-            <div
-              class="slick-slide lick-current"
-              style="outline: none; width: 260px"
-            >
-              <div
-                class="slick-item"
-                tabindex="-1"
-                style="width: 100%; display: inline-block"
-              >
-                <div class="video_img_content">
-                  <a href="#" class="originalVideo_img">
-                    <img
-                      class="originalVideo_img_play"
-                      src="https://static.gcores.com/assets/329f5b87faae769cf9be29484d015dcd.png"
-                      alt="play"
-                    />
-                  </a>
+          <el-row :gutter="24">
+            <el-col :span="6" v-for="item in playList" :key="item.vId">
+              <div class="video_showcase_list" @click="showPlay(item.url)">
+                <div class="lick-current" style="outline: none">
+                  <div
+                    class="slick-item"
+                    tabindex="-1"
+                    style="width: 100%; display: inline-block"
+                  >
+                    <a href="#">
+                      <img
+                        :src="item.img"
+                        alt=""
+                        style="width: 100%; height: 7.86rem"
+                      />
+                      <div class="video_img_content originalVideo_img">
+                        <img
+                          class="originalVideo_img_play"
+                          src="https://static.gcores.com/assets/329f5b87faae769cf9be29484d015dcd.png"
+                          alt="play"
+                        />
+                      </div>
+                    </a>
+                  </div>
+
+                  <div class="video_text">
+                    <p>{{ item.lName }}</p>
+                    <h2>{{ item.title }}</h2>
+                  </div>
                 </div>
               </div>
-              <div class="video_text">
-                <p>组织</p>
-                <h2>标题</h2>
-              </div>
-            </div>
-          </div>
-          <div class="video_showcase_list">
-            <div
-              class="slick-slide lick-current"
-              style="outline: none; width: 260px"
-            >
-              <div
-                class="slick-item"
-                tabindex="-1"
-                style="width: 100%; display: inline-block"
-              >
-                <div class="video_img_content">
-                  <a href="#" class="originalVideo_img">
-                    <img
-                      class="originalVideo_img_play"
-                      src="https://static.gcores.com/assets/329f5b87faae769cf9be29484d015dcd.png"
-                      alt="play"
-                    />
-                  </a>
-                </div>
-              </div>
-              <div class="video_text">
-                <p>组织</p>
-                <h2>标题</h2>
-              </div>
-            </div>
-          </div>
-          <div class="video_showcase_list">
-            <div
-              class="slick-slide lick-current"
-              style="outline: none; width: 260px"
-            >
-              <div
-                class="slick-item"
-                tabindex="-1"
-                style="width: 100%; display: inline-block"
-              >
-                <div class="video_img_content">
-                  <a href="#" class="originalVideo_img">
-                    <img
-                      class="originalVideo_img_play"
-                      src="https://static.gcores.com/assets/329f5b87faae769cf9be29484d015dcd.png"
-                      alt="play"
-                    />
-                  </a>
-                </div>
-              </div>
-              <div class="video_text">
-                <p>组织</p>
-                <h2>标题</h2>
-              </div>
-            </div>
-          </div>
-          <div class="video_showcase_list">
-            <div
-              class="slick-slide lick-current"
-              style="outline: none; width: 260px"
-            >
-              <div
-                class="slick-item"
-                tabindex="-1"
-                style="width: 100%; display: inline-block"
-              >
-                <div class="video_img_content">
-                  <a href="#" class="originalVideo_img">
-                    <img
-                      class="originalVideo_img_play"
-                      src="https://static.gcores.com/assets/329f5b87faae769cf9be29484d015dcd.png"
-                      alt="play"
-                    />
-                  </a>
-                </div>
-              </div>
-              <div class="video_text">
-                <p>组织</p>
-                <h2>标题</h2>
-              </div>
-            </div>
-          </div>
+            </el-col>
+          </el-row>
         </div>
 
-        <button class="load_more">加载更多</button>
+        <RouterLink to="/videos">
+          <button class="load_more">加载更多</button>
+        </RouterLink>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { getPlayVideo } from "../../../api/home";
+
+import { ref } from "vue";
+
 export default {
   name: "HomeMainVideo",
+  setup() {
+    const { playList, topVideo } = usePlayVideo();
+    //获取dom节点
+    const playVideo = ref(null);
+    //获取视频地址
+    const showPlay = (url) => {
+      playVideo.value.src = url;
+    };
+    return { playList, showPlay, playVideo, topVideo };
+  },
 };
+
+function usePlayVideo() {
+  const playList = ref();
+  const topVideo = ref();
+  const getData = () => {
+    getPlayVideo().then((data) => {
+      playList.value = data.result;
+      topVideo.value = data.result[0].url;
+    });
+  };
+  getData();
+  return { playList, topVideo };
+}
 </script>
 
 <style scoped>
@@ -181,21 +140,28 @@ export default {
 
 .video_showcase_list {
   float: left;
-  height: 180px;
+  height: 11.25rem;
   margin-top: 1.875rem;
+  padding: 0 15px;
 }
 
 .video_showcase {
   width: 100%;
-  height: 53.5rem;
+  margin-bottom: 5rem;
 }
 
 .slick-item {
   position: relative;
   display: block;
-  height: 0;
-  padding-bottom: 46.56489%;
+  height: 7.62rem;
   border-radius: 4px;
+  overflow: hidden;
+}
+
+.slick-item > a {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .video_img_content {
@@ -210,18 +176,29 @@ export default {
   background: rgba(0, 0, 0, 0.06);
   color: #fff;
   border-radius: 4px;
+  opacity: 0.8;
+}
+
+.slick-item > a:hover .video_img_content {
+  opacity: 1;
+}
+
+.video_img_content:hover {
+  opacity: 1;
 }
 
 .originalVideo_img {
-  position: relative;
+  position: absolute;
+  top: 25%;
+  left: 38%;
   display: block;
-  height: 0;
-  padding-bottom: 20.56489%;
+  width: 3.75rem;
+  height: 3.75rem;
 }
 
 .originalVideo_img_play {
-  width: 3.75rem;
-  height: 3.75rem;
+  width: 100%;
+  height: 100%;
 }
 
 .video_text p {

@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+ul{
+    margin: 0;
+}
+
 h1,h2,h3,h4,h5,h6{
     margin: 0;
 }
@@ -41,6 +45,12 @@ img{
     width: 14px;
     height: 20px;
     vertical-align: -16%;
+}
+
+.title_icon{
+    width: 14px;
+    height: 20px;
+    vertical-align: -20%;
 }
 
 .container{
@@ -91,4 +101,37 @@ img{
 
 .lick-current{
     z-index: 1;
+}
+
+.a_cover :hover {
+    opacity: 0.85;
+}
+
+.mr_2{
+    margin-right: 0.5rem
+}
+
+.ml_2{
+    margin-left: 0.5rem
+}
+
+.p_2{
+    padding: 0 15px;
+}
+
+.paginationContainer{
+    display: flex;
+    justify-content: center;
+    padding: 30px 0 20px;
+}
+
+.list_container {
+    padding-bottom: 5.625rem;
+    padding-top: 2.8125rem;
+    background-color: #fcfcfc;
+}
+
+.banner_img{
+    width: 100%;
+    height: 100%;
 }

@@ -8,10 +8,20 @@ const NewsPage = () => import("../views/news/NewsPage");
 const CollectionsPage = () => import("../views/collections/CollectionsPage");
 //视频
 const VideosPage = () => import("../views/videos/VideosPage");
+//文章
+const ArticlesPage = () => import("../views/articles/ArticlesPage");
+//分类
+const CategoryPage = () => import("../views/category/CategoryPage");
+//最新
+const TopPage = () => import("../views/Top/TopPage");
 
 const routes = [
   {
     path: "/",
+    redirect: "/home",
+  },
+  {
+    path: "/home",
     name: "Home",
     component: HomePage,
   },
@@ -30,10 +40,26 @@ const routes = [
     name: "Videos",
     component: VideosPage,
   },
+  {
+    path: "/articles",
+    name: "Articles",
+    component: ArticlesPage,
+  },
+  {
+    path: "/category/:id",
+    name: "Category",
+    component: CategoryPage,
+  },
+  {
+    path: "/top",
+    name: "Top",
+    component: TopPage,
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
+  scrollBehavior: () => ({ top: 0 }),
   routes,
 });
 
