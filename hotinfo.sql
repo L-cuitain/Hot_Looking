@@ -292,11 +292,11 @@ insert into news(nId,img,title,summary,content,contentImg,releaseTime,likes,uId,
 
 insert into news(nId,img,title,summary,content,contentImg,releaseTime,likes,uId,lId,colId) VALUES (
 'N012',
-'https://image.gcores.com/61e0a5ad-d0c8-47b0-9cd4-e0031c9a5dd5.jpeg?x-oss-process=image/resize,limit_1,m_fill,w_626,h_292/quality,q_90',
+'https://image.gcores.com/415a03d8-b32b-48b3-8597-abd99a797d83.jpg?x-oss-process=image/resize,limit_1,m_fill,w_626,h_292/quality,q_90',
 '倒计时结束！卡普空正式公布《街头霸王6》','Lets Go！',
 '随着 CAPCOM PRO TOUR 2021 Season Final 比赛的结束，此前的神秘倒计时网站归零，《街头霸王6》正式公开！官方将于今年夏季带来有关《街霸6》的更多消息。同时，作为《街霸》系列35周年纪念，还会同时推出复古格斗游戏合集《CAPCOM FIGHTING COLLECTION》。其中除了《街霸》相关作品外，将有第一次移植到家用机的《赤色大地（Warzard）》以及《恶魔战士（Vampire）》系列全5作等。该合集收录了10款卡普空对战格斗游戏，将于2022年6月24日登陆PS4、Nintendo Switch、Steam及Xbox One。
 ',
-'https://image.gcores.com/61e0a5ad-d0c8-47b0-9cd4-e0031c9a5dd5.jpeg',
+'https://image.gcores.com/415a03d8-b32b-48b3-8597-abd99a797d83.jpg',
 '2022-02-23 11:42:24',
 532,10,'L01','COL003');
 
@@ -388,13 +388,10 @@ insert into news(nId,img,title,summary,content,contentImg,releaseTime,likes,uId,
 
 insert into news(nId,img,title,summary,content,contentImg,releaseTime,likes,uId,lId,colId) VALUES (
 'N020',
-'https://image.gcores.com/61e0a5ad-d0c8-47b0-9cd4-e0031c9a5dd5.jpeg?x-oss-process=image/resize,limit_1,m_fill,w_626,h_292/quality,q_90',
-'乐博睿酒馆之新闻慢递第十四期','新闻慢递将不定期汇总TRPG和桌面游戏等相关新闻、旧闻和梗图，传递资讯之余博大家一笑，如有新闻价值，纯属巧合。',
-'12月20日是D20日！（大概因为12月是December吧。）这样一年就有两个TRPG节日了，一个是3月4日的主持人节，一个就是12月20日的D20日。
-为了庆祝这一节日，WOTC在官网发布了免费模组供玩家下载。
-WOTC精选了D&D核心套装里的内容，组成了这个模组，里面包含生物、预设角色卡、魔法物品等信息，很适合让新人入坑。
-',
-'https://image.gcores.com/61e0a5ad-d0c8-47b0-9cd4-e0031c9a5dd5.jpeg',
+'https://image.gcores.com/ad2dca00-f2e2-4c8b-83ea-f763ad951965.jpg?x-oss-process=image/resize,limit_1,m_fill,w_626,h_292/quality,q_90',
+'支持光追：卡普空宣布《生化危机7》、《生化危机2：重制版》及《生化危机3：重制版》即将迎来次世代版','此前的玩家可获免费升级',
+'卡普空于今日通过社交媒体宣布，《生化危机7》、《生化危机2：重制版》及《生化危机3：重制版》将以次世代版形式登录 PlayStation 5 、Xbox Series X|S 及 Steam  。在次世代版中，由“RE ENGINE”制作的系列杰作将进化至一个新的层次，在新版本中均可支持光线追踪、高帧率和 3D AUDIO 等。',
+'https://image.gcores.com/ad2dca00-f2e2-4c8b-83ea-f763ad951965.jpg',
 '2022-02-23 09:21:20',
 34,15,'L01','COL004');
 
@@ -1557,8 +1554,12 @@ where l.lId='L01'
 group by a.aId)
 limit 12 offset 0;
 
+
+# 根据标签id查询列表数量
+select SUM(n.count+v.count+a.count) total from (select COUNT(*) count from news where lId='L01') n , (select COUNT(*) count from videos where lId='L01') v , (select COUNT(*) count from articles where lId='L01') a;
+
 # 根据标签id查询3篇最热视频
-select l.lName , v.vId , v.contentImg from label l , videos v where l.lId = v.lId and l.lId = 'L05' order by v.likes desc limit 0,3;
+select l.lName , v.vId , v.contentImg from label l , videos v where l.lId = v.lId and l.lId = 'L06' order by v.likes desc limit 0,3;
 
 # 根据标签id查询3篇最热文章
 (select
@@ -1567,7 +1568,7 @@ from
     news n Left JOIN news_comment nc on n.nId = nc.nId
             Left JOIN users u on n.uId = u.uId
             Left JOIN label l  on n.lId = l.lId
-where l.lId='L06'
+where l.lId='L02'
 group by n.nId)
 UNION DISTINCT
 (select
@@ -1576,7 +1577,7 @@ from
     videos v Left JOIN videos_comment vc on v.vId = vc.vId
             Left JOIN users u on v.uId = u.uId
             Left JOIN label l  on v.lId = l.lId
-where l.lId='L06'
+where l.lId='L02'
 group by v.vId)
 UNION DISTINCT
 (select
@@ -1585,11 +1586,54 @@ from
     articles a Left JOIN articles_comment ac on a.aId = ac.aId
             Left JOIN users u on a.uId = u.uId
             Left JOIN label l  on a.lId = l.lId
-where l.lId='L06'
+where l.lId='L02'
 group by a.aId)
-order by likes
+order by likes desc
 limit 0,3;
 
 
 # 根据标签查询推荐专题
-select l.lName , col.colImg , col.colNum from label l , collections col where l.lId = col.lId and l.lId='L01' order by col.colNum desc limit 0,1;
+select l.lName , col.colImg , col.colNum from label l , collections col where l.lId = col.lId and l.lId='L02' order by col.colNum desc limit 0,1;
+
+
+# 根据标签id查询资讯列表
+select
+       n.nId , n.category ,l.lName,n.img,n.title,n.summary,n.releaseTime,n.likes,COUNT(nc.content) 'cCount',u.name,u.avatar
+from
+    news n Left JOIN news_comment nc on n.nId = nc.nId
+            Left JOIN users u on n.uId = u.uId
+            Left JOIN label l  on n.lId = l.lId
+where l.lId='L01'
+group by n.nId
+limit 12 offset 0;
+
+# 根据标签id查询资讯列表数量
+select COUNT(*) total from news where lId='L01';
+
+# 根据标签id查询视频列表
+select
+       v.vId , v.category ,l.lName,v.img,v.title,v.summary,v.releaseTime,v.likes,COUNT(vc.content) 'cCount',u.name,u.avatar
+from
+    videos v Left JOIN videos_comment vc on v.vId = vc.vId
+            Left JOIN users u on v.uId = u.uId
+            Left JOIN label l  on v.lId = l.lId
+where l.lId='L01'
+group by v.vId
+limit 12 offset 0;
+
+# 根据标签id查询视频列表数量
+select COUNT(*) total from videos where lId='L01';
+
+# 根据标签id查询文章列表
+select
+       a.aId , a.category ,l.lName,a.img,a.title,a.summary,a.releaseTime,a.likes,COUNT(ac.content) 'cCount',u.name,u.avatar
+from
+    articles a Left JOIN articles_comment ac on a.aId = ac.aId
+            Left JOIN users u on a.uId = u.uId
+            Left JOIN label l  on a.lId = l.lId
+where l.lId='L02'
+group by a.aId
+limit 12 offset 0;
+
+# 根据标签id查询文章列表数量
+select COUNT(*) total from articles where lId='L01';
