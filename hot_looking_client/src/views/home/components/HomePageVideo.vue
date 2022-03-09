@@ -72,7 +72,7 @@
           </el-row>
         </div>
 
-        <RouterLink to="/videos">
+        <RouterLink to="/videos" class="load_link">
           <button class="load_more">加载更多</button>
         </RouterLink>
       </div>

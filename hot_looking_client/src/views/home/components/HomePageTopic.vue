@@ -29,7 +29,11 @@
             v-for="item in collections"
             :key="item.colId"
           >
-            <a href="#" class="a_cover"><img :src="item.colImg" alt="" /></a>
+            <RouterLink
+              :to="`/collections/detail/${item.colId}`"
+              class="a_cover"
+              ><img :src="item.colImg" alt=""
+            /></RouterLink>
           </div>
         </div>
       </div>
@@ -104,6 +108,7 @@ function useCollections() {
   position: relative;
   border-radius: 4px;
   overflow: hidden;
+  background-color: #e5e4e5;
 }
 
 .topics_item a img {

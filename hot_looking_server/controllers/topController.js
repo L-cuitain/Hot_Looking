@@ -1,4 +1,5 @@
 const { getAVALl , getAVTotal } = require("../models/topModel");
+const { getTimeForNow } = require("../utils/time");
 
 //获取最新文章与最新视频列表
 module.exports.getAVList = async (ctx) => {
@@ -9,6 +10,7 @@ module.exports.getAVList = async (ctx) => {
     const count = await getAVTotal();
     //请求资讯分页数据
     const data = await getAVALl(offsetNum);
+    getTimeForNow(data);
     //封装参数
     const top = {
         avList: data,

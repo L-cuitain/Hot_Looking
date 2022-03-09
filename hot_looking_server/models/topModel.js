@@ -17,7 +17,7 @@ module.exports.getAVALl = async (offsetNum) => {
         "            Left JOIN users u on a.uId = u.uId\n" +
         "            Left JOIN label l  on a.lId = l.lId\n" +
         "group by a.aId,a.releaseTime)\n" +
-        "order by releaseTime limit 12 offset ?;";
+        "order by releaseTime desc limit 12 offset ?;";
 
     return await query(sql,offsetNum);
 }

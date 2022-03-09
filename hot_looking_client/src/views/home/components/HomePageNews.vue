@@ -30,46 +30,66 @@
               <div class="news news_info">
                 <div class="news_info_img">
                   <img :src="item.img" alt="" />
-                  <a
-                    class="news_info_img_cover"
-                    href="#"
+                  <RouterLink
+                    class="news_info_img_video_cover"
+                    :to="`/videos/detail/${item.vId}`"
+                    v-if="item.category === 'video'"
+                  >
+                    <span class="original_imgArea_info">
+                      <svg
+                        aria-hidden="true"
+                        focusable="false"
+                        data-prefix="gfas"
+                        data-icon="film"
+                        class="svg-inline--fa mr-2"
+                        role="img"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 13 9"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M1.5,0.1875 L10.75,0.1875 C11.5784271,0.1875 12.25,0.859072875 12.25,1.6875 L12.25,7.4375 C12.25,8.26592712 11.5784271,8.9375 10.75,8.9375 L1.5,8.9375 C0.671572875,8.9375 1.01453063e-16,8.26592712 0,7.4375 L0,1.6875 C-1.01453063e-16,0.859072875 0.671572875,0.1875 1.5,0.1875 Z M5.07652687,2.61388888 C4.81088494,2.46419381 4.59375,2.5866716 4.59375,2.88606174 L4.59375,6.06393826 C4.59375,6.3633284 4.81088494,6.48580619 5.07652687,6.33611112 L7.89451855,4.74734512 C8.16016048,4.59747779 8.16016048,4.35252221 7.89451855,4.20282714 L5.07652687,2.61388888 Z"
+                        ></path>
+                      </svg>
+                    </span>
+                  </RouterLink>
+
+                  <RouterLink
+                    class="news_info_img_article_cover"
+                    :to="`/articles/detail/${item.vId}`"
                     v-if="item.category === 'article'"
                   >
                     <p>{{ item.summary }}</p>
-                  </a>
-                  <span class="original_imgArea_info" v-else>
-                    <svg
-                      aria-hidden="true"
-                      focusable="false"
-                      data-prefix="gfas"
-                      data-icon="film"
-                      class="svg-inline--fa mr-2"
-                      role="img"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 13 9"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M1.5,0.1875 L10.75,0.1875 C11.5784271,0.1875 12.25,0.859072875 12.25,1.6875 L12.25,7.4375 C12.25,8.26592712 11.5784271,8.9375 10.75,8.9375 L1.5,8.9375 C0.671572875,8.9375 1.01453063e-16,8.26592712 0,7.4375 L0,1.6875 C-1.01453063e-16,0.859072875 0.671572875,0.1875 1.5,0.1875 Z M5.07652687,2.61388888 C4.81088494,2.46419381 4.59375,2.5866716 4.59375,2.88606174 L4.59375,6.06393826 C4.59375,6.3633284 4.81088494,6.48580619 5.07652687,6.33611112 L7.89451855,4.74734512 C8.16016048,4.59747779 8.16016048,4.35252221 7.89451855,4.20282714 L5.07652687,2.61388888 Z"
-                      ></path>
-                    </svg>
-                  </span>
+                  </RouterLink>
                 </div>
                 <div class="news_info_card">
                   <div class="news_info_category">
-                    {{ item.category }} / {{ item.lName }}
+                    <RouterLink :to="`/category/${item.lId}`">
+                      {{ item.lName }}
+                    </RouterLink>
                   </div>
                   <div class="news_info_content">
-                    <h3>{{ item.title }}</h3>
+                    <RouterLink
+                      :to="
+                        item.category === 'video'
+                          ? `/videos/detail/${item.vId}`
+                          : `/articles/detail/${item.vId}`
+                      "
+                    >
+                      <h3>{{ item.title }}</h3>
+                    </RouterLink>
                   </div>
                   <div class="news_info_btm">
-                    <div class="news_info_btm_user">
+                    <RouterLink
+                      :to="`/users/${item.uId}`"
+                      class="news_info_btm_user"
+                    >
                       <img :src="item.avatar" alt="" />
                       <div class="avatar_text">
                         <h3>{{ item.name }}</h3>
-                        <div>4小时前</div>
+                        <div>{{ item.releaseTime }}</div>
                       </div>
-                    </div>
+                    </RouterLink>
                     <div class="news_info_btm_comment">
                       <svg
                         t="1645747616378"
@@ -118,7 +138,7 @@
             </el-col>
           </el-row>
         </div>
-        <RouterLink to="/top">
+        <RouterLink to="/top" class="load_link">
           <button class="load_more">加载更多</button>
         </RouterLink>
       </div>
@@ -180,7 +200,7 @@ function useUpAV() {
   height: 100%;
 }
 
-.news_info_img_cover {
+.news_info_img_article_cover {
   position: absolute;
   top: 0;
   right: 0;
@@ -195,17 +215,32 @@ function useUpAV() {
   font-weight: 600;
 }
 
-.news_info_img_cover p {
+.news_info_img_video_cover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  margin: 0;
+  padding: 1.42857em;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.06);
+  font-weight: 600;
+}
+
+.news_info_img_article_cover p {
   display: none;
   font-size: 0.875rem;
 }
 
-.news_info_img_cover:hover {
+.news_info_img_article_cover:hover {
   background: rgba(0, 0, 0, 0.4);
   color: #f7f3f0;
 }
 
-.news_info_img_cover:hover p {
+.news_info_img_article_cover:hover p {
   display: block;
 }
 
@@ -213,6 +248,7 @@ function useUpAV() {
   position: absolute;
   left: 8px;
   top: 10px;
+  width: 20px;
   font-size: 12px;
   line-height: 1;
   color: #fff;
@@ -233,7 +269,7 @@ function useUpAV() {
   overflow: hidden;
 }
 
-.news_info_content > h3 {
+.news_info_content h3 {
   font-size: 1rem;
   line-height: 1.4rem;
   max-height: 2.8rem;

@@ -12,7 +12,10 @@
           <div class="am_card_inner">
             <ul class="sideOriginals">
               <li v-for="item in hotNews" :key="item.nId">
-                <a href="#" class="sideOriginal-title a_cover">
+                <RouterLink
+                  :to="`/news/detail/${item.nId}`"
+                  class="sideOriginal-title a_cover"
+                >
                   <div class="sideOriginal_content">
                     <h3>{{ item.title }}</h3>
                     <p>
@@ -22,7 +25,7 @@
                       >
                     </p>
                   </div>
-                </a>
+                </RouterLink>
               </li>
             </ul>
           </div>

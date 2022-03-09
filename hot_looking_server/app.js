@@ -15,6 +15,7 @@ const articles = require('./routes/articles');
 const videos = require('./routes/videos');
 const top = require('./routes/top');
 const label = require('./routes/label');
+const detail = require('./routes/detail');
 
 //跨域
 const cors = require('koa2-cors');
@@ -54,6 +55,7 @@ app.use(articles.routes(), articles.allowedMethods())
 app.use(videos.routes(), videos.allowedMethods())
 app.use(top.routes(), top.allowedMethods())
 app.use(label.routes(), label.allowedMethods())
+app.use(detail.routes(), detail.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

@@ -1,115 +1,146 @@
 <template>
   <div class="list_row" v-if="allListInfo">
-    <el-row :gutter="24">
-      <el-col :span="6" v-for="item in allListInfo.list" :key="item.nId">
-        <div class="news news_info">
-          <div class="news_info_img">
-            <img :src="item.img" alt="" />
-            <a
-              class="news_info_img_video_cover"
-              href="#"
-              v-if="item.category === 'video'"
-            >
-              <span class="original_imgArea_info">
-                <svg
-                  aria-hidden="true"
-                  focusable="false"
-                  data-prefix="gfas"
-                  data-icon="film"
-                  class="svg-inline--fa mr-2"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 13 9"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M1.5,0.1875 L10.75,0.1875 C11.5784271,0.1875 12.25,0.859072875 12.25,1.6875 L12.25,7.4375 C12.25,8.26592712 11.5784271,8.9375 10.75,8.9375 L1.5,8.9375 C0.671572875,8.9375 1.01453063e-16,8.26592712 0,7.4375 L0,1.6875 C-1.01453063e-16,0.859072875 0.671572875,0.1875 1.5,0.1875 Z M5.07652687,2.61388888 C4.81088494,2.46419381 4.59375,2.5866716 4.59375,2.88606174 L4.59375,6.06393826 C4.59375,6.3633284 4.81088494,6.48580619 5.07652687,6.33611112 L7.89451855,4.74734512 C8.16016048,4.59747779 8.16016048,4.35252221 7.89451855,4.20282714 L5.07652687,2.61388888 Z"
-                  ></path>
-                </svg>
-              </span>
-            </a>
+    <el-empty
+      description="还没有内容"
+      v-if="allListInfo.total === 0"
+    ></el-empty>
+    <div v-else>
+      <el-row :gutter="24">
+        <el-col :span="6" v-for="item in allListInfo.list" :key="item.nId">
+          <div class="news news_info">
+            <div class="news_info_img">
+              <img :src="item.img" alt="" />
+              <RouterLink
+                class="news_info_img_video_cover"
+                :to="`/videos/detail/${item.nId}`"
+                v-if="item.category === 'video'"
+              >
+                <span class="original_imgArea_info">
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="gfas"
+                    data-icon="film"
+                    class="svg-inline--fa mr-2"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 13 9"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M1.5,0.1875 L10.75,0.1875 C11.5784271,0.1875 12.25,0.859072875 12.25,1.6875 L12.25,7.4375 C12.25,8.26592712 11.5784271,8.9375 10.75,8.9375 L1.5,8.9375 C0.671572875,8.9375 1.01453063e-16,8.26592712 0,7.4375 L0,1.6875 C-1.01453063e-16,0.859072875 0.671572875,0.1875 1.5,0.1875 Z M5.07652687,2.61388888 C4.81088494,2.46419381 4.59375,2.5866716 4.59375,2.88606174 L4.59375,6.06393826 C4.59375,6.3633284 4.81088494,6.48580619 5.07652687,6.33611112 L7.89451855,4.74734512 C8.16016048,4.59747779 8.16016048,4.35252221 7.89451855,4.20282714 L5.07652687,2.61388888 Z"
+                    ></path>
+                  </svg>
+                </span>
+              </RouterLink>
 
-            <a
-              class="news_info_img_article_cover"
-              href="#"
-              v-if="item.category === 'article' || item.category === 'new'"
-            >
-              <p>{{ item.summary }}</p>
-            </a>
-          </div>
-          <div class="news_info_card">
-            <div class="news_info_category">
-              {{ item.lName }}
+              <RouterLink
+                class="news_info_img_article_cover"
+                :to="
+                  item.category === 'article'
+                    ? `/articles/detail/${item.nId}`
+                    : `/news/detail/${item.nId}`
+                "
+                v-if="item.category === 'article' || item.category === 'new'"
+              >
+                <p>{{ item.summary }}</p>
+              </RouterLink>
             </div>
-            <div class="news_info_content">
-              <h3>{{ item.title }}</h3>
-            </div>
-            <div class="news_info_btm">
-              <div class="news_info_btm_user">
-                <img :src="item.avatar" alt="" />
-                <div class="avatar_text">
-                  <h3>{{ item.name }}</h3>
-                  <div>4小时前</div>
+            <div class="news_info_card">
+              <div class="news_info_category">
+                <RouterLink :to="`/category/${item.lId}`">
+                  {{ item.lName }}
+                </RouterLink>
+              </div>
+              <div class="news_info_content">
+                <RouterLink
+                  :to="`/videos/detail/${item.nId}`"
+                  v-if="item.category === 'video'"
+                >
+                  <h3>{{ item.title }}</h3>
+                </RouterLink>
+                <RouterLink
+                  :to="`/articles/detail/${item.nId}`"
+                  v-if="item.category === 'article'"
+                >
+                  <h3>{{ item.title }}</h3>
+                </RouterLink>
+                <RouterLink
+                  :to="`/news/detail/${item.nId}`"
+                  v-if="item.category === 'new'"
+                >
+                  <h3>{{ item.title }}</h3>
+                </RouterLink>
+              </div>
+              <div class="news_info_btm">
+                <RouterLink
+                  :to="`/users/${item.uId}`"
+                  class="news_info_btm_user"
+                >
+                  <img :src="item.avatar" alt="" />
+                  <div class="avatar_text">
+                    <h3>{{ item.name }}</h3>
+                    <div>{{ item.releaseTime }}</div>
+                  </div>
+                </RouterLink>
+                <div class="news_info_btm_comment">
+                  <svg
+                    t="1645747616378"
+                    class="home_news_icon"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="3359"
+                  >
+                    <path
+                      d="M857.28 344.992h-264.832c12.576-44.256 18.944-83.584 18.944-118.208 0-78.56-71.808-153.792-140.544-143.808-60.608 8.8-89.536 59.904-89.536 125.536v59.296c0 76.064-58.208 140.928-132.224 148.064l-117.728-0.192A67.36 67.36 0 0 0 64 483.04V872c0 37.216 30.144 67.36 67.36 67.36h652.192a102.72 102.72 0 0 0 100.928-83.584l73.728-388.96a102.72 102.72 0 0 0-100.928-121.824zM128 872V483.04c0-1.856 1.504-3.36 3.36-3.36H208v395.68H131.36A3.36 3.36 0 0 1 128 872z m767.328-417.088l-73.728 388.96a38.72 38.72 0 0 1-38.048 31.488H272V476.864a213.312 213.312 0 0 0 173.312-209.088V208.512c0-37.568 12.064-58.912 34.72-62.176 27.04-3.936 67.36 38.336 67.36 80.48 0 37.312-9.504 84-28.864 139.712a32 32 0 0 0 30.24 42.496h308.512a38.72 38.72 0 0 1 38.048 45.888z"
+                      p-id="3360"
+                    ></path>
+                  </svg>
+                  <span class="mr_3"> {{ item.likes }} </span>
+                  <svg
+                    t="1645695264067"
+                    class="home_news_icon"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="2093"
+                  >
+                    <path
+                      d="M878.3 98.2H145.7c-44.7 0-81 36.3-81 81V714c0 44.7 36.3 81 81 81h192.8l149.2 121.8c7.4 6 16.3 9 25.3 9 8.9 0 17.9-3 25.2-9l150-121.8h190c44.7 0 81-36.3 81-81V179.2c0.1-44.7-36.3-81-80.9-81z m1 615.8c0 0.5-0.5 1-1 1H674.1c-9.2 0-18.1 3.2-25.2 9L513.1 834.2 378.1 724c-7.1-5.8-16.1-9-25.3-9H145.7c-0.5 0-1-0.5-1-1V179.2c0-0.5 0.5-1 1-1h732.5c0.5 0 1 0.5 1 1V714z"
+                      p-id="2094"
+                    ></path>
+                    <path
+                      d="M322.1 447.6m-50 0a50 50 0 1 0 100 0 50 50 0 1 0-100 0Z"
+                      p-id="2095"
+                    ></path>
+                    <path
+                      d="M513.1 447.6m-50 0a50 50 0 1 0 100 0 50 50 0 1 0-100 0Z"
+                      p-id="2096"
+                    ></path>
+                    <path
+                      d="M704.3 447.6m-50 0a50 50 0 1 0 100 0 50 50 0 1 0-100 0Z"
+                      p-id="2097"
+                    ></path>
+                  </svg>
+                  <span> {{ item.cCount }} </span>
                 </div>
               </div>
-              <div class="news_info_btm_comment">
-                <svg
-                  t="1645747616378"
-                  class="home_news_icon"
-                  viewBox="0 0 1024 1024"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  p-id="3359"
-                >
-                  <path
-                    d="M857.28 344.992h-264.832c12.576-44.256 18.944-83.584 18.944-118.208 0-78.56-71.808-153.792-140.544-143.808-60.608 8.8-89.536 59.904-89.536 125.536v59.296c0 76.064-58.208 140.928-132.224 148.064l-117.728-0.192A67.36 67.36 0 0 0 64 483.04V872c0 37.216 30.144 67.36 67.36 67.36h652.192a102.72 102.72 0 0 0 100.928-83.584l73.728-388.96a102.72 102.72 0 0 0-100.928-121.824zM128 872V483.04c0-1.856 1.504-3.36 3.36-3.36H208v395.68H131.36A3.36 3.36 0 0 1 128 872z m767.328-417.088l-73.728 388.96a38.72 38.72 0 0 1-38.048 31.488H272V476.864a213.312 213.312 0 0 0 173.312-209.088V208.512c0-37.568 12.064-58.912 34.72-62.176 27.04-3.936 67.36 38.336 67.36 80.48 0 37.312-9.504 84-28.864 139.712a32 32 0 0 0 30.24 42.496h308.512a38.72 38.72 0 0 1 38.048 45.888z"
-                    p-id="3360"
-                  ></path>
-                </svg>
-                <span class="mr_3"> {{ item.likes }} </span>
-                <svg
-                  t="1645695264067"
-                  class="home_news_icon"
-                  viewBox="0 0 1024 1024"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  p-id="2093"
-                >
-                  <path
-                    d="M878.3 98.2H145.7c-44.7 0-81 36.3-81 81V714c0 44.7 36.3 81 81 81h192.8l149.2 121.8c7.4 6 16.3 9 25.3 9 8.9 0 17.9-3 25.2-9l150-121.8h190c44.7 0 81-36.3 81-81V179.2c0.1-44.7-36.3-81-80.9-81z m1 615.8c0 0.5-0.5 1-1 1H674.1c-9.2 0-18.1 3.2-25.2 9L513.1 834.2 378.1 724c-7.1-5.8-16.1-9-25.3-9H145.7c-0.5 0-1-0.5-1-1V179.2c0-0.5 0.5-1 1-1h732.5c0.5 0 1 0.5 1 1V714z"
-                    p-id="2094"
-                  ></path>
-                  <path
-                    d="M322.1 447.6m-50 0a50 50 0 1 0 100 0 50 50 0 1 0-100 0Z"
-                    p-id="2095"
-                  ></path>
-                  <path
-                    d="M513.1 447.6m-50 0a50 50 0 1 0 100 0 50 50 0 1 0-100 0Z"
-                    p-id="2096"
-                  ></path>
-                  <path
-                    d="M704.3 447.6m-50 0a50 50 0 1 0 100 0 50 50 0 1 0-100 0Z"
-                    p-id="2097"
-                  ></path>
-                </svg>
-                <span> {{ item.cCount }} </span>
-              </div>
             </div>
           </div>
-        </div>
-      </el-col>
-    </el-row>
-    <!--  分页-->
-    <Pagination :listInfo="allListInfo" @getInfo="getData" />
+        </el-col>
+      </el-row>
+      <!--  分页-->
+      <Pagination :listInfo="allListInfo" @getInfo="getData" />
+    </div>
   </div>
-  <el-empty description="还没有内容" v-else></el-empty>
 </template>
 
 <script>
 import Pagination from "../Pagination";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
-import { getLabelList } from "../../api/label";
+import { getLabelList } from "@/api/label";
 
 export default {
   name: "AllList",
@@ -131,7 +162,6 @@ function useAllList(lId) {
 
   const getData = (current) => {
     getLabelList(lId, current).then((data) => {
-      console.log(data.result);
       allListInfo.value = data.result;
     });
   };
@@ -229,7 +259,7 @@ function useAllList(lId) {
   overflow: hidden;
 }
 
-.news_info_content > h3 {
+.news_info_content h3 {
   font-size: 1rem;
   line-height: 1.4rem;
   max-height: 2.8rem;

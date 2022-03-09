@@ -4,25 +4,32 @@
       <div class="news news_info">
         <div class="news_info_img">
           <img :src="item.img" alt="" />
-          <a class="news_info_img_cover" href="#">
+          <RouterLink
+            class="news_info_img_cover"
+            :to="`/news/detail/${item.nId}`"
+          >
             <p>{{ item.summary }}</p>
-          </a>
+          </RouterLink>
         </div>
         <div class="news_info_card">
           <div class="news_info_category">
-            {{ item.lName }}
+            <RouterLink :to="`/category/${item.lId}`">
+              {{ item.lName }}
+            </RouterLink>
           </div>
           <div class="news_info_content">
-            <h3>{{ item.title }}</h3>
+            <RouterLink :to="`/news/detail/${item.nId}`">
+              <h3>{{ item.title }}</h3>
+            </RouterLink>
           </div>
           <div class="news_info_btm">
-            <div class="news_info_btm_user">
+            <RouterLink :to="`/users/${item.uId}`" class="news_info_btm_user">
               <img :src="item.avatar" alt="" />
               <div class="avatar_text">
                 <h3>{{ item.name }}</h3>
-                <div>4小时前</div>
+                <div>{{ item.releaseTime }}</div>
               </div>
-            </div>
+            </RouterLink>
             <div class="news_info_btm_comment">
               <svg
                 t="1645747616378"
@@ -167,7 +174,7 @@ function useNewsList() {
   overflow: hidden;
 }
 
-.news_info_content > h3 {
+.news_info_content h3 {
   font-size: 1rem;
   line-height: 1.4rem;
   max-height: 2.8rem;

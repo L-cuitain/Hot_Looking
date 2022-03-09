@@ -4,7 +4,7 @@
       <!--      导航-->
       <el-row>
         <el-col :span="24"
-          ><img src="@/assets/banner/news.png" class="banner_img" alt=""
+          ><img src="@/assets/banner/articles.png" class="banner_img" alt=""
         /></el-col>
       </el-row>
       <!--      列表-->

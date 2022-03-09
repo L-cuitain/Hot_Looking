@@ -3,7 +3,7 @@ const {query} = require("../db/query");
 //查找视频列表
 module.exports.getVideosAll = async (offsetNum) => {
     const sql = "select\n" +
-        "       v.vId,l.lName,v.img,v.title,v.summary,v.releaseTime,v.likes,COUNT(v.content) 'cCount',u.name,u.avatar\n" +
+        "       v.vId,l.lId,l.lName,v.img,v.title,v.summary,v.releaseTime,v.likes,COUNT(v.content) 'cCount',u.uId,u.name,u.avatar\n" +
         "from\n" +
         "    videos v Left JOIN videos_comment vc on v.vId = vc.vId\n" +
         "            Left JOIN users u on v.uId = u.uId\n" +

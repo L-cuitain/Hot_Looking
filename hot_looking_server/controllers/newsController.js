@@ -1,4 +1,5 @@
 const { getNewsByRTime , getNewsByLikes , getNewsAll , getNewsByCount} =  require('../models/newsModel');
+const {getTimeForNow} = require("../utils/time");
 
 // 查询最新资讯
 module.exports.getTopNews = async (ctx) => {
@@ -29,7 +30,7 @@ module.exports.getNewsList = async (ctx) => {
     const count = await getNewsByCount();
     //请求资讯分页数据
     const data = await getNewsAll(offsetNum);
-    console.log(data)
+    getTimeForNow(data);
     //封装参数
     const news = {
         newsList: data,

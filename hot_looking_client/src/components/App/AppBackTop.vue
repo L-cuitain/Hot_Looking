@@ -1,8 +1,8 @@
 <template>
-  <div class="globalActions" @click="upTop">
+  <div class="globalActions">
     <div>
-      <a href="#" class="globalActions_item">
-        <div>
+      <div class="globalActions_item">
+        <div @click="upTop">
           <svg
             t="1645515111573"
             class="icon"
@@ -20,7 +20,7 @@
           </svg>
         </div>
         <p class="up_hover">回到顶部</p>
-      </a>
+      </div>
     </div>
   </div>
 </template>
@@ -68,6 +68,7 @@ export default {
   font-size: 1.00625rem;
   background: #fff;
   color: #5a5a5a;
+  cursor: pointer;
   box-shadow: 0 0 8px rgb(0 0 0 / 10%);
 }
 
@@ -77,7 +78,7 @@ export default {
   font-size: 0.76562rem;
   padding: 6px 0.875rem;
   right: 50px;
-  top: 0%;
+  top: 31%;
   transform: translateY(-50%);
   transition: opacity 0.5s ease;
   background: #5a5a5a;

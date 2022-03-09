@@ -28,7 +28,7 @@
           <el-row :gutter="24">
             <el-col :span="4" v-for="item in news" :key="item.nId">
               <div class="slick_item">
-                <a href="#" class="news">
+                <RouterLink :to="`/news/detail/${item.nId}`" class="news">
                   <div class="news_imgArea">
                     <img :src="item.img" alt="" />
                     <div class="news_imgArea_cover"></div>
@@ -37,7 +37,7 @@
                     <h3>{{ item.title }}</h3>
                   </div>
                   <div class="news_meta">
-                    <span class="mr_3">11小时前</span>
+                    <span class="mr_3">{{ item.releaseTime }}</span>
                     <span
                       >{{ item.likes
                       }}<!-- -->
@@ -48,7 +48,7 @@
                       评论</span
                     >
                   </div>
-                </a>
+                </RouterLink>
               </div>
             </el-col>
           </el-row>

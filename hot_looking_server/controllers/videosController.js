@@ -1,4 +1,5 @@
 const { getVideosAll , getVideosTotal } = require("../models/videosModel");
+const {getTimeForNow} = require("../utils/time");
 
 //获取视频列表
 module.exports.getVideosList = async (ctx) => {
@@ -9,6 +10,7 @@ module.exports.getVideosList = async (ctx) => {
     const count = await getVideosTotal();
     //请求资讯分页数据
     const data = await getVideosAll(offsetNum);
+    getTimeForNow(data);
     //封装参数
     const videos = {
         videosList: data,

@@ -11,6 +11,7 @@ const {
     getNewsListByLabel ,
     getNewsCountByLabel
 } = require("../models/labelModel");
+const {getTimeForNow} = require("../utils/time");
 
 //根据标签id查询3篇最热视频
 module.exports.getHotVideo = async (ctx) => {
@@ -27,6 +28,7 @@ module.exports.getHotVideo = async (ctx) => {
 module.exports.getHotNews = async (ctx) => {
     const result = ctx.query;
     const data = await getHotByLabel(result.lId);
+    getTimeForNow(data);
     ctx.body = {
         code: 200,
         message: "获取最热文章成功",
@@ -55,6 +57,7 @@ module.exports.getLabelList = async (ctx) => {
     const count = await getTotalByLabel(result.lId);
     //请求资讯分页数据
     const data = await getListByLabel(result.lId,offsetNum);
+    getTimeForNow(data);
     //封装参数
     const label = {
         list: data,
@@ -79,6 +82,7 @@ module.exports.getNewsList = async (ctx) => {
     const count = await getNewsCountByLabel(result.lId);
     //请求资讯分页数据
     const data = await getNewsListByLabel(result.lId,offsetNum);
+    getTimeForNow(data);
     //封装参数
     const news = {
         list: data,
@@ -103,6 +107,7 @@ module.exports.getVideosList = async (ctx) => {
     const count = await getVideosCountByLabel(result.lId);
     //请求资讯分页数据
     const data = await getVideosListByLabel(result.lId,offsetNum);
+    getTimeForNow(data);
     //封装参数
     const videos = {
         list: data,
@@ -127,6 +132,7 @@ module.exports.getArticlesList = async (ctx) => {
     const count = await getArticlesCountByLabel(result.lId);
     //请求资讯分页数据
     const data = await getArticlesListByLabel(result.lId,offsetNum);
+    getTimeForNow(data);
     //封装参数
     const articles = {
         list: data,

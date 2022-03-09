@@ -1,4 +1,5 @@
 const { getArticlesAll , getArticlesTotal } = require("../models/articlesModel");
+const {getTimeForNow} = require("../utils/time");
 
 //获取文章列表
 module.exports.getArticlesList = async (ctx) => {
@@ -9,6 +10,7 @@ module.exports.getArticlesList = async (ctx) => {
     const count = await getArticlesTotal();
     //请求资讯分页数据
     const data = await getArticlesAll(offsetNum);
+    getTimeForNow(data);
     //封装参数
     const articles = {
         articlesList: data,

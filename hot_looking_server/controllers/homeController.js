@@ -1,5 +1,5 @@
 const { getCollection , getCollectionByNum , getVideoByNum , getNewsByComment , getNewsByRTime,getAVByRTime , getIframeByRTime } = require("../models/homeModel");
-
+const { getTimeForNow } = require("../utils/time");
 //获取首页专题
 module.exports.getCollections = async (ctx) => {
     const data = await getCollection();
@@ -33,6 +33,7 @@ module.exports.getHotVideo = async (ctx) => {
 //获取首页推荐资讯
 module.exports.getRecommendNews = async (ctx) => {
     const data = await getNewsByComment();
+    getTimeForNow(data);
     ctx.body = {
         code: 200,
         message: "获取推荐资讯成功",
@@ -43,6 +44,7 @@ module.exports.getRecommendNews = async (ctx) => {
 //查询首页最新资讯
 module.exports.getUpNews = async (ctx) => {
     const data = await getNewsByRTime();
+    getTimeForNow(data);
     ctx.body = {
         code: 200,
         message: "获取最新资讯成功",
@@ -53,6 +55,7 @@ module.exports.getUpNews = async (ctx) => {
 //查询首页最新文章与视频
 module.exports.getUpAV = async (ctx) => {
     const data = await getAVByRTime();
+    getTimeForNow(data);
     ctx.body = {
         code: 200,
         message: "获取最新文章和视频成功",

@@ -1,9 +1,13 @@
 <template>
   <el-row :gutter="24" v-if="colInfo">
     <el-col :span="6" v-for="item in colInfo.colList" :key="item.colId">
-      <a href="#" class="a_cover">
+      <RouterLink
+        :to="`/collections/detail/${item.colId}`"
+        href="#"
+        class="a_cover"
+      >
         <img :src="item.colImg" alt="" />
-      </a>
+      </RouterLink>
     </el-col>
   </el-row>
   <!--  分页-->
@@ -45,6 +49,7 @@ a {
   border-radius: 4px;
   overflow: hidden;
   margin-bottom: 20px;
+  background-color: #e5e4e5;
 }
 
 img {

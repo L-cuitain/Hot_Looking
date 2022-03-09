@@ -9,16 +9,20 @@
         <el-col :span="8">
           <!--        推荐专题  -->
           <div class="commend commend_topics">
-            <div class="collectionEntry_inner">
-              <div class="collectionEntry_label">推荐专题</div>
-            </div>
-            <a href="#" v-for="item in recommendCollection" :key="item.colId"
-              ><img
+            <RouterLink
+              :to="`/collections/detail/${item.colId}`"
+              v-for="item in recommendCollection"
+              :key="item.colId"
+            >
+              <div class="collectionEntry_inner">
+                <div class="collectionEntry_label">推荐专题</div>
+              </div>
+              <img
                 class="commend_topics_img"
                 :src="item.colImg"
                 alt=""
                 style="width: 100%; height: 100%"
-            /></a>
+            /></RouterLink>
           </div>
         </el-col>
       </el-row>
@@ -27,28 +31,33 @@
         <el-col :span="8" v-for="item in recommendNews" :key="item.nId">
           <div class="commend commend_info">
             <div class="commend_info_img">
-              <a href="#" class="a_cover">
+              <RouterLink :to="`/news/detail/${item.nId}`" class="a_cover">
                 <img :src="item.img" alt="" style="width: 100%; height: 100%" />
-              </a>
+              </RouterLink>
             </div>
             <div class="commend_info_card">
               <div class="commend_info_category">
-                <a href="#">{{ item.lName }}</a>
+                <RouterLink :to="`/category/${item.lId}`">{{
+                  item.lName
+                }}</RouterLink>
               </div>
               <div class="commend_info_content">
-                <a href="#" class="a_cover">
+                <RouterLink :to="`/news/detail/${item.nId}`" class="a_cover">
                   <h3>{{ item.title }}</h3>
                   <p>{{ item.summary }}</p>
-                </a>
+                </RouterLink>
               </div>
               <div class="commend_info_btm">
-                <div class="commend_info_btm_user">
+                <RouterLink
+                  :to="`/users/${item.uId}`"
+                  class="commend_info_btm_user"
+                >
                   <img :src="item.avatar" alt="" />
                   <div class="avatar_text">
                     <h3>{{ item.name }}</h3>
-                    <div>4小时前</div>
+                    <div>{{ item.releaseTime }}</div>
                   </div>
-                </div>
+                </RouterLink>
                 <div class="commend_info_btm_comment">
                   <svg
                     t="1645747616378"
@@ -219,7 +228,7 @@ function useGetRNews() {
   background-position: 50%;
   background-size: cover;
   height: 12rem;
-  background-color: #fff;
+  background-color: #e5e4e5;
 }
 
 .commend_info_card {

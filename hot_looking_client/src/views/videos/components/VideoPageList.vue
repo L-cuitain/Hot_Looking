@@ -4,7 +4,11 @@
       <div class="videos videos_info">
         <div class="videos_info_img">
           <img :src="item.img" alt="" />
-          <a class="videos_info_img_cover" href="#"> </a>
+          <RouterLink
+            :to="`/videos/detail/${item.vId}`"
+            class="videos_info_img_cover"
+          >
+          </RouterLink>
           <span class="original_imgArea_info">
             <svg
               aria-hidden="true"
@@ -25,19 +29,23 @@
         </div>
         <div class="videos_info_card">
           <div class="videos_info_category">
-            {{ item.lName }}
+            <RouterLink :to="`/category/${item.lId}`">
+              {{ item.lName }}
+            </RouterLink>
           </div>
           <div class="videos_info_content">
-            <h3>{{ item.title }}</h3>
+            <RouterLink :to="`/videos/detail/${item.vId}`">
+              <h3>{{ item.title }}</h3>
+            </RouterLink>
           </div>
           <div class="videos_info_btm">
-            <div class="videos_info_btm_user">
+            <RouterLink :to="`/users/${item.uId}`" class="videos_info_btm_user">
               <img :src="item.avatar" alt="" />
               <div class="avatar_text">
                 <h3>{{ item.name }}</h3>
-                <div>4小时前</div>
+                <div>{{ item.releaseTime }}</div>
               </div>
-            </div>
+            </RouterLink>
             <div class="videos_info_btm_comment">
               <svg
                 t="1645747616378"
@@ -186,7 +194,7 @@ function useVideosList() {
   overflow: hidden;
 }
 
-.videos_info_content > h3 {
+.videos_info_content h3 {
   font-size: 1rem;
   line-height: 1.4rem;
   max-height: 2.8rem;

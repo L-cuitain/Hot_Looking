@@ -15,7 +15,7 @@
                 tabindex="-1"
                 style="width: 100%; display: inline-block"
               >
-                <a href="#">
+                <RouterLink :to="`/videos/detail/${item.vId}`">
                   <img
                     :src="item.img"
                     alt=""
@@ -28,12 +28,16 @@
                       alt="play"
                     />
                   </div>
-                </a>
+                </RouterLink>
               </div>
 
               <div class="video_text">
-                <p>{{ item.lName }}</p>
-                <h2>{{ item.title }}</h2>
+                <RouterLink :to="`/category/${item.lId}`">
+                  <p>{{ item.lName }}</p>
+                </RouterLink>
+                <RouterLink :to="`/videos/detail/${item.vId}`">
+                  <h2>{{ item.title }}</h2>
+                </RouterLink>
               </div>
             </div>
           </div>

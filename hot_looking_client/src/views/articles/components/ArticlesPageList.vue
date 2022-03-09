@@ -4,25 +4,35 @@
       <div class="articles articles_info">
         <div class="articles_info_img">
           <img :src="item.img" alt="" />
-          <a class="articles_info_img_cover" href="#">
+          <RouterLink
+            :to="`/articles/detail/${item.aId}`"
+            class="articles_info_img_cover"
+          >
             <p>{{ item.summary }}</p>
-          </a>
+          </RouterLink>
         </div>
         <div class="articles_info_card">
           <div class="articles_info_category">
-            {{ item.lName }}
+            <RouterLink :to="`/category/${item.lId}`">
+              {{ item.lName }}
+            </RouterLink>
           </div>
           <div class="articles_info_content">
-            <h3>{{ item.title }}</h3>
+            <RouterLink :to="`/articles/detail/${item.aId}`">
+              <h3>{{ item.title }}</h3>
+            </RouterLink>
           </div>
           <div class="articles_info_btm">
-            <div class="articles_info_btm_user">
+            <RouterLink
+              :to="`/users/${item.uId}`"
+              class="articles_info_btm_user"
+            >
               <img :src="item.avatar" alt="" />
               <div class="avatar_text">
                 <h3>{{ item.name }}</h3>
-                <div>4小时前</div>
+                <div>{{ item.releaseTime }}</div>
               </div>
-            </div>
+            </RouterLink>
             <div class="articles_info_btm_comment">
               <svg
                 t="1645747616378"
@@ -166,7 +176,7 @@ function useArticlesList() {
   overflow: hidden;
 }
 
-.articles_info_content > h3 {
+.articles_info_content h3 {
   font-size: 1rem;
   line-height: 1.4rem;
   max-height: 2.8rem;

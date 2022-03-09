@@ -5,9 +5,9 @@
         <div class="news news_info">
           <div class="news_info_img">
             <img :src="item.img" alt="" />
-            <a
+            <RouterLink
               class="news_info_img_video_cover"
-              href="#"
+              :to="`/videos/detail/${item.vId}`"
               v-if="item.category === 'video'"
             >
               <span class="original_imgArea_info">
@@ -27,15 +27,15 @@
                   ></path>
                 </svg>
               </span>
-            </a>
+            </RouterLink>
 
-            <a
+            <RouterLink
               class="news_info_img_article_cover"
-              href="#"
+              :to="`/articles/detail/${item.vId}`"
               v-if="item.category === 'article'"
             >
               <p>{{ item.summary }}</p>
-            </a>
+            </RouterLink>
           </div>
           <div class="news_info_card">
             <div class="news_info_category">
@@ -49,7 +49,7 @@
                 <img :src="item.avatar" alt="" />
                 <div class="avatar_text">
                   <h3>{{ item.name }}</h3>
-                  <div>4小时前</div>
+                  <div>{{ item.releaseTime }}</div>
                 </div>
               </div>
               <div class="news_info_btm_comment">

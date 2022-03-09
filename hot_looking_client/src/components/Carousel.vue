@@ -7,9 +7,16 @@
     v-if="data"
   >
     <el-carousel-item v-for="item in data" :key="item">
-      <a href="#" class="a_cover">
+      <RouterLink
+        :to="
+          item.category === 'video'
+            ? `/videos/detail/${item.vId}`
+            : `/news/detail/${item.nId}`
+        "
+        class="a_cover"
+      >
         <img :src="item.contentImg" alt="" style="width: 100%; height: 100%" />
-      </a>
+      </RouterLink>
     </el-carousel-item>
   </el-carousel>
 </template>

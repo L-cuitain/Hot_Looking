@@ -21,7 +21,7 @@ module.exports.getVideoByNum = async () => {
 //查询首页推荐资讯
 module.exports.getNewsByComment = async () => {
     const sql = "select\n" +
-        "       n.nId,l.lName,n.img,n.title,n.summary,n.releaseTime,n.likes,COUNT(c.content) 'cCount',u.name,u.avatar\n" +
+        "       n.nId,l.lId,l.lName,n.img,n.title,n.summary,n.releaseTime,n.likes,COUNT(c.content) 'cCount',u.uId,u.name,u.avatar\n" +
         "from\n" +
         "    news n Left JOIN news_comment c on n.nId = c.nId\n" +
         "            Left JOIN users u on n.uId = u.uId\n" +
@@ -40,14 +40,14 @@ module.exports.getNewsByRTime = async () => {
         "            Left JOIN users u on n.uId = u.uId\n" +
         "            Left JOIN label l  on n.lId = l.lId\n" +
         "group by n.nId , n.releaseTime\n" +
-        "order by n.releaseTime limit 0,5;";
+        "order by n.releaseTime desc limit 0,5;";
     return await query(sql);
 }
 
 //查询首页最新文章和视频
 module.exports.getAVByRTime = async () => {
     const sql = "(select\n" +
-        "       v.vId , v.category ,l.lName,v.img,v.title,v.summary,v.releaseTime,v.likes,COUNT(vc.content) 'cCount',u.name,u.avatar\n" +
+        "       v.vId , v.category, l.lId ,l.lName,v.img,v.title,v.summary,v.releaseTime,v.likes,COUNT(vc.content) 'cCount',u.uId,u.name,u.avatar\n" +
         "from\n" +
         "    videos v Left JOIN videos_comment vc on v.vId = vc.vId\n" +
         "            Left JOIN users u on v.uId = u.uId\n" +
@@ -55,20 +55,20 @@ module.exports.getAVByRTime = async () => {
         "group by v.vId,v.releaseTime)\n" +
         "UNION DISTINCT\n" +
         "(select\n" +
-        "       a.aId , a.category ,l.lName,a.img,a.title,a.summary,a.releaseTime,a.likes,COUNT(ac.content) 'cCount',u.name,u.avatar\n" +
+        "       a.aId , a.category , l.lId ,l.lName,a.img,a.title,a.summary,a.releaseTime,a.likes,COUNT(ac.content) 'cCount',u.uId,u.name,u.avatar\n" +
         "from\n" +
         "    articles a Left JOIN articles_comment ac on a.aId = ac.aId\n" +
         "            Left JOIN users u on a.uId = u.uId\n" +
         "            Left JOIN label l  on a.lId = l.lId\n" +
         "group by a.aId,a.releaseTime)\n" +
-        "order by releaseTime limit 0,12;";
+        "order by releaseTime desc limit 12 offset 0;";
     return await query(sql);
 }
 
 //查询首页播放视频列表
 module.exports.getIframeByRTime = async () => {
     const sql = "select\n" +
-        "       v.vId,l.lName,v.img,v.title,v.summary,v.releaseTime,v.url\n" +
+        "       v.vId,l.lId,l.lName,v.img,v.title,v.summary,v.releaseTime,v.url\n" +
         "from\n" +
         "    videos v Left JOIN videos_comment vc on v.vId = vc.vId\n" +
         "            Left JOIN users u on v.uId = u.uId\n" +

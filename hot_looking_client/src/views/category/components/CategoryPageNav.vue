@@ -9,16 +9,20 @@
         <el-col :span="8">
           <!--        推荐专题  -->
           <div class="commend commend_topics">
-            <div class="collectionEntry_inner">
-              <div class="collectionEntry_label">推荐专题</div>
-            </div>
-            <a href="#" v-for="item in hotCollection" :key="item.colId"
-              ><img
+            <RouterLink
+              :to="`/collections/detail/${item.colId}`"
+              v-for="item in hotCollection"
+              :key="item.colId"
+            >
+              <div class="collectionEntry_inner">
+                <div class="collectionEntry_label">推荐专题</div>
+              </div>
+              <img
                 class="commend_topics_img"
                 :src="item.colImg"
                 alt=""
                 style="width: 100%; height: 100%"
-            /></a>
+            /></RouterLink>
           </div>
         </el-col>
       </el-row>
@@ -27,28 +31,71 @@
         <el-col :span="8" v-for="item in hotNews" :key="item.nId">
           <div class="commend commend_info">
             <div class="commend_info_img">
-              <a href="#" class="a_cover">
+              <RouterLink
+                :to="`/news/detail/${item.nId}`"
+                class="a_cover"
+                v-if="item.category === 'new'"
+              >
                 <img :src="item.img" alt="" style="width: 100%; height: 100%" />
-              </a>
+              </RouterLink>
+              <RouterLink
+                :to="`/articles/detail/${item.nId}`"
+                class="a_cover"
+                v-if="item.category === 'article'"
+              >
+                <img :src="item.img" alt="" style="width: 100%; height: 100%" />
+              </RouterLink>
+              <RouterLink
+                :to="`/videos/detail/${item.nId}`"
+                class="a_cover"
+                v-if="item.category === 'video'"
+              >
+                <img :src="item.img" alt="" style="width: 100%; height: 100%" />
+              </RouterLink>
             </div>
             <div class="commend_info_card">
               <div class="commend_info_category">
-                <a href="#">{{ item.lName }}</a>
+                <RouterLink :to="`/category/${item.lId}`">{{
+                  item.lName
+                }}</RouterLink>
               </div>
               <div class="commend_info_content">
-                <a href="#" class="a_cover">
+                <RouterLink
+                  :to="`/news/detail/${item.nId}`"
+                  class="a_cover"
+                  v-if="item.category === 'new'"
+                >
                   <h3>{{ item.title }}</h3>
                   <p>{{ item.summary }}</p>
-                </a>
+                </RouterLink>
+                <RouterLink
+                  :to="`/articles/detail/${item.nId}`"
+                  class="a_cover"
+                  v-if="item.category === 'article'"
+                >
+                  <h3>{{ item.title }}</h3>
+                  <p>{{ item.summary }}</p>
+                </RouterLink>
+                <RouterLink
+                  :to="`/videos/detail/${item.nId}`"
+                  class="a_cover"
+                  v-if="item.category === 'video'"
+                >
+                  <h3>{{ item.title }}</h3>
+                  <p>{{ item.summary }}</p>
+                </RouterLink>
               </div>
               <div class="commend_info_btm">
-                <div class="commend_info_btm_user">
+                <RouterLink
+                  :to="`/users/${item.uId}`"
+                  class="commend_info_btm_user"
+                >
                   <img :src="item.avatar" alt="" />
                   <div class="avatar_text">
                     <h3>{{ item.name }}</h3>
-                    <div>4小时前</div>
+                    <div>{{ item.releaseTime }}</div>
                   </div>
-                </div>
+                </RouterLink>
                 <div class="commend_info_btm_comment">
                   <svg
                     t="1645747616378"
@@ -102,8 +149,8 @@
 
 <script>
 import { ref } from "vue";
-import { getHotNews, getHotVideo, getHotCollection } from "../../../api/label";
-import Carousel from "../../../components/Carousel";
+import { getHotNews, getHotVideo, getHotCollection } from "@/api/label";
+import Carousel from "@/components/Carousel";
 
 export default {
   name: "CategoryPageNav",

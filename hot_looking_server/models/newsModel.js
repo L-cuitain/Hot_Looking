@@ -3,7 +3,7 @@ const {query} = require("../db/query");
 // 查询最新资讯
 module.exports.getNewsByRTime = async () => {
     const sql = "select\n" +
-        "       n.nId,n.img,n.releaseTime,n.contentImg\n" +
+        "       n.nId,n.category,n.img,n.releaseTime,n.contentImg\n" +
         "from\n" +
         "    news n order by releaseTime desc limit 0,3;";
 
@@ -22,7 +22,7 @@ module.exports.getNewsByLikes = async () => {
 //查询资讯列表
 module.exports.getNewsAll = async (offsetNum) => {
     const sql = "select\n" +
-        "       n.nId,l.lName,n.img,n.title,n.summary,n.releaseTime,n.likes,COUNT(c.content) 'cCount',u.name,u.avatar\n" +
+        "       n.nId,l.lId,l.lName,n.img,n.title,n.summary,n.releaseTime,n.likes,COUNT(c.content) 'cCount',u.uId,u.name,u.avatar\n" +
         "from\n" +
         "    news n Left JOIN news_comment c on n.nId = c.nId\n" +
         "            Left JOIN users u on n.uId = u.uId\n" +

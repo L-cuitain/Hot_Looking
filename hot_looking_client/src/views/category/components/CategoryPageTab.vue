@@ -1,9 +1,25 @@
 <template>
   <el-tabs v-model="activeName" class="tabs">
-    <el-tab-pane label="全部" name="first"><AllList /></el-tab-pane>
-    <el-tab-pane label="资讯" name="second"><NewsList /></el-tab-pane>
-    <el-tab-pane label="文章" name="third"><ArticlesList /></el-tab-pane>
-    <el-tab-pane label="视频" name="fourth"><VideosList /></el-tab-pane>
+    <el-tab-pane label="全部" name="first">
+      <Suspense>
+        <AllList />
+      </Suspense>
+    </el-tab-pane>
+    <el-tab-pane label="资讯" name="second">
+      <Suspense>
+        <NewsList />
+      </Suspense>
+    </el-tab-pane>
+    <el-tab-pane label="文章" name="third">
+      <Suspense>
+        <ArticlesList />
+      </Suspense>
+    </el-tab-pane>
+    <el-tab-pane label="视频" name="fourth">
+      <Suspense>
+        <VideosList />
+      </Suspense>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
