@@ -1,140 +1,141 @@
 <template>
-  <AppLayout>
-    <Suspense>
-      <div class="new_page">
-        <!--      内容-->
-        <div class="list_container container">
-          <div class="newsPage_main">
-            <div class="newsPage_inner">
-              <div class="newsPage_content" v-if="content">
-                <div class="mb_5">
-                  <img class="newPage_cover" :src="content.contentImg" alt="" />
-                </div>
-                <div class="originalPage_titleGroup">
-                  <h1 class="originalPage_title">
-                    {{ content.title }}
-                  </h1>
-                  <p class="originalPage_desc">{{ content.summary }}</p>
-                </div>
-                <div class="originalPage_userInfo">
-                  <a class="avatar avatar-md" href="#">
-                    <img class="avatar_img" :src="content.avatar" alt="" />
-                    <div class="avatar_text">
-                      <span class="mr_2">{{ content.name }}</span>
+  <Suspense>
+    <div class="new_page">
+      <!--      内容-->
+      <div class="list_container container">
+        <div class="newsPage_main">
+          <div class="newsPage_inner">
+            <div class="newsPage_content" v-if="content">
+              <div class="mb_5">
+                <img class="newPage_cover" :src="content.contentImg" alt="" />
+              </div>
+              <div class="originalPage_titleGroup">
+                <h1 class="originalPage_title">
+                  {{ content.title }}
+                </h1>
+                <p class="originalPage_desc">{{ content.summary }}</p>
+              </div>
+              <div class="originalPage_userInfo">
+                <a class="avatar avatar-md" href="#">
+                  <img class="avatar_img" :src="content.avatar" alt="" />
+                  <div class="avatar_text">
+                    <span class="mr_2">{{ content.name }}</span>
+                  </div>
+                </a>
+                <span class="mr_2 u_color-gray-info">{{
+                  content.commentTime
+                }}</span>
+                <span
+                  ><span class="mr_1">发布于</span
+                  ><RouterLink
+                    class="u_color-category"
+                    :to="`/category/${content.lId}`"
+                    >{{ content.lName }}</RouterLink
+                  ></span
+                >
+              </div>
+              <div class="newsPage_story">
+                <div class="newsPage_news">
+                  <div class="story">
+                    <div class="story_block">
+                      <span>{{ content.content }}</span>
                     </div>
-                  </a>
-                  <span class="mr_2 u_color-gray-info">{{
-                    content.commentTime
-                  }}</span>
-                  <span
-                    ><span class="mr_1">发布于</span
-                    ><RouterLink
-                      class="u_color-category"
-                      :to="`/category/${content.lId}`"
-                      >{{ content.lName }}</RouterLink
-                    ></span
-                  >
-                </div>
-                <div class="newsPage_story">
-                  <div class="newsPage_news">
-                    <div class="story">
-                      <div class="story_block">
-                        <span>{{ content.content }}</span>
-                      </div>
-                    </div>
-                    <div class="mt_5 justify-content-between d-flex">
-                      <div class="text_nowrap">
-                        <a
-                          @click="isLikes"
-                          class="o_vote o_vote-up mr_3 originalButton"
-                          role="button"
-                          tabindex="0"
-                          target="_blank"
-                          ref="likesButton"
+                  </div>
+                  <div class="mt_5 justify-content-between d-flex">
+                    <div class="text_nowrap">
+                      <a
+                        @click="isLikes"
+                        class="o_vote o_vote-up mr_3 originalButton"
+                        role="button"
+                        tabindex="0"
+                        target="_blank"
+                        ref="likesButton"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="gfas"
+                          data-icon="thumbs-up"
+                          class="svg-inline--fa o_vote_icon o_vote_icon-withNumber"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 14 13"
                         >
-                          <svg
-                            aria-hidden="true"
-                            focusable="false"
-                            data-prefix="gfas"
-                            data-icon="thumbs-up"
-                            class="svg-inline--fa o_vote_icon o_vote_icon-withNumber"
-                            role="img"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 14 13"
-                          >
-                            <path
-                              fill="currentColor"
-                              d="M7.71164516,0.875163593 C8.04335755,0.52512827 8.5809604,0.52512827 8.91839197,0.869230791 C9.12428242,1.08281167 9.21007011,1.38538457 9.15287831,1.68202468 L8.60955629,4.39924803 L11.8408925,4.39924803 C13.070516,4.39924803 13.899797,5.70446449 13.419386,6.87915931 L11.5549336,11.3940217 C11.3719198,11.8271162 10.9601389,12.1118907 10.5026046,12.1118907 L5.35534334,12.1118907 C4.72623363,12.1118907 4.21150751,11.5779386 4.21150751,10.9253303 L4.21150751,4.99846104 C4.21150751,4.68402253 4.33161027,4.38144963 4.5432199,4.16193595 L7.71164516,0.875163593 Z M1.92383584,12.1118907 C1.29472613,12.1118907 0.78,11.5779386 0.78,10.9253303 L0.78,6.17908866 C0.78,5.52648043 1.29472613,4.99252824 1.92383584,4.99252824 C2.55294554,4.99252824 3.06767167,5.52648043 3.06767167,6.17908866 L3.06767167,10.9253303 C3.06767167,11.5779386 2.55294554,12.1118907 1.92383584,12.1118907 Z"
-                            ></path>
-                          </svg>
-                          <span class="o_vote_num">{{ content.likes }}</span>
-                        </a>
-                      </div>
+                          <path
+                            fill="currentColor"
+                            d="M7.71164516,0.875163593 C8.04335755,0.52512827 8.5809604,0.52512827 8.91839197,0.869230791 C9.12428242,1.08281167 9.21007011,1.38538457 9.15287831,1.68202468 L8.60955629,4.39924803 L11.8408925,4.39924803 C13.070516,4.39924803 13.899797,5.70446449 13.419386,6.87915931 L11.5549336,11.3940217 C11.3719198,11.8271162 10.9601389,12.1118907 10.5026046,12.1118907 L5.35534334,12.1118907 C4.72623363,12.1118907 4.21150751,11.5779386 4.21150751,10.9253303 L4.21150751,4.99846104 C4.21150751,4.68402253 4.33161027,4.38144963 4.5432199,4.16193595 L7.71164516,0.875163593 Z M1.92383584,12.1118907 C1.29472613,12.1118907 0.78,11.5779386 0.78,10.9253303 L0.78,6.17908866 C0.78,5.52648043 1.29472613,4.99252824 1.92383584,4.99252824 C2.55294554,4.99252824 3.06767167,5.52648043 3.06767167,6.17908866 L3.06767167,10.9253303 C3.06767167,11.5779386 2.55294554,12.1118907 1.92383584,12.1118907 Z"
+                          ></path>
+                        </svg>
+                        <span class="o_vote_num">{{ content.likes }}</span>
+                      </a>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="newsPage_r" v-if="hotweek">
-                <div class="hotOriginals am_card am_card-bg">
-                  <h2 class="hotOriginals_header am_card_header">本周最热</h2>
-                  <div class="hotOriginals_body am_card_inner">
-                    <ul class="sideOriginals">
-                      <li v-for="item in hotweek" :key="item.aId">
-                        <RouterLink
-                          :to="`/articles/detail/${item.aId}`"
-                          class="sideOriginal"
-                        >
-                          <img :src="item.img" alt="" />
-                          <div class="sideOriginal_content">
-                            <h3>
-                              {{ item.title }}
-                            </h3>
-                            <p>
-                              <span class="mr_2">{{ item.likes }} 喜欢</span
-                              >•<span class="ml_2">{{ item.cCount }} 评论</span>
-                            </p>
-                          </div>
-                        </RouterLink>
-                      </li>
-                    </ul>
-                  </div>
+            </div>
+            <div class="newsPage_r" v-if="hotweek">
+              <div class="hotOriginals am_card am_card-bg">
+                <h2 class="hotOriginals_header am_card_header">本周最热</h2>
+                <div class="hotOriginals_body am_card_inner">
+                  <ul class="sideOriginals">
+                    <li v-for="item in hotweek" :key="item.aId">
+                      <RouterLink
+                        :to="`/articles/detail/${item.aId}`"
+                        class="sideOriginal"
+                      >
+                        <img :src="item.img" alt="" />
+                        <div class="sideOriginal_content">
+                          <h3>
+                            {{ item.title }}
+                          </h3>
+                          <p>
+                            <span class="mr_2">{{ item.likes }} 喜欢</span
+                            >•<span class="ml_2">{{ item.cCount }} 评论</span>
+                          </p>
+                        </div>
+                      </RouterLink>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!--      评论-->
-        <Comments
-          :comment="comment"
-          @loadMore="handleLoadMore"
-          @reloading="isReLoad"
-          v-if="comment"
-        />
       </div>
-    </Suspense>
-    <AppFooter />
-  </AppLayout>
+      <!--      评论-->
+      <Comments
+        :comment="comment"
+        @loadMore="handleLoadMore"
+        @reloading="isReLoad"
+        v-if="comment"
+      />
+    </div>
+  </Suspense>
+  <AppFooter />
 </template>
 
 <script>
-import AppLayout from "@/components/App/AppLayout";
 import AppFooter from "@/components/App/AppFooter";
 import Comments from "@/components/Comments";
 import { ref, reactive } from "vue";
 import { useRoute } from "vue-router";
 import { ElMessage } from "element-plus";
 import { getNewsContent, getHotArticles, getComment } from "@/api/detail";
+import { useStore } from "vuex";
+import { getUserLikes } from "@/api/login";
 
 export default {
   name: "NewsDetail",
-  components: { AppFooter, AppLayout, Comments },
+  components: { AppFooter, Comments },
   setup() {
+    const store = useStore();
+    const user = store.state.user;
     //获取路由id
     const route = useRoute();
     const nId = route.params.id;
     //判断登录状态
     let timer;
-    const isLogin = ref(true);
+    const isLogin = ref(user.profile.token === "");
     const likesButton = ref();
     let isTrue = true;
     const page = ref(1);
@@ -170,10 +171,12 @@ export default {
           //点赞
           likesButton.value.style.color = "#ec625c";
           isTrue = false;
+          getUserLikes(content.value.category, 1, nId);
         } else {
           //取消点赞
           likesButton.value.style.color = "#5a5a5a";
           isTrue = true;
+          getUserLikes(content.value.category, 1, nId);
         }
       }
     };

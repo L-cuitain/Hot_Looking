@@ -39,4 +39,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+:deep(.el-pagination.is-background .el-pager li:not(.disabled).active) {
+  background-color: #f56c6c;
+}
+
+:deep(.el-pagination.is-background .el-pager li:not(.disabled):hover) {
+  color: #ff3d1d;
+}
+</style>

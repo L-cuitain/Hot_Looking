@@ -238,7 +238,7 @@ function useUserCol(uId, current) {
   border-radius: 50%;
   font-size: 1.875rem;
   overflow: hidden;
-  background-color: rgb(41, 182, 246);
+  background-color: #e47470;
   color: #fff;
   background-repeat: no-repeat;
   background-position: 50%;

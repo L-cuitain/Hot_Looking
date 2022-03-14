@@ -1,21 +1,18 @@
 <template>
-  <AppLayout>
-    <div class="top">
-      <div class="list_container container">
-        <!--        标题-->
-        <h2 class="top_title">最新</h2>
-        <!--        列表-->
-        <Suspense>
-          <TopPageList />
-        </Suspense>
-      </div>
+  <div class="top">
+    <div class="list_container container">
+      <!--        标题-->
+      <h2 class="top_title">最新</h2>
+      <!--        列表-->
+      <Suspense>
+        <TopPageList />
+      </Suspense>
     </div>
-    <AppFooter />
-  </AppLayout>
+  </div>
+  <AppFooter />
 </template>
 
 <script>
-import AppLayout from "../../components/App/AppLayout";
 import AppFooter from "../../components/App/AppFooter";
 import TopPageList from "./components/TopPageList";
 
@@ -23,7 +20,6 @@ export default {
   name: "TopPage",
   components: {
     TopPageList,
-    AppLayout,
     AppFooter,
   },
 };

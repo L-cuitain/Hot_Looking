@@ -1,24 +1,21 @@
 <template>
-  <AppLayout>
-    <div class="news">
-      <el-row>
-        <el-col :span="24"
-          ><img src="@/assets/banner/news.png" class="banner_img" alt=""
-        /></el-col>
-      </el-row>
-      <div class="list_container container">
-        <NewsPageNav />
-        <Suspense>
-          <NewsPageList />
-        </Suspense>
-      </div>
-      <AppFooter />
+  <div class="news">
+    <el-row>
+      <el-col :span="24"
+        ><img src="@/assets/banner/news.png" class="banner_img" alt=""
+      /></el-col>
+    </el-row>
+    <div class="list_container container">
+      <NewsPageNav />
+      <Suspense>
+        <NewsPageList />
+      </Suspense>
     </div>
-  </AppLayout>
+    <AppFooter />
+  </div>
 </template>
 
 <script>
-import AppLayout from "../../components/App/AppLayout";
 import NewsPageNav from "./components/NewsPageNav";
 import NewsPageList from "./components/NewsPageList";
 import AppFooter from "../../components/App/AppFooter";
@@ -26,7 +23,6 @@ import AppFooter from "../../components/App/AppFooter";
 export default {
   name: "InfoPage",
   components: {
-    AppLayout,
     NewsPageNav,
     NewsPageList,
     AppFooter,

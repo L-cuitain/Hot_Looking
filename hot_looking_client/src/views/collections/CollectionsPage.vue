@@ -1,24 +1,21 @@
 <template>
-  <AppLayout>
-    <div class="collections">
-      <el-row>
-        <el-col :span="24"
-          ><img src="@/assets/banner/collections.png" class="banner_img" alt=""
-        /></el-col>
-      </el-row>
+  <div class="collections">
+    <el-row>
+      <el-col :span="24"
+        ><img src="@/assets/banner/collections.png" class="banner_img" alt=""
+      /></el-col>
+    </el-row>
 
-      <div class="list_container container">
-        <Suspense>
-          <CollectionsPageList />
-        </Suspense>
-      </div>
+    <div class="list_container container">
+      <Suspense>
+        <CollectionsPageList />
+      </Suspense>
     </div>
-    <AppFooter />
-  </AppLayout>
+  </div>
+  <AppFooter />
 </template>
 
 <script>
-import AppLayout from "../../components/App/AppLayout";
 import CollectionsPageList from "./components/CollectionsPageList";
 import AppFooter from "../../components/App/AppFooter";
 
@@ -26,7 +23,6 @@ export default {
   name: "TopicsPage",
   components: {
     AppFooter,
-    AppLayout,
     CollectionsPageList,
   },
 };
