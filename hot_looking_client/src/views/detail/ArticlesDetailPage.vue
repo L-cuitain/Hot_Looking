@@ -76,9 +76,9 @@
         </div>
         <Comments
           :comment="comment"
-          :total="total"
           @loadMore="handleLoadMore"
-          v-if="total"
+          @reloading="isReLoad"
+          v-if="comment"
         />
       </div>
     </Suspense>
@@ -94,6 +94,8 @@ import { ref, reactive } from "vue";
 import { useRoute } from "vue-router";
 import { ElMessage } from "element-plus";
 import { getArticleContent, getAComment } from "@/api/detail";
+import { getUserLikes } from "@/api/login";
+import { useStore } from "vuex";
 
 export default {
   name: "ArticlesDetailPage",
@@ -103,19 +105,25 @@ export default {
     AppFooter,
   },
   setup() {
+    const store = useStore();
+    const user = store.state.user;
     //获取路由id
     const route = useRoute();
     const aId = route.params.id;
     //判断登录状态
     let timer;
-    const isLogin = ref(true);
+    const isLogin = ref(user.profile.token === "");
     const likesButton = ref();
     let isTrue = true;
     const page = ref(1);
+    const comment = reactive({
+      list: [],
+      total: 0,
+    });
 
     //获取请求内容
     const { content } = useArticleContent(aId);
-    let { comment, total, getData } = useArticleComment(aId);
+    let { getData } = useArticleComment(comment);
     getData(aId, page.value);
     //判断是否登录
     const isLikes = () => {
@@ -138,10 +146,12 @@ export default {
           //点赞
           likesButton.value.style.color = "#ec625c";
           isTrue = false;
+          getUserLikes(content.value.category, 1, aId);
         } else {
           //取消点赞
           likesButton.value.style.color = "#5a5a5a";
           isTrue = true;
+          getUserLikes(content.value.category, -1, aId);
         }
       }
     };
@@ -151,7 +161,23 @@ export default {
       page.value = page.value + 1;
       getData(aId, page.value);
     };
-    return { aId, isLikes, content, comment, total, handleLoadMore };
+
+    //重新加载
+    const isReLoad = () => {
+      comment.list = [];
+      comment.total = 0;
+      getData(aId, page.value);
+    };
+
+    return {
+      aId,
+      isLikes,
+      content,
+      comment,
+      handleLoadMore,
+      likesButton,
+      isReLoad,
+    };
   },
 };
 
@@ -168,18 +194,16 @@ function useArticleContent(aId) {
 }
 
 //获取文章评论
-function useArticleComment() {
-  let comment = reactive([]);
-  const total = ref();
+function useArticleComment(comment) {
   const getData = (aId, current) => {
     getAComment(aId, current).then((data) => {
       data.result.list.forEach((item) => {
-        comment.push(item);
+        comment.list.push(item);
       });
-      total.value = data.result.total;
+      comment.total = data.result.total;
     });
   };
-  return { comment, total, getData };
+  return { getData };
 }
 </script>
 

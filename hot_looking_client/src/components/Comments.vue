@@ -11,7 +11,7 @@
           <div class="commentsMana_input_wrapper" @click="handleInput">
             <textarea
               class="commentsMana_input_text"
-              placeholder="请先登录再发表评论"
+              :placeholder="textPlaceHolder"
               :disabled="isLogin"
               v-model="commentTextarea"
               ref="textRef"
@@ -21,6 +21,7 @@
             class="btn btn-primary btn-ellipse commentsMana_input_btn"
             :disabled="send"
             type="button"
+            @click="handleConfirm"
           >
             发送
           </button>
@@ -28,14 +29,18 @@
         <p class="commentsMana_sortTabs">
           <span
             >共
-            <!-- -->{{ total
+            <!-- -->{{ comment.total
             }}<!-- -->
             条<!-- -->评论</span
           >
         </p>
-        <div v-if="total !== 0">
+        <div v-if="comment.total !== 0">
           <ul class="list_unstyled comments">
-            <li class="comment media" v-for="item in comment" :key="item.nId">
+            <li
+              class="comment media"
+              v-for="item in comment.list"
+              :key="item.nId"
+            >
               <!--              头像-->
               <div class="comment_avatar d-flex">
                 <a class="avatar avatar-md" href="#">
@@ -73,22 +78,37 @@
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
+import { useRoute } from "vue-router";
 import { ElMessage } from "element-plus";
+import { useStore } from "vuex";
+import { getUserComment } from "@/api/login";
 
 export default {
   name: "Comments",
-  props: ["comment", "total"],
-  emits: ["loadMore"],
+  props: ["comment"],
+  emits: ["loadMore", "reloading"],
   setup(props, { emit }) {
     let timer;
-    const isLogin = ref(true);
+    const store = useStore();
+    const user = store.state.user;
+    const route = useRoute();
+    const id = route.params.id;
+    const isLogin = ref(user.profile.token === "");
+    const textPlaceHolder = ref("");
     const send = ref(true);
     const commentTextarea = ref("");
     const textRef = ref();
     const loadMoreBtn = ref("已显示全部内容");
     const isClick = ref(true);
     //判断是否登录
+    onMounted(() => {
+      if (isLogin.value) {
+        textPlaceHolder.value = "您需要登录才能评论";
+      } else {
+        textPlaceHolder.value = "有什么想说的...";
+      }
+    });
 
     //文本域点击事件
     const handleInput = () => {
@@ -125,8 +145,7 @@ export default {
     watch(
       props.comment,
       () => {
-        console.log(props.total);
-        if (props.total !== props.comment.length) {
+        if (props.comment.total !== props.comment.list.length) {
           isClick.value = false;
           loadMoreBtn.value = "加载更多";
         } else {
@@ -144,6 +163,27 @@ export default {
       emit("loadMore");
     };
 
+    //点击发布
+    const handleConfirm = () => {
+      //判断是否有内容
+      if (commentTextarea.value) {
+        getUserComment(
+          id,
+          user.profile.uId,
+          commentTextarea.value,
+          new Date().toLocaleString()
+        ).then((data) => {
+          commentTextarea.value = "";
+          emit("reloading");
+          ElMessage({
+            showClose: true,
+            message: data.message,
+            type: "success",
+          });
+        });
+      }
+    };
+
     return {
       isLogin,
       send,
@@ -153,6 +193,8 @@ export default {
       loadMoreBtn,
       handleLoadMore,
       isClick,
+      textPlaceHolder,
+      handleConfirm,
     };
   },
 };

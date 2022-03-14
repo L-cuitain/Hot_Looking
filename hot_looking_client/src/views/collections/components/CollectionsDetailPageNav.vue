@@ -12,52 +12,110 @@
       <div class="pageHeader_footer_container">
         <div class="pageHeader_footer">
           <div class="pageHeader_actions">
-            <span>{{ specifyCollection.colNum }} 人已订阅<button class="btn btn_light btn-ellipse ml_3" type="button">订阅</button></span>
+            <span
+              >{{ specifyCollection.colNum }} 人已订阅<button
+                class="btn btn-ellipse ml_3"
+                :class="isTrue ? 'btn_active' : 'btn_light'"
+                type="button"
+                @click="handleSubscription"
+              >
+                {{ isTrue ? "已订阅" : "订阅" }}
+              </button></span
+            >
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { getSpecifyCollection } from "@/api/collections";
 import { useRoute } from "vue-router";
+import { ElMessage } from "element-plus";
+import { useStore } from "vuex";
+import { getIsSubCol, getAddUserCol, getCancelUserCol } from "@/api/login";
 
 export default {
   name: "CollectionsDetailPageNav",
-  setup(){
+  setup() {
+    const store = useStore();
+    const user = store.state.user;
+
     const router = useRoute();
     const colId = router.params.id;
+    //判断登录状态
+    let timer;
+    const isLogin = ref(user.profile.token === "");
+    const isTrue = ref(false);
+
+    onMounted(() => {
+      getIsSubCol(user.profile.uId, colId).then((data) => {
+        if (data.result[0].subInfo === "已订阅") {
+          isTrue.value = true;
+        } else {
+          isTrue.value = false;
+        }
+      });
+    });
 
     const { specifyCollection } = useSpecify(colId);
-
-    return { colId , specifyCollection }
-  }
+    //订阅
+    const handleSubscription = () => {
+      //判断登录状态
+      if (isLogin.value) {
+        //防抖
+        if (timer) {
+          clearTimeout();
+        }
+        //如果未登录 弹框提醒
+        timer = setTimeout(() => {
+          ElMessage({
+            showClose: true,
+            message: "您需要登录才能订阅",
+            type: "error",
+          });
+        }, 600);
+      } else {
+        if (isTrue.value) {
+          getCancelUserCol(user.profile.uId, colId);
+          isTrue.value = false;
+        } else {
+          ElMessage({
+            showClose: true,
+            message: "订阅成功",
+            type: "success",
+          });
+          getAddUserCol(user.profile.uId, colId);
+          isTrue.value = true;
+        }
+      }
+    };
+    return { colId, specifyCollection, handleSubscription, isTrue };
+  },
 };
 
-function useSpecify(colId){
+function useSpecify(colId) {
   const specifyCollection = ref();
   const getData = () => {
     getSpecifyCollection(colId).then((data) => {
       specifyCollection.value = data.result[0];
-    })
-  }
+    });
+  };
   getData();
-  return {specifyCollection};
+  return { specifyCollection };
 }
 </script>
 
 <style scoped>
-h3{
+h3 {
   line-height: 1.3;
   font-size: 1.53125rem;
   font-weight: 600;
 }
 
-.pageHeader{
+.pageHeader {
   position: relative;
   box-sizing: content-box;
   color: #fff;
@@ -65,7 +123,7 @@ h3{
   overflow: hidden;
 }
 
-.pageHeader_bg{
+.pageHeader_bg {
   position: absolute;
   top: 0;
   right: 0;
@@ -77,26 +135,25 @@ h3{
   background-size: cover;
 }
 
-.pageHeader_cover{
+.pageHeader_cover {
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
-  background: rgba(0,0,0,.06);
+  background: rgba(0, 0, 0, 0.06);
 }
 
-.pageHeader_inner{
+.pageHeader_inner {
   position: relative;
   margin: 0 10px;
-
 }
 
-.pageHeader_body{
+.pageHeader_body {
   position: relative;
 }
 
-.container{
+.container {
   display: flex;
   min-height: 13.125rem;
   padding-top: 1.25rem;
@@ -107,52 +164,58 @@ h3{
   text-align: center;
 }
 
-.pageHeader_footer_container{
+.pageHeader_footer_container {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
 }
 
-.pageHeader_footer{
+.pageHeader_footer {
   position: relative;
   height: 65px;
 }
 
-.pageHeader_actions{
+.pageHeader_actions {
   right: 0;
   position: absolute;
   bottom: 15px;
   line-height: 35px;
 }
 
-.pageHeader_actions span{
-  font-family: PingFangSC,Open Sans,Helvetica Neue,Arial,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
-  font-size: .875rem;
+.pageHeader_actions span {
+  font-family: PingFangSC, Open Sans, Helvetica Neue, Arial, Hiragino Sans GB,
+    Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+  font-size: 0.875rem;
   font-weight: 400;
 }
 
-
-.btn_light{
+.btn_light {
   color: #212529;
   background-color: #f8f9fa;
   border-color: #f8f9fa;
 }
 
-.btn_light:hover{
+.btn_light:hover {
   color: #212529;
   background-color: #e2e6ea;
   border-color: #dae0e5;
 }
 
-.btn:not(:disabled):not(.disabled){
+.btn_active {
+  background-color: #c7ccd2;
+  border-color: #c7ccd2;
+  color: #fff;
+}
+
+.btn:not(:disabled):not(.disabled) {
   cursor: pointer;
 }
 
-.btn-ellipse{
+.btn-ellipse {
   border-radius: 1.28571em;
 }
 
-.gtabs>ul{
+.gtabs > ul {
   display: flex;
   overflow-x: auto;
   margin: 0;
@@ -160,21 +223,21 @@ h3{
   list-style: none;
 }
 
-.gtabs li:first-child{
+.gtabs li:first-child {
   margin-left: -1.5625rem;
 }
 
-li{
+li {
   display: list-item;
   text-align: -webkit-match-parent;
 }
 
-.gtabs li a{
+.gtabs li a {
   padding: 0 1.5625rem;
   display: inline-block;
 }
 
-.gtabs .gtab_text{
+.gtabs .gtab_text {
   position: relative;
   display: inline-block;
   padding: 20px 4px;
@@ -182,7 +245,7 @@ li{
   border-bottom: 3px solid transparent;
 }
 
-.is_active .gtab_text{
+.is_active .gtab_text {
   border-bottom: 2px solid #fff;
 }
 </style>

@@ -25,11 +25,18 @@ const CategoryPage = () => import("../views/category/CategoryPage");
 const TopPage = () => import("../views/Top/TopPage");
 //用户
 const UserPage = () => import("../views/users/UsersPage");
+//登录
+const LoginPage = () => import("../views/login/LoginPage");
 
 const routes = [
   {
     path: "/",
     redirect: "/home",
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: LoginPage,
   },
   {
     path: "/users/:id",

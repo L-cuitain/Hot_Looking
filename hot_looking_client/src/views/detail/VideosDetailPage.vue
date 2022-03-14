@@ -92,9 +92,9 @@
         </div>
         <Comments
           :comment="comment"
-          :total="total"
           @loadMore="handleLoadMore"
-          v-if="total"
+          @reloading="isReLoad"
+          v-if="comment"
         />
       </div>
     </Suspense>
@@ -128,10 +128,14 @@ export default {
     const likesButton = ref();
     let isTrue = true;
     const page = ref(1);
+    const comment = reactive({
+      list: [],
+      total: 0,
+    });
 
     //获取请求内容
     const { content } = useVideoContent(vId);
-    const { comment, total, getData } = useVideoComment();
+    const { getData } = useVideoComment(comment);
     getData(vId, page.value);
 
     //判断是否登录
@@ -169,7 +173,14 @@ export default {
       getData(vId, page.value);
     };
 
-    return { vId, isLikes, content, comment, total, handleLoadMore };
+    //重新加载
+    const isReLoad = () => {
+      comment.list = [];
+      comment.total = 0;
+      getData(vId, page.value);
+    };
+
+    return { vId, isLikes, content, comment, handleLoadMore, isReLoad };
   },
 };
 
@@ -186,20 +197,18 @@ function useVideoContent(vId) {
 }
 
 //获取视频评论
-function useVideoComment() {
-  let comment = reactive([]);
-  const total = ref();
+function useVideoComment(comment) {
   const getData = (vId, current) => {
     getVComment(vId, current).then((data) => {
       data.result.list.forEach((item) => {
-        comment.push(item);
+        comment.list.push(item);
       });
 
-      total.value = data.result.total;
+      comment.total = data.result.total;
     });
   };
 
-  return { comment, total, getData };
+  return { getData };
 }
 </script>
 

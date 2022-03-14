@@ -106,9 +106,9 @@
         <!--      评论-->
         <Comments
           :comment="comment"
-          :total="total"
           @loadMore="handleLoadMore"
-          v-if="total"
+          @reloading="isReLoad"
+          v-if="comment"
         />
       </div>
     </Suspense>
@@ -138,11 +138,15 @@ export default {
     const likesButton = ref();
     let isTrue = true;
     const page = ref(1);
+    const comment = reactive({
+      list: [],
+      total: 0,
+    });
 
     //获取资讯内容
     const { content } = useNewsContent(nId);
     const { hotweek } = useHotWeek();
-    const { comment, total, getData } = useComment();
+    const { getData } = useComment(comment);
     getData(nId, page.value);
 
     //判断是否登录
@@ -180,15 +184,22 @@ export default {
       getData(nId, page.value);
     };
 
+    //重新加载
+    const isReLoad = () => {
+      comment.list = [];
+      comment.total = 0;
+      getData(nId, page.value);
+    };
+
     return {
       isLogin,
       isLikes,
       comment,
       hotweek,
       content,
-      total,
       likesButton,
       handleLoadMore,
+      isReLoad,
     };
   },
 };
@@ -220,19 +231,17 @@ function useHotWeek() {
 }
 
 //获取评论内容
-function useComment() {
-  let comment = reactive([]);
-  const total = ref();
+function useComment(comment) {
   const getData = (nId, current) => {
     getComment(nId, current).then((data) => {
       data.result.list.forEach((item) => {
-        comment.push(item);
+        comment.list.push(item);
       });
 
-      total.value = data.result.total;
+      comment.total = data.result.total;
     });
   };
-  return { comment, total, getData };
+  return { getData };
 }
 </script>
 

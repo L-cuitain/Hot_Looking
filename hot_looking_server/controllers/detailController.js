@@ -11,7 +11,6 @@ const {
     getVCommentTotal
 } = require("../models/detailModel");
 const {  getTimeForNow , getTimeHMS } = require("../utils/time");
-const {getVideoContent} = require("./detailController");
 
 //获取资讯内容
 module.exports.getNewsContent = async (ctx) => {

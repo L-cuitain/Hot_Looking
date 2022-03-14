@@ -32,11 +32,11 @@ import VideosList from "@/components/CollectionList/VideosList";
 
 export default {
   name: "CollectionsDetailPageTab",
-  components:{
+  components: {
     AllList,
     NewsList,
     ArticlesList,
-    VideosList
+    VideosList,
   },
   setup() {
     const activeName = ref("first");
@@ -50,11 +50,13 @@ export default {
   margin: 0 15px;
 }
 
-.tabs > .el-tabs__content {
-  padding: 32px;
-  background-color: #f4f5f7;
-  color: #6b778c;
-  font-size: 32px;
+:deep(.el-tabs__item) {
+  color: #f56c6c;
+  font-size: 14px;
   font-weight: 600;
+}
+
+:deep(.el-tabs__active-bar) {
+  background-color: #323232;
 }
 </style>
