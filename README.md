@@ -7,7 +7,20 @@
 * 后端：koa
 * 数据库：mysql
 
+## 项目启动
+hot_looking_client
+```text
+yarn install
 
+yarn serve
+```
+
+hot_looking_server
+```text
+yarn install
+
+node bin/www
+```
 
 ## 拥有模块
 
