@@ -52,7 +52,7 @@ export default {
 
     onMounted(() => {
       getIsSubCol(user.profile.uId, colId).then((data) => {
-        if (data.result[0].subInfo === "已订阅") {
+        if (data.result.length > 0 && data.result[0].subInfo === "已订阅") {
           isTrue.value = true;
         } else {
           isTrue.value = false;

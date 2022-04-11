@@ -102,9 +102,11 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  scrollBehavior() {
-    //添加该方法
-    return { x: 0, y: 0 };
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    }
+    return {top: 0}
   },
   routes,
 });
