@@ -69,8 +69,8 @@
 </template>
 
 <script>
-import { ref , watch} from "vue";
-import {useRoute} from "vue-router";
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
 import {
   House,
   Guide,
@@ -98,16 +98,15 @@ export default {
     const route = useRoute();
     const isActive = ref();
     watch(
-        () => route.fullPath,
-        (n) => {
-          let arr = n.split('/');
-          if(arr[1] != ''){
-            isActive.value = '/'+arr[1];
-          }
-
-        },
-        {immediate:true}
-    )
+      () => route.fullPath,
+      (n) => {
+        let arr = n.split("/");
+        if (arr[1] !== "") {
+          isActive.value = "/" + arr[1];
+        }
+      },
+      { immediate: true }
+    );
     const { labels } = useAppLabel();
 
     return { labels, isActive };
