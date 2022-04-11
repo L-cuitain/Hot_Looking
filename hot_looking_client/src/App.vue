@@ -5,7 +5,7 @@
         <AppAside />
       </el-aside>
       <el-container>
-        <el-main @scroll="backTop">
+        <el-main @scroll="backTop" id="main">
           <RouterView :key="$route.fullPath" />
         </el-main>
       </el-container>
@@ -18,7 +18,8 @@
 <script>
 import AppAside from "@/components/App/AppAside";
 import AppBackTop from "@/components/App/AppBackTop";
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
 
 export default {
   name: "app",
@@ -27,15 +28,26 @@ export default {
     AppBackTop,
   },
   setup() {
+    const route = useRoute();
     const scrollTop = ref(0);
 
     const backTop = (e) => {
       scrollTop.value = e;
+      console.log(scrollTop.value.srcElement.scrollTop);
     };
+
     //返回顶部
     const goTop = () => {
       scrollTop.value.srcElement.scrollTop = 0;
     };
+    //监听路由变化 重置高度
+    watch(
+      () => route.fullPath,
+      () => {
+        document.querySelector("#main").scrollTop = 0;
+      }
+    );
+
     return { backTop, scrollTop, goTop };
   },
 };
