@@ -33,7 +33,6 @@ export default {
 
     const backTop = (e) => {
       scrollTop.value = e;
-      console.log(scrollTop.value.srcElement.scrollTop);
     };
 
     //返回顶部
