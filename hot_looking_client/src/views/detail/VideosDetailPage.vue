@@ -1,106 +1,109 @@
 <template>
-  <Suspense>
-    <div class="video_page" v-if="content">
-      <div class="videoPage_header gnav_next">
-        <div class="videoPage_header_mask">
-          <div class="container">
-            <div class="videoEmbedPlayer_container">
-              <div class="videoEmbedPlayer_embed">
-                <iframe
-                  allowfullscreen="true"
-                  frameborder="0"
-                  framespacing="0"
-                  border="0"
-                  width="100%"
-                  height="100%"
-                  :src="content.url"
-                ></iframe>
+  <AppLayout>
+    <Suspense>
+      <div class="video_page" v-if="content">
+        <div class="videoPage_header gnav_next">
+          <div class="videoPage_header_mask">
+            <div class="container">
+              <div class="videoEmbedPlayer_container">
+                <div class="videoEmbedPlayer_embed">
+                  <iframe
+                    allowfullscreen="true"
+                    frameborder="0"
+                    framespacing="0"
+                    border="0"
+                    width="100%"
+                    height="100%"
+                    :src="content.url"
+                  ></iframe>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="articlePage_body">
-        <div class="story_container">
-          <div class="mb_5">
-            <p class="text-center u_fontSize-lg">参与者</p>
-            <div class="text-center">
-              <RouterLink
-                :to="`/users/${content.uId}`"
-                class="avatar avatar-lg avatar-v avatar-noBold mx-3 mb-3"
-                ><img class="avatar_img" :src="content.avatar" />
-                <div class="avatar_text">
-                  <h3>{{ content.name }}</h3>
-                </div></RouterLink
-              >
-            </div>
-          </div>
-          <div class="originalPage_titleGroup originalPage_titleGroup-center">
-            <h1 class="originalPage_title">
-              {{ content.title }}
-            </h1>
-            <p class="originalPage_desc">{{ content.summary }}</p>
-          </div>
-          <p class="u_color-gray-desc text-center">
-            <span class="mr_2">{{ content.releaseTime }}</span
-            >发布于<RouterLink
-              class="ml_1 u_color-category"
-              :to="`/category/${content.lId}`"
-              >{{ content.lName }}</RouterLink
-            >
-          </p>
-        </div>
-        <div class="articlePage_content">
-          <div class="story_container story_enableImagePos">
-            <div class="story story-show">
-              <span>{{ content.content }}</span>
-            </div>
-          </div>
-        </div>
-        <div class="story_container mt_3">
-          <div class="mt_5 justify-content-center d-flex">
-            <div class="text_nowrap">
-              <a
-                @click="isLikes"
-                class="o_vote o_vote-up mr_3 originalButton"
-                role="button"
-                tabindex="0"
-                target="_blank"
-                ref="likesButton"
-              >
-                <svg
-                  aria-hidden="true"
-                  focusable="false"
-                  data-prefix="gfas"
-                  data-icon="thumbs-up"
-                  class="svg-inline--fa o_vote_icon o_vote_icon-withNumber"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 14 13"
+        <div class="articlePage_body">
+          <div class="story_container">
+            <div class="mb_5">
+              <p class="text-center u_fontSize-lg">参与者</p>
+              <div class="text-center">
+                <RouterLink
+                  :to="`/users/${content.uId}`"
+                  class="avatar avatar-lg avatar-v avatar-noBold mx-3 mb-3"
+                  ><img class="avatar_img" :src="content.avatar" />
+                  <div class="avatar_text">
+                    <h3>{{ content.name }}</h3>
+                  </div></RouterLink
                 >
-                  <path
-                    fill="currentColor"
-                    d="M7.71164516,0.875163593 C8.04335755,0.52512827 8.5809604,0.52512827 8.91839197,0.869230791 C9.12428242,1.08281167 9.21007011,1.38538457 9.15287831,1.68202468 L8.60955629,4.39924803 L11.8408925,4.39924803 C13.070516,4.39924803 13.899797,5.70446449 13.419386,6.87915931 L11.5549336,11.3940217 C11.3719198,11.8271162 10.9601389,12.1118907 10.5026046,12.1118907 L5.35534334,12.1118907 C4.72623363,12.1118907 4.21150751,11.5779386 4.21150751,10.9253303 L4.21150751,4.99846104 C4.21150751,4.68402253 4.33161027,4.38144963 4.5432199,4.16193595 L7.71164516,0.875163593 Z M1.92383584,12.1118907 C1.29472613,12.1118907 0.78,11.5779386 0.78,10.9253303 L0.78,6.17908866 C0.78,5.52648043 1.29472613,4.99252824 1.92383584,4.99252824 C2.55294554,4.99252824 3.06767167,5.52648043 3.06767167,6.17908866 L3.06767167,10.9253303 C3.06767167,11.5779386 2.55294554,12.1118907 1.92383584,12.1118907 Z"
-                  ></path>
-                </svg>
-                <span class="o_vote_num">{{ content.likes }}</span>
-              </a>
+              </div>
+            </div>
+            <div class="originalPage_titleGroup originalPage_titleGroup-center">
+              <h1 class="originalPage_title">
+                {{ content.title }}
+              </h1>
+              <p class="originalPage_desc">{{ content.summary }}</p>
+            </div>
+            <p class="u_color-gray-desc text-center">
+              <span class="mr_2">{{ content.releaseTime }}</span
+              >发布于<RouterLink
+                class="ml_1 u_color-category"
+                :to="`/category/${content.lId}`"
+                >{{ content.lName }}</RouterLink
+              >
+            </p>
+          </div>
+          <div class="articlePage_content">
+            <div class="story_container story_enableImagePos">
+              <div class="story story-show">
+                <span>{{ content.content }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="story_container mt_3">
+            <div class="mt_5 justify-content-center d-flex">
+              <div class="text_nowrap">
+                <a
+                  @click="isLikes"
+                  class="o_vote o_vote-up mr_3 originalButton"
+                  role="button"
+                  tabindex="0"
+                  target="_blank"
+                  ref="likesButton"
+                >
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="gfas"
+                    data-icon="thumbs-up"
+                    class="svg-inline--fa o_vote_icon o_vote_icon-withNumber"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 14 13"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M7.71164516,0.875163593 C8.04335755,0.52512827 8.5809604,0.52512827 8.91839197,0.869230791 C9.12428242,1.08281167 9.21007011,1.38538457 9.15287831,1.68202468 L8.60955629,4.39924803 L11.8408925,4.39924803 C13.070516,4.39924803 13.899797,5.70446449 13.419386,6.87915931 L11.5549336,11.3940217 C11.3719198,11.8271162 10.9601389,12.1118907 10.5026046,12.1118907 L5.35534334,12.1118907 C4.72623363,12.1118907 4.21150751,11.5779386 4.21150751,10.9253303 L4.21150751,4.99846104 C4.21150751,4.68402253 4.33161027,4.38144963 4.5432199,4.16193595 L7.71164516,0.875163593 Z M1.92383584,12.1118907 C1.29472613,12.1118907 0.78,11.5779386 0.78,10.9253303 L0.78,6.17908866 C0.78,5.52648043 1.29472613,4.99252824 1.92383584,4.99252824 C2.55294554,4.99252824 3.06767167,5.52648043 3.06767167,6.17908866 L3.06767167,10.9253303 C3.06767167,11.5779386 2.55294554,12.1118907 1.92383584,12.1118907 Z"
+                    ></path>
+                  </svg>
+                  <span class="o_vote_num">{{ content.likes }}</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
+        <Comments
+          :comment="comment"
+          @loadMore="handleLoadMore"
+          @reloading="isReLoad"
+          v-if="comment"
+        />
       </div>
-      <Comments
-        :comment="comment"
-        @loadMore="handleLoadMore"
-        @reloading="isReLoad"
-        v-if="comment"
-      />
-    </div>
-  </Suspense>
-  <AppFooter />
+    </Suspense>
+    <AppFooter />
+  </AppLayout>
 </template>
 
 <script>
+import AppLayout from "../../components/App/AppLayout";
 import AppFooter from "@/components/App/AppFooter";
 import { reactive, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -113,6 +116,7 @@ import { getUserLikes } from "@/api/login";
 export default {
   name: "VideosDetailPage",
   components: {
+    AppLayout,
     AppFooter,
     Comments,
   },

@@ -1,24 +1,27 @@
 <template>
-  <div class="articles">
-    <!--      导航-->
-    <el-row>
-      <el-col :span="24"
-        ><img src="@/assets/banner/articles.png" class="banner_img" alt=""
-      /></el-col>
-    </el-row>
-    <!--      列表-->
-    <div class="list_container container">
-      <Suspense>
-        <ArticlesPageList />
-      </Suspense>
+  <AppLayout>
+    <div class="articles">
+      <!--      导航-->
+      <el-row>
+        <el-col :span="24"
+          ><img src="@/assets/banner/articles.png" class="banner_img" alt=""
+        /></el-col>
+      </el-row>
+      <!--      列表-->
+      <div class="list_container container">
+        <Suspense>
+          <ArticlesPageList />
+        </Suspense>
+      </div>
+      <!--      推荐专题-->
+      <HomePageTopic :title="`专题推荐`" />
     </div>
-    <!--      推荐专题-->
-    <HomePageTopic :title="`专题推荐`" />
-  </div>
-  <AppFooter />
+    <AppFooter />
+  </AppLayout>
 </template>
 
 <script>
+import AppLayout from "../../components/App/AppLayout";
 import ArticlesPageList from "./components/ArticlesPageList";
 import AppFooter from "../../components/App/AppFooter";
 import HomePageTopic from "../home/components/HomePageTopic";
@@ -26,6 +29,7 @@ import HomePageTopic from "../home/components/HomePageTopic";
 export default {
   name: "ArticlesPage",
   components: {
+    AppLayout,
     ArticlesPageList,
     AppFooter,
     HomePageTopic,

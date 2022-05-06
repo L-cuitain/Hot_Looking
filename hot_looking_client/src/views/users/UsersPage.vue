@@ -1,54 +1,57 @@
 <template>
-  <div class="profilePage" v-if="userInfo">
-    <div class="container">
-      <el-row :gutter="20">
-        <el-col :span="18">
-          <div class="am_card">
-            <el-tabs v-model="activeName" class="tabs">
-              <el-tab-pane label="主页" name="first"
-                ><UsersPageHome @changeTab="handleChangeTab"
-              /></el-tab-pane>
-              <el-tab-pane label="投稿" name="second"
-                ><UsersPageCon
-              /></el-tab-pane>
-              <el-tab-pane label="订阅" name="third"
-                ><UsersPageCol
-              /></el-tab-pane>
-            </el-tabs>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="am_card">
-            <div class="am_card_inner">
-              <div class="profilePage_sidebar_avatar am_card_block">
-                <div class="avatar avatar-size-follow avatar-v">
-                  <img class="avatar_img" :src="userInfo.avatar" />
-                  <div class="avatar_text">
-                    <h3>{{ userInfo.name }}</h3>
+  <AppLayout>
+    <div class="profilePage" v-if="userInfo">
+      <div class="container">
+        <el-row :gutter="20">
+          <el-col :span="18">
+            <div class="am_card">
+              <el-tabs v-model="activeName" class="tabs">
+                <el-tab-pane label="主页" name="first"
+                  ><UsersPageHome @changeTab="handleChangeTab"
+                /></el-tab-pane>
+                <el-tab-pane label="投稿" name="second"
+                  ><UsersPageCon
+                /></el-tab-pane>
+                <el-tab-pane label="订阅" name="third"
+                  ><UsersPageCol
+                /></el-tab-pane>
+              </el-tabs>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="am_card">
+              <div class="am_card_inner">
+                <div class="profilePage_sidebar_avatar am_card_block">
+                  <div class="avatar avatar-size-follow avatar-v">
+                    <img class="avatar_img" :src="userInfo.avatar" />
+                    <div class="avatar_text">
+                      <h3>{{ userInfo.name }}</h3>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="am_card_block profilePage_sidebar_actions"
-                v-if="uId == user.profile.uId"
-              >
-                <a
-                  class="btn btn-outline-dark btn-ellipse"
-                  href="#"
-                  @click="loginOut"
-                  >退出登录</a
+                <div
+                  class="am_card_block profilePage_sidebar_actions"
+                  v-if="uId == user.profile.uId"
                 >
+                  <a
+                    class="btn btn-outline-dark btn-ellipse"
+                    href="#"
+                    @click="loginOut"
+                    >退出登录</a
+                  >
+                </div>
               </div>
             </div>
-          </div>
-        </el-col>
-      </el-row>
+          </el-col>
+        </el-row>
+      </div>
     </div>
-  </div>
-  <AppFooter />
+    <AppFooter />
+  </AppLayout>
 </template>
 
 <script>
+import AppLayout from "../../components/App/AppLayout";
 import AppFooter from "@/components/App/AppFooter";
 import UsersPageHome from "@/views/users/components/UsersPageHome";
 import UsersPageCol from "@/views/users/components/UsersPageCol";
@@ -61,6 +64,7 @@ import { getUserInfo } from "@/api/login";
 export default {
   name: "UsersPage",
   components: {
+    AppLayout,
     AppFooter,
     UsersPageHome,
     UsersPageCon,
