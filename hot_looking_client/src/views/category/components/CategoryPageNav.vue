@@ -21,7 +21,7 @@
                 class="commend_topics_img"
                 :src="item.colImg"
                 alt=""
-                style="width: 100%; height: 100%"
+                style="width: 100%; height: 100%; object-fit: cover"
             /></RouterLink>
           </div>
         </el-col>
@@ -36,21 +36,33 @@
                 class="a_cover"
                 v-if="item.category === 'new'"
               >
-                <img :src="item.img" alt="" style="width: 100%; height: 100%" />
+                <img
+                  :src="item.img"
+                  alt=""
+                  style="width: 100%; height: 100%; object-fit: cover"
+                />
               </RouterLink>
               <RouterLink
                 :to="`/articles/detail/${item.nId}`"
                 class="a_cover"
                 v-if="item.category === 'article'"
               >
-                <img :src="item.img" alt="" style="width: 100%; height: 100%" />
+                <img
+                  :src="item.img"
+                  alt=""
+                  style="width: 100%; height: 100%; object-fit: cover"
+                />
               </RouterLink>
               <RouterLink
                 :to="`/videos/detail/${item.nId}`"
                 class="a_cover"
                 v-if="item.category === 'video'"
               >
-                <img :src="item.img" alt="" style="width: 100%; height: 100%" />
+                <img
+                  :src="item.img"
+                  alt=""
+                  style="width: 100%; height: 100%; object-fit: cover"
+                />
               </RouterLink>
             </div>
             <div class="commend_info_card">
@@ -246,6 +258,7 @@ function useHotNews(lId) {
 .commend_topics_img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .commend_info_img {
