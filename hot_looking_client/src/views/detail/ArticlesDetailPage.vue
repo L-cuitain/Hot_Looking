@@ -243,6 +243,7 @@ function useArticleComment(comment) {
   display: block;
   border-radius: 4px;
   background-color: #fff;
+  object-fit: cover;
 }
 
 .articlePage_header_content {

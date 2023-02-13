@@ -15,7 +15,11 @@
         "
         class="a_cover"
       >
-        <img :src="item.contentImg" alt="" style="width: 100%; height: 100%" />
+        <img
+          :src="item.contentImg"
+          alt=""
+          style="width: 100%; height: 100%; object-fit: cover"
+        />
       </RouterLink>
     </el-carousel-item>
   </el-carousel>

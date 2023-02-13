@@ -194,6 +194,7 @@ function usePlayVideo() {
   display: block;
   width: 3.75rem;
   height: 3.75rem;
+  object-fit: cover;
 }
 
 .originalVideo_img_play {

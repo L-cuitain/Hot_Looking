@@ -123,6 +123,7 @@ function useUpNews() {
 .news_imgArea > img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .news_imgArea_cover {

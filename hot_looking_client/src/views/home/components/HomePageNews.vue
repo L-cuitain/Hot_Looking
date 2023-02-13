@@ -198,6 +198,7 @@ function useUpAV() {
 .news_info_img img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .news_info_img_article_cover {

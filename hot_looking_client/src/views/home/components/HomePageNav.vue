@@ -21,7 +21,7 @@
                 class="commend_topics_img"
                 :src="item.colImg"
                 alt=""
-                style="width: 100%; height: 100%"
+                style="width: 100%; height: 100%; object-fit: cover"
             /></RouterLink>
           </div>
         </el-col>
@@ -32,7 +32,11 @@
           <div class="commend commend_info">
             <div class="commend_info_img">
               <RouterLink :to="`/news/detail/${item.nId}`" class="a_cover">
-                <img :src="item.img" alt="" style="width: 100%; height: 100%" />
+                <img
+                  :src="item.img"
+                  alt=""
+                  style="width: 100%; height: 100%; object-fit: cover"
+                />
               </RouterLink>
             </div>
             <div class="commend_info_card">
@@ -215,6 +219,7 @@ function useGetRNews() {
 .commend_topics_img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .commend_info {

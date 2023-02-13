@@ -19,7 +19,7 @@
                   <img
                     :src="item.img"
                     alt=""
-                    style="width: 100%; height: 7.86rem"
+                    style="width: 100%; height: 7.86rem; object-fit: cover"
                   />
                   <div class="video_img_content originalVideo_img">
                     <img
