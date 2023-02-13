@@ -25,7 +25,7 @@
 
         <!--        列表-->
         <div class="news_list">
-          <el-row :gutter="24">
+          <el-row justify="space-between">
             <el-col :span="4" v-for="item in news" :key="item.nId">
               <div class="slick_item">
                 <RouterLink :to="`/news/detail/${item.nId}`" class="news">
@@ -111,6 +111,14 @@ function useUpNews() {
   overflow: hidden;
   margin: 0;
   padding: 0 15px;
+}
+
+.slick_item {
+  margin: 0 6px;
+}
+
+.slick_item:last-child {
+  margin-right: 0;
 }
 
 .news_imgArea {
