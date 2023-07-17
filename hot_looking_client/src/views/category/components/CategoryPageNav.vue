@@ -28,13 +28,13 @@
       </el-row>
       <!--        推荐文章/视频/资讯-->
       <el-row :gutter="24">
-        <el-col :span="8" v-for="item in hotNews" :key="item.nId">
+        <el-col :span="8" v-for="item in hotNews" :key="item.hcId">
           <div class="commend commend_info">
             <div class="commend_info_img">
               <RouterLink
-                :to="`/news/detail/${item.nId}`"
+                :to="`/news/detail/${item.hcId}`"
                 class="a_cover"
-                v-if="item.category === 'new'"
+                v-if="item.category === 'news'"
               >
                 <img
                   :src="item.img"
@@ -43,9 +43,9 @@
                 />
               </RouterLink>
               <RouterLink
-                :to="`/articles/detail/${item.nId}`"
+                :to="`/articles/detail/${item.hcId}`"
                 class="a_cover"
-                v-if="item.category === 'article'"
+                v-if="item.category === 'articles'"
               >
                 <img
                   :src="item.img"
@@ -54,9 +54,9 @@
                 />
               </RouterLink>
               <RouterLink
-                :to="`/videos/detail/${item.nId}`"
+                :to="`/videos/detail/${item.hcId}`"
                 class="a_cover"
-                v-if="item.category === 'video'"
+                v-if="item.category === 'videos'"
               >
                 <img
                   :src="item.img"
@@ -73,25 +73,25 @@
               </div>
               <div class="commend_info_content">
                 <RouterLink
-                  :to="`/news/detail/${item.nId}`"
+                  :to="`/news/detail/${item.hcId}`"
                   class="a_cover"
-                  v-if="item.category === 'new'"
+                  v-if="item.category === 'news'"
                 >
                   <h3>{{ item.title }}</h3>
                   <p>{{ item.summary }}</p>
                 </RouterLink>
                 <RouterLink
-                  :to="`/articles/detail/${item.nId}`"
+                  :to="`/articles/detail/${item.hcId}`"
                   class="a_cover"
-                  v-if="item.category === 'article'"
+                  v-if="item.category === 'articles'"
                 >
                   <h3>{{ item.title }}</h3>
                   <p>{{ item.summary }}</p>
                 </RouterLink>
                 <RouterLink
-                  :to="`/videos/detail/${item.nId}`"
+                  :to="`/videos/detail/${item.hcId}`"
                   class="a_cover"
-                  v-if="item.category === 'video'"
+                  v-if="item.category === 'videos'"
                 >
                   <h3>{{ item.title }}</h3>
                   <p>{{ item.summary }}</p>

@@ -39,7 +39,7 @@
             <li
               class="comment media"
               v-for="item in comment.list"
-              :key="item.nId"
+              :key="item.hcId"
             >
               <!--              头像-->
               <div class="comment_avatar d-flex">

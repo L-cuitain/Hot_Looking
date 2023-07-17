@@ -7,7 +7,7 @@
       </h2>
       <!--        视频列表-->
       <el-row :gutter="24">
-        <el-col :span="6" v-for="item in playList" :key="item.vId">
+        <el-col :span="6" v-for="item in playList" :key="item.hcId">
           <div class="video_showcase_list">
             <div class="lick-current" style="outline: none; width: 260px">
               <div
@@ -15,7 +15,7 @@
                 tabindex="-1"
                 style="width: 100%; display: inline-block"
               >
-                <RouterLink :to="`/videos/detail/${item.vId}`">
+                <RouterLink :to="`/videos/detail/${item.hcId}`">
                   <img
                     :src="item.img"
                     alt=""
@@ -35,7 +35,7 @@
                 <RouterLink :to="`/category/${item.lId}`">
                   <p>{{ item.lName }}</p>
                 </RouterLink>
-                <RouterLink :to="`/videos/detail/${item.vId}`">
+                <RouterLink :to="`/videos/detail/${item.hcId}`">
                   <h2>{{ item.title }}</h2>
                 </RouterLink>
               </div>

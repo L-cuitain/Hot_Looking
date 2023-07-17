@@ -11,9 +11,9 @@
           <h2 class="am_card_header">本周最热</h2>
           <div class="am_card_inner">
             <ul class="sideOriginals">
-              <li v-for="item in hotNews" :key="item.nId">
+              <li v-for="item in hotNews" :key="item.hcId">
                 <RouterLink
-                  :to="`/news/detail/${item.nId}`"
+                  :to="`/news/detail/${item.hcId}`"
                   class="sideOriginal-title a_cover"
                 >
                   <div class="sideOriginal_content">

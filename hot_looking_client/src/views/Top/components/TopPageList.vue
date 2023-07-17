@@ -1,14 +1,14 @@
 <template>
   <div class="list_row" v-if="topInfo">
     <el-row :gutter="24">
-      <el-col :span="6" v-for="item in topInfo.avList" :key="item.vId">
+      <el-col :span="6" v-for="item in topInfo.avList" :key="item.hcId">
         <div class="news news_info">
           <div class="news_info_img">
             <img :src="item.img" alt="" />
             <RouterLink
               class="news_info_img_video_cover"
-              :to="`/videos/detail/${item.vId}`"
-              v-if="item.category === 'video'"
+              :to="`/videos/detail/${item.hcId}`"
+              v-if="item.category === 'videos'"
             >
               <span class="original_imgArea_info">
                 <svg
@@ -31,8 +31,8 @@
 
             <RouterLink
               class="news_info_img_article_cover"
-              :to="`/articles/detail/${item.vId}`"
-              v-if="item.category === 'article'"
+              :to="`/articles/detail/${item.hcId}`"
+              v-if="item.category === 'articles'"
             >
               <p>{{ item.summary }}</p>
             </RouterLink>

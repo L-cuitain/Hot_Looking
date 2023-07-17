@@ -51,6 +51,7 @@ module.exports.getHotCollection = async (ctx) => {
 //根据标签查询对应列表
 module.exports.getLabelList = async (ctx) => {
     const result = ctx.query;
+    console.log(result);
     //请求参数
     const offsetNum = (result.current-1) * 12;
     //请求资讯总数量

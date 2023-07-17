@@ -26,7 +26,7 @@
         <!--        列表-->
         <div class="list_row">
           <el-row :gutter="24">
-            <el-col :span="6" v-for="item in UpAV" :key="item.vId">
+            <el-col :span="6" v-for="item in UpAV" :key="item.hcId">
               <div class="news news_info">
                 <div class="news_info_img">
                   <img :src="item.img" alt="" />

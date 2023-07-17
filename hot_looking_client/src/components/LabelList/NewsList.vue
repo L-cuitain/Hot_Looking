@@ -6,12 +6,12 @@
     ></el-empty>
     <div v-else>
       <el-row :gutter="24">
-        <el-col :span="6" v-for="item in newsListInfo.list" :key="item.nId">
+        <el-col :span="6" v-for="item in newsListInfo.list" :key="item.hcId">
           <div class="news news_info">
             <div class="news_info_img">
               <img :src="item.img" alt="" />
               <RouterLink
-                :to="`/news/detail/${item.nId}`"
+                :to="`/news/detail/${item.hcId}`"
                 class="news_info_img_article_cover"
               >
                 <p>{{ item.summary }}</p>
@@ -24,7 +24,7 @@
                 </RouterLink>
               </div>
               <div class="news_info_content">
-                <RouterLink :to="`/news/detail/${item.nId}`">
+                <RouterLink :to="`/news/detail/${item.hcId}`">
                   <h3>{{ item.title }}</h3>
                 </RouterLink>
               </div>

@@ -26,9 +26,9 @@
         <!--        列表-->
         <div class="news_list">
           <el-row justify="space-between">
-            <el-col :span="4" v-for="item in news" :key="item.nId">
+            <el-col :span="4" v-for="item in news" :key="item.hcId">
               <div class="slick_item">
-                <RouterLink :to="`/news/detail/${item.nId}`" class="news">
+                <RouterLink :to="`/news/detail/${item.hcId}`" class="news">
                   <div class="news_imgArea">
                     <img :src="item.img" alt="" />
                     <div class="news_imgArea_cover"></div>

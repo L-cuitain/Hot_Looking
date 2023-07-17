@@ -9,9 +9,9 @@
     <el-carousel-item v-for="item in data" :key="item">
       <RouterLink
         :to="
-          item.category === 'video'
-            ? `/videos/detail/${item.vId}`
-            : `/news/detail/${item.nId}`
+          item.category === 'videos'
+            ? `/videos/detail/${item.hcId}`
+            : `/news/detail/${item.hcId}`
         "
         class="a_cover"
       >

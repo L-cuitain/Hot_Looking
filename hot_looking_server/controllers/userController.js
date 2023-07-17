@@ -55,10 +55,11 @@ module.exports.userLogin = async (ctx) => {
 //注册
 module.exports.userRegister = async (ctx) => {
     const { name,account,password } = ctx.request.body;
+    console.log(name,account,password);
     if(name.trim() !== '' && account.trim() !== '' && password.trim() !== ''){
         const data = await getUserByNC(name,account);
         if(!data[0]){
-            await resByNaAcPw(name,account,password);
+            await resByNaAcPw(name,account,password,'用户');
             ctx.body = {
                 code: 200,
                 message: "注册成功",

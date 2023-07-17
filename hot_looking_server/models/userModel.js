@@ -13,9 +13,9 @@ module.exports.getUserByNC = async (name,account) => {
 }
 
 //根据用户名/账号/密码注册
-module.exports.resByNaAcPw = async (name,account,password) => {
-    const sql = "insert into users(name, account, password) VALUES (?,?,?);";
-    return await query(sql,[name,account,password]);
+module.exports.resByNaAcPw = async (name,account,password,category) => {
+    const sql = "insert into users(name, account, password,category) VALUES (?,?,?,?);";
+    return await query(sql,[name,account,password,category]);
 }
 
 //查询用户是否订阅专题
@@ -56,37 +56,37 @@ module.exports.cancelUserCol = async (uId,colId) => {
 
 //用户资讯点赞
 module.exports.getNewsLikes = async (num,nId) => {
-    const sql = "update news set likes=likes+? where nId=?;";
+    const sql = "update hot_con set likes=likes+? where category = 'news' and hcId=?;";
     return await query(sql,[num,nId]);
 }
 
 //用户文章点赞
 module.exports.getArticlesLikes = async (num,aId) => {
-    const sql = "update articles set likes=likes+? where aId=?;";
+    const sql = "update hot_con set likes=likes+? where category = 'articles' and hcId=?;";
     return await query(sql,[num,aId]);
 }
 
 //用户视频点赞
 module.exports.getVideosLikes = async (num,vId) => {
-    const sql = "update videos set likes=likes+? where vId=?;";
+    const sql = "update hot_con set likes=likes+? where category = 'videos' and hcId=?;";
     return await query(sql,[num,vId]);
 }
 
 //用户资讯评论
 module.exports.addNewsComment = async (nId,uId,content,commentTime) => {
-    const sql = "insert into news_comment(nId, uId, content, commentTime) VALUES (?,?,?,?);";
+    const sql = "insert into hc_comment(hcId, uId, content, commentTime) VALUES (?,?,?,?);";
     return await query(sql,[nId,uId,content,commentTime]);
 }
 
 //用户文章评论
 module.exports.addArticlesComment = async (aId,uId,content,commentTime) => {
-    const sql = "insert into articles_comment(aId, uId, content, commentTime) VALUES (?,?,?,?);";
+    const sql = "insert into hc_comment(hcId, uId, content, commentTime) VALUES (?,?,?,?);";
     return await query(sql,[aId,uId,content,commentTime]);
 }
 
 //用户视频评论
 module.exports.addVideosComment = async (vId,uId,content,commentTime) => {
-    const sql = "insert into videos_comment(vId, uId, content, commentTime) VALUES (?,?,?,?);";
+    const sql = "insert into hc_comment(hcId, uId, content, commentTime) VALUES (?,?,?,?);";
     return await query(sql,[vId,uId,content,commentTime]);
 }
 
@@ -98,45 +98,24 @@ module.exports.findUserDetail = async (uId) => {
 
 //查询用户主页投稿的文章
 module.exports.findUserCon = async (uId,offsetNum) => {
-    const sql = "(select\n" +
-        "     n.nId , n.category ,l.lName,n.img,n.title,n.summary,n.releaseTime,n.likes,c.colTitle,c.colSummary,c.colNum,COUNT(nc.content) 'cCount',u.name,u.avatar\n" +
+    const sql = "select\n" +
+        "     hc.hcId , hc.category ,l.lName,hc.img,hc.title,hc.summary,hc.releaseTime,hc.likes,c.colTitle,c.colSummary,c.colNum,COUNT(vc.content) 'cCount',u.name,u.avatar\n" +
         "from\n" +
-        "    news n Left JOIN news_comment nc on n.nId = nc.nId\n" +
-        "            Left JOIN users u on n.uId = u.uId\n" +
-        "            Left JOIN label l  on n.lId = l.lId\n" +
-        "            Left JOIN collections c on n.colId = c.colId\n" +
+        "    hot_con hc Left JOIN hc_comment vc on hc.hcId = vc.hcId\n" +
+        "            Left JOIN users u on hc.uId = u.uId\n" +
+        "            Left JOIN label l  on hc.lId = l.lId\n" +
+        "            Left JOIN collections c on hc.colId = c.colId\n" +
         "where u.uId = ?\n" +
-        "group by n.nId\n" +
-        ") UNION DISTINCT\n" +
-        "(select\n" +
-        "     a.aId , a.category ,l.lName,a.img,a.title,a.summary,a.releaseTime,a.likes,c.colTitle,c.colSummary,c.colNum,COUNT(ac.content) 'cCount',u.name,u.avatar\n" +
-        "from\n" +
-        "    articles a Left JOIN articles_comment ac on a.aId = ac.aId\n" +
-        "            Left JOIN users u on a.uId = u.uId\n" +
-        "            Left JOIN label l  on a.lId = l.lId\n" +
-        "            Left JOIN collections c on a.colId = c.colId\n" +
-        "where u.uId = ?\n" +
-        "group by a.aId\n" +
-        ") UNION DISTINCT\n" +
-        "(select\n" +
-        "     v.vId , v.category ,l.lName,v.img,v.title,v.summary,v.releaseTime,v.likes,c.colTitle,c.colSummary,c.colNum,COUNT(vc.content) 'cCount',u.name,u.avatar\n" +
-        "from\n" +
-        "    videos v Left JOIN videos_comment vc on v.vId = vc.vId\n" +
-        "            Left JOIN users u on v.uId = u.uId\n" +
-        "            Left JOIN label l  on v.lId = l.lId\n" +
-        "            Left JOIN collections c on v.colId = c.colId\n" +
-        "where u.uId = ?\n" +
-        "group by v.vId , v.releaseTime\n" +
-        ")\n" +
+        "group by hc.hcId , hc.releaseTime\n" +
         "order by releaseTime desc\n" +
         "limit 9 offset ?;";
-    return await query(sql , [uId,uId,uId,offsetNum]);
+    return await query(sql , [uId,offsetNum]);
 }
 
 //查询用户主页投稿文章的数量
 module.exports.findUserConTotal = async (uId) => {
-    const sql = "select SUM(n.count + a.count + v.count) total from (select COUNT(*) count from news where uId=?) n ,  (select COUNT(*) count from articles where uId=?) a ,  (select COUNT(*) count from videos where uId=?) v;\n";
-    return await query(sql,[uId,uId,uId]);
+    const sql = "select COUNT(hc.hcId) total from hot_con hc where uId = ?;";
+    return await query(sql,[uId]);
 }
 
 //查询用户主页订阅列表

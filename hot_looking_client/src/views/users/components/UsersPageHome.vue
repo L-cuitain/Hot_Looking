@@ -23,28 +23,28 @@
       </h2>
       <div v-if="conInfo">
         <div class="emptyContent" v-if="conInfo.total === 0">
-          <span>还没有内容</span>
+          <span>还没有内容，点击这里添加内容</span>
         </div>
         <el-row v-else>
-          <el-col :span="8" v-for="item in conInfo.list" :key="item.nId">
+          <el-col :span="8" v-for="item in conInfo.list" :key="item.hcId">
             <div class="subscription">
               <RouterLink
-                v-if="item.category === 'new'"
-                :to="`/news/detail/${item.nId}`"
+                v-if="item.category === 'news'"
+                :to="`/news/detail/${item.hcId}`"
                 class="subscription_l"
               >
                 <div>{{ item.title.charAt(0) }}</div>
               </RouterLink>
               <RouterLink
-                v-if="item.category === 'article'"
-                :to="`/articles/detail/${item.nId}`"
+                v-if="item.category === 'articles'"
+                :to="`/articles/detail/${item.hcId}`"
                 class="subscription_l"
               >
                 <div>{{ item.title.charAt(0) }}</div>
               </RouterLink>
               <RouterLink
-                v-if="item.category === 'video'"
-                :to="`/videos/detail/${item.nId}`"
+                v-if="item.category === 'videos'"
+                :to="`/videos/detail/${item.hcId}`"
                 class="subscription_l"
               >
                 <div>{{ item.title.charAt(0) }}</div>
@@ -52,32 +52,32 @@
               <div class="subscription_content">
                 <h3 class="subscription_name">
                   <RouterLink
-                    v-if="item.category === 'new'"
-                    :to="`/news/detail/${item.nId}`"
+                    v-if="item.category === 'news'"
+                    :to="`/news/detail/${item.hcId}`"
                   >
                     {{ item.title }}
                   </RouterLink>
                   <RouterLink
-                    v-if="item.category === 'article'"
-                    :to="`/articles/detail/${item.nId}`"
+                    v-if="item.category === 'articles'"
+                    :to="`/articles/detail/${item.hcId}`"
                   >
                     {{ item.title }}
                   </RouterLink>
                   <RouterLink
-                    v-if="item.category === 'video'"
-                    :to="`/videos/detail/${item.nId}`"
+                    v-if="item.category === 'videos'"
+                    :to="`/videos/detail/${item.hcId}`"
                   >
                     {{ item.title }}
                   </RouterLink>
                 </h3>
-                <p v-if="item.category === 'new'">
-                  {{ item.category === "new" ? "资讯" : "" }}
+                <p v-if="item.category === 'news'">
+                  {{ item.category === "news" ? "资讯" : "" }}
                 </p>
-                <p v-if="item.category === 'article'">
-                  {{ item.category === "article" ? "文章" : "" }}
+                <p v-if="item.category === 'articles'">
+                  {{ item.category === "articles" ? "文章" : "" }}
                 </p>
-                <p v-if="item.category === 'video'">
-                  {{ item.category === "video" ? "视频" : "" }}
+                <p v-if="item.category === 'videos'">
+                  {{ item.category === "videos" ? "视频" : "" }}
                 </p>
               </div>
             </div>

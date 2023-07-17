@@ -1,11 +1,15 @@
 <template>
   <el-row :gutter="24" v-if="articlesInfo">
-    <el-col :span="6" v-for="item in articlesInfo.articlesList" :key="item.aId">
+    <el-col
+      :span="6"
+      v-for="item in articlesInfo.articlesList"
+      :key="item.hcId"
+    >
       <div class="articles articles_info">
         <div class="articles_info_img">
           <img :src="item.img" alt="" />
           <RouterLink
-            :to="`/articles/detail/${item.aId}`"
+            :to="`/articles/detail/${item.hcId}`"
             class="articles_info_img_cover"
           >
             <p>{{ item.summary }}</p>
@@ -18,7 +22,7 @@
             </RouterLink>
           </div>
           <div class="articles_info_content">
-            <RouterLink :to="`/articles/detail/${item.aId}`">
+            <RouterLink :to="`/articles/detail/${item.hcId}`">
               <h3>{{ item.title }}</h3>
             </RouterLink>
           </div>

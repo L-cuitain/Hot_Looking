@@ -1,11 +1,11 @@
 <template>
   <el-row :gutter="24" v-if="videosInfo">
-    <el-col :span="6" v-for="item in videosInfo.videosList" :key="item.vId">
+    <el-col :span="6" v-for="item in videosInfo.videosList" :key="item.hcId">
       <div class="videos videos_info">
         <div class="videos_info_img">
           <img :src="item.img" alt="" />
           <RouterLink
-            :to="`/videos/detail/${item.vId}`"
+            :to="`/videos/detail/${item.hcId}`"
             class="videos_info_img_cover"
           >
           </RouterLink>
@@ -34,7 +34,7 @@
             </RouterLink>
           </div>
           <div class="videos_info_content">
-            <RouterLink :to="`/videos/detail/${item.vId}`">
+            <RouterLink :to="`/videos/detail/${item.hcId}`">
               <h3>{{ item.title }}</h3>
             </RouterLink>
           </div>

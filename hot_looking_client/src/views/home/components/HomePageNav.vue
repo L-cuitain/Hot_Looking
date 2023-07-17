@@ -28,10 +28,10 @@
       </el-row>
       <!--        推荐资讯-->
       <el-row :gutter="24">
-        <el-col :span="8" v-for="item in recommendNews" :key="item.nId">
+        <el-col :span="8" v-for="item in recommendNews" :key="item.hcId">
           <div class="commend commend_info">
             <div class="commend_info_img">
-              <RouterLink :to="`/news/detail/${item.nId}`" class="a_cover">
+              <RouterLink :to="`/news/detail/${item.hcId}`" class="a_cover">
                 <img
                   :src="item.img"
                   alt=""
@@ -46,7 +46,7 @@
                 }}</RouterLink>
               </div>
               <div class="commend_info_content">
-                <RouterLink :to="`/news/detail/${item.nId}`" class="a_cover">
+                <RouterLink :to="`/news/detail/${item.hcId}`" class="a_cover">
                   <h3>{{ item.title }}</h3>
                   <p>{{ item.summary }}</p>
                 </RouterLink>

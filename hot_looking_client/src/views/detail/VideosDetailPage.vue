@@ -186,7 +186,15 @@ export default {
       getData(vId, page.value);
     };
 
-    return { vId, isLikes, content, comment, handleLoadMore, isReLoad };
+    return {
+      vId,
+      isLikes,
+      content,
+      comment,
+      handleLoadMore,
+      isReLoad,
+      likesButton,
+    };
   },
 };
 

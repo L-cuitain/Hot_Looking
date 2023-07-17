@@ -6,13 +6,13 @@
     ></el-empty>
     <div v-else>
       <el-row :gutter="24">
-        <el-col :span="6" v-for="item in allListInfo.list" :key="item.nId">
+        <el-col :span="6" v-for="item in allListInfo.list" :key="item.hcId">
           <div class="news news_info">
             <div class="news_info_img">
               <img :src="item.img" alt="" />
               <RouterLink
                 class="news_info_img_video_cover"
-                :to="`/videos/detail/${item.nId}`"
+                :to="`/videos/detail/${item.hcId}`"
                 v-if="item.category === 'video'"
               >
                 <span class="original_imgArea_info">
@@ -37,11 +37,11 @@
               <RouterLink
                 class="news_info_img_article_cover"
                 :to="
-                  item.category === 'article'
-                    ? `/articles/detail/${item.nId}`
-                    : `/news/detail/${item.nId}`
+                  item.category === 'articles'
+                    ? `/articles/detail/${item.hcId}`
+                    : `/news/detail/${item.hcId}`
                 "
-                v-if="item.category === 'article' || item.category === 'new'"
+                v-if="item.category === 'articles' || item.category === 'news'"
               >
                 <p>{{ item.summary }}</p>
               </RouterLink>
@@ -54,20 +54,20 @@
               </div>
               <div class="news_info_content">
                 <RouterLink
-                  :to="`/videos/detail/${item.nId}`"
-                  v-if="item.category === 'video'"
+                  :to="`/videos/detail/${item.hcId}`"
+                  v-if="item.category === 'videos'"
                 >
                   <h3>{{ item.title }}</h3>
                 </RouterLink>
                 <RouterLink
-                  :to="`/articles/detail/${item.nId}`"
-                  v-if="item.category === 'article'"
+                  :to="`/articles/detail/${item.hcId}`"
+                  v-if="item.category === 'articles'"
                 >
                   <h3>{{ item.title }}</h3>
                 </RouterLink>
                 <RouterLink
-                  :to="`/news/detail/${item.nId}`"
-                  v-if="item.category === 'new'"
+                  :to="`/news/detail/${item.hcId}`"
+                  v-if="item.category === 'news'"
                 >
                   <h3>{{ item.title }}</h3>
                 </RouterLink>

@@ -56,7 +56,7 @@ export function getVideosContent(vId) {
 }
 
 /**
- * 获取指定文章评论
+ * 获取指定视频评论
  * @param vId
  * @returns {*|Promise}
  */

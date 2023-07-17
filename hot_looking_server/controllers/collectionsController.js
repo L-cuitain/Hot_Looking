@@ -56,6 +56,7 @@ module.exports.getAllList = async (ctx) => {
     const offsetNum = (result.current-1) * 12;
     //请求资讯总数量
     const count = await getDetailALlTotal(result.colId);
+    console.log(count);
     //请求资讯分页数据
     const data = await getDetailAllList(result.colId,offsetNum);
     getTimeForNow(data);

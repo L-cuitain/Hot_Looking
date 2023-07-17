@@ -6,12 +6,12 @@
     ></el-empty>
     <div v-else>
       <el-row :gutter="24">
-        <el-col :span="6" v-for="item in videosListInfo.list" :key="item.vId">
+        <el-col :span="6" v-for="item in videosListInfo.list" :key="item.hcId">
           <div class="news news_info">
             <div class="news_info_img">
               <img :src="item.img" alt="" />
               <RouterLink
-                :to="`/videos/detail/${item.vId}`"
+                :to="`/videos/detail/${item.hcId}`"
                 class="news_info_img_video_cover"
               >
                 <span class="original_imgArea_info">
@@ -40,7 +40,7 @@
                 </RouterLink>
               </div>
               <div class="news_info_content">
-                <RouterLink :to="`/videos/detail/${item.vId}`">
+                <RouterLink :to="`/videos/detail/${item.hcId}`">
                   <h3>{{ item.title }}</h3>
                 </RouterLink>
               </div>

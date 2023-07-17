@@ -6,12 +6,16 @@
     ></el-empty>
     <div v-else>
       <el-row :gutter="24">
-        <el-col :span="6" v-for="item in articlesListInfo.list" :key="item.aId">
+        <el-col
+          :span="6"
+          v-for="item in articlesListInfo.list"
+          :key="item.hcId"
+        >
           <div class="news news_info">
             <div class="news_info_img">
               <img :src="item.img" alt="" />
               <RouterLink
-                :to="`/articles/detail/${item.aId}`"
+                :to="`/articles/detail/${item.hcId}`"
                 class="news_info_img_article_cover"
               >
                 <p>{{ item.summary }}</p>
@@ -19,12 +23,12 @@
             </div>
             <div class="news_info_card">
               <div class="news_info_category">
-                <RouterLink :to="`/category/${item.aId}`">
+                <RouterLink :to="`/category/${item.hcId}`">
                   {{ item.lName }}
                 </RouterLink>
               </div>
               <div class="news_info_content">
-                <RouterLink :to="`/articles/detail/${item.aId}`">
+                <RouterLink :to="`/articles/detail/${item.hcId}`">
                   <h3>{{ item.title }}</h3>
                 </RouterLink>
               </div>

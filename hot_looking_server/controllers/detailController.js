@@ -37,6 +37,7 @@ module.exports.getHotArticles = async (ctx) => {
 //获取资讯评论
 module.exports.getComment = async (ctx) => {
     const { nId , current } = ctx.query;
+    console.log(nId);
     const offsetNum = (current-1)*10;
     const data = await getCommentByNid(nId,offsetNum);
     getTimeHMS(data);

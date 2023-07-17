@@ -38,7 +38,7 @@
           </div>
           <!--        视频列表-->
           <el-row :gutter="24">
-            <el-col :span="6" v-for="item in playList" :key="item.vId">
+            <el-col :span="6" v-for="item in playList" :key="item.hcId">
               <div class="video_showcase_list" @click="showPlay(item.url)">
                 <div class="lick-current" style="outline: none">
                   <div

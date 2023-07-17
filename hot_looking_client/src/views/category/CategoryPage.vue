@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
     <div class="category">
-      <!--      标题-->
+      <!-- 标题 -->
       <el-row>
         <el-col :span="24">
           <img
