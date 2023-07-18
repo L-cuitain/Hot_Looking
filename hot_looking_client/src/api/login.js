@@ -59,13 +59,32 @@ export function getCancelUserCol(uId, colId) {
 }
 
 /**
- * 用户点赞
- * @param category
- * @param id
- * @returns {*|Promise}
+ * 用户是否点赞
+ * @param hcId 内容id
+ * @param uId  用户id
+ * @returns {*|AxiosPromise}
  */
-export function getUserLikes(category, num, id) {
-  return requestWithToken("/user/likes", "post", { category, num, id });
+export function getUserIsLikes(hcId, uId) {
+  return requestWithToken("/user/islikes", "get", { hcId, uId });
+}
+
+/**
+ * 用户点赞
+ * @param hcId  内容id
+ * @param uId   用户id
+ * @returns {*|AxiosPromise}
+ */
+export function getUserLikes(hcId, uId) {
+  return requestWithToken("/user/likes", "post", { hcId, uId });
+}
+
+/**
+ * 用户取消点赞
+ * @param hcId  内容id
+ * @returns {*|AxiosPromise}
+ */
+export function getUserDisLikes(hcId, uId) {
+  return requestWithToken("/user/dislikes", "post", { hcId, uId });
 }
 
 /**

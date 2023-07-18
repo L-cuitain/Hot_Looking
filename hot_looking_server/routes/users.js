@@ -7,10 +7,12 @@ const {
     getAddUserCol ,
     getCancelUserCol ,
     getUserLikes ,
+    getUserDisLikes,
+    userIsLike,
     addUserComment,
     getUserInfo,
     getUserCon,
-    getUserCol
+    getUserCol,
 } = require('../controllers/userController');
 
 
@@ -31,8 +33,14 @@ router.post('/addcol',getAddUserCol);
 //减少订阅
 router.post('/cancelcol',getCancelUserCol);
 
+//用户是否点赞
+router.get('/islikes',userIsLike);
+
 //用户点赞
 router.post('/likes',getUserLikes);
+
+//用户取消点赞
+router.post('/dislikes',getUserDisLikes);
 
 //用户评论
 router.post('/comment',addUserComment);

@@ -8,12 +8,13 @@ const {
     addColNum,
     reduceColNum,
     confirmUserCol,
-    getNewsLikes,
-    getArticlesLikes,
-    getVideosLikes,
-    addNewsComment,
-    addArticlesComment,
-    addVideosComment,
+    getConAddLikes,
+    getConReduceLikes,
+    getUserLike,
+    setUserLike,
+    addUserLike,
+    setUserDislike,
+    addConComment,
     findUserDetail,
     findUserCon,
     findUserConTotal,
@@ -28,7 +29,6 @@ module.exports.userLogin = async (ctx) => {
     const { account , password } = ctx.request.body;
     if(account.trim() !== '' && password.trim() !== ''){
         const data = await logByAcPw(account,password)
-        console.log(data);
         //创建token
         const token = jwt.sign({...data[0]},'my_token',{expiresIn: '1h'});
         const user = {...data[0],token};
@@ -89,7 +89,6 @@ module.exports.getAddUserCol = async (ctx) => {
     const { uId , colId } = ctx.request.body;
     const data = await isSubCol(uId,colId);
     if(!data[0]){
-        console.log(111)
         await addUserCol(uId,colId);
     }else{
         await confirmUserCol(colId);
@@ -112,16 +111,38 @@ module.exports.getCancelUserCol = async (ctx) => {
     }
 }
 
+//查询用户是否点赞
+module.exports.userIsLike = async (ctx) => {
+    const { hcId , uId } = ctx.query;
+    const data = await getUserLike(hcId,uId);
+
+    if(data.length === 0){
+       const result = await addUserLike(hcId,uId,0);
+        console.log(result);
+    }
+
+    const data1 = await getUserLike(hcId,uId);
+    console.log(data1);
+    ctx.body = {
+        code: 200,
+        message: "获取成功",
+        result: data1[0].like
+    }
+}
+
 //用户点赞
 module.exports.getUserLikes = async (ctx) => {
-    const { category , num , id } = ctx.request.body;
-    if(category === 'new'){
-        await getNewsLikes(num,id);
-    }else if(category === 'article'){
-        await getArticlesLikes(num,id);
-    }else if(category === 'video'){
-        await getVideosLikes(num,id);
+    const { hcId , uId } = ctx.request.body;
+    const data = await getUserLike(hcId,uId);
+    console.log(data);
+    console.log(hcId,uId);
+    if(data.length === 0){
+        await addUserLike(hcId,uId,1);
+    }else{
+        await setUserLike(hcId,uId);
     }
+
+    await getConAddLikes(hcId);
 
     ctx.body = {
         code: 200,
@@ -129,18 +150,36 @@ module.exports.getUserLikes = async (ctx) => {
     }
 }
 
+//用户取消点赞
+module.exports.getUserDisLikes = async (ctx) => {
+    const { hcId , uId } = ctx.request.body;
+
+    const data = await getUserLike(hcId,uId);
+    if(data.length !== 0){
+        await setUserDislike(hcId,uId);
+        await getConReduceLikes(hcId);
+
+        ctx.body = {
+            code: 200,
+            message: "用户取消点赞成功"
+        }
+    }else{
+        ctx.body = {
+            code: 500,
+            message: "用户取消点赞失败"
+        }
+    }
+
+
+
+}
+
 //用户评论
 module.exports.addUserComment = async (ctx) => {
     const { id , uId , content , commentTime } = ctx.request.body;
     console.log( id , uId , content , commentTime);
 
-    if(id.startsWith('N')){
-        await addNewsComment(id,uId,content,commentTime);
-    }else if(id.startsWith('A')){
-        await addArticlesComment(id,uId,content,commentTime);
-    }else if(id.startsWith('V')){
-        await addVideosComment(id,uId,content,commentTime);
-    }
+    await addConComment(id,uId,content,commentTime);
 
     ctx.body = {
         code: 200,

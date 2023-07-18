@@ -52,6 +52,7 @@
                   tabindex="0"
                   target="_blank"
                   ref="likesButton"
+                  :style="{ color: isTrue ? '#ec625c' : '#5a5a5a' }"
                 >
                   <svg
                     aria-hidden="true"
@@ -90,11 +91,11 @@
 import AppLayout from "../../components/App/AppLayout";
 import AppFooter from "@/components/App/AppFooter";
 import Comments from "@/components/Comments";
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { ElMessage } from "element-plus";
 import { getArticleContent, getAComment } from "@/api/detail";
-import { getUserLikes } from "@/api/login";
+import { getUserIsLikes, getUserLikes, getUserDisLikes } from "@/api/login";
 import { useStore } from "vuex";
 
 export default {
@@ -114,17 +115,32 @@ export default {
     let timer;
     const isLogin = ref(user.profile.token === "");
     const likesButton = ref();
-    let isTrue = ref(true);
+    //是否点赞
+    let isTrue = ref(false);
     const page = ref(1);
     const comment = reactive({
       list: [],
       total: 0,
     });
 
+    onMounted(() => {
+      if (!isLogin.value) {
+        getUserIsLikes(aId, user.profile.uId).then((data) => {
+          isTrue.value = data.result === 1;
+          if (isTrue.value) {
+            likesButton.value.style.color = "#ec625c";
+          } else {
+            likesButton.value.style.color = "#5a5a5a";
+          }
+        });
+      }
+    });
+
     //获取请求内容
     const { content } = useArticleContent(aId);
     let { getData } = useArticleComment(comment);
     getData(aId, page.value);
+
     //判断是否登录
     const isLikes = () => {
       //判断登录状态
@@ -142,16 +158,15 @@ export default {
           });
         }, 600);
       } else {
+        isTrue.value = !isTrue.value;
         if (isTrue.value) {
           //点赞
+          getUserLikes(aId, user.profile.uId);
           likesButton.value.style.color = "#ec625c";
-          isTrue.value = false;
-          getUserLikes(content.value.category, 1, aId);
         } else {
           //取消点赞
+          getUserDisLikes(aId, user.profile.uId);
           likesButton.value.style.color = "#5a5a5a";
-          isTrue.value = true;
-          getUserLikes(content.value.category, -1, aId);
         }
       }
     };
@@ -177,6 +192,7 @@ export default {
       handleLoadMore,
       likesButton,
       isReLoad,
+      isTrue,
     };
   },
 };

@@ -68,6 +68,7 @@
                   tabindex="0"
                   target="_blank"
                   ref="likesButton"
+                  :style="{ color: isTrue ? '#ec625c' : '#5a5a5a' }"
                 >
                   <svg
                     aria-hidden="true"
@@ -105,13 +106,13 @@
 <script>
 import AppLayout from "../../components/App/AppLayout";
 import AppFooter from "@/components/App/AppFooter";
-import { reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import { ElMessage } from "element-plus";
 import { getVideosContent, getVComment } from "@/api/detail";
 import Comments from "@/components/Comments";
 import { useStore } from "vuex";
-import { getUserLikes } from "@/api/login";
+import { getUserDisLikes, getUserIsLikes, getUserLikes } from "@/api/login";
 
 export default {
   name: "VideosDetailPage",
@@ -130,11 +131,24 @@ export default {
     let timer;
     const isLogin = ref(user.profile.token === "");
     const likesButton = ref();
-    let isTrue = true;
+    let isTrue = ref(false);
     const page = ref(1);
     const comment = reactive({
       list: [],
       total: 0,
+    });
+
+    onMounted(() => {
+      if (!isLogin.value) {
+        getUserIsLikes(vId, user.profile.uId).then((data) => {
+          isTrue.value = data.result === 1;
+          if (isTrue.value) {
+            likesButton.value.style.color = "#ec625c";
+          } else {
+            likesButton.value.style.color = "#5a5a5a";
+          }
+        });
+      }
     });
 
     //获取请求内容
@@ -159,16 +173,15 @@ export default {
           });
         }, 600);
       } else {
-        if (isTrue) {
+        isTrue.value = !isTrue.value;
+        if (isTrue.value) {
           //点赞
+          getUserLikes(vId, user.profile.uId);
           likesButton.value.style.color = "#ec625c";
-          isTrue = false;
-          getUserLikes(content.value.category, 1, vId);
         } else {
           //取消点赞
+          getUserDisLikes(vId, user.profile.uId);
           likesButton.value.style.color = "#5a5a5a";
-          isTrue = true;
-          getUserLikes(content.value.category, 1, vId);
         }
       }
     };

@@ -54,40 +54,47 @@ module.exports.cancelUserCol = async (uId,colId) => {
     return await query(sql,[uId,colId]);
 }
 
-//用户资讯点赞
-module.exports.getNewsLikes = async (num,nId) => {
-    const sql = "update hot_con set likes=likes+? where category = 'news' and hcId=?;";
-    return await query(sql,[num,nId]);
+//内容点赞数增加
+module.exports.getConAddLikes = async (hcId) => {
+    const sql = "update hot_con set likes=likes+1 where hcId=?;";
+    return await query(sql,[hcId]);
 }
 
-//用户文章点赞
-module.exports.getArticlesLikes = async (num,aId) => {
-    const sql = "update hot_con set likes=likes+? where category = 'articles' and hcId=?;";
-    return await query(sql,[num,aId]);
+//内容点赞数减少
+module.exports.getConReduceLikes = async (hcId) => {
+    const sql = "update hot_con set likes=likes-1 where hcId=?;";
+    return await query(sql,[hcId]);
 }
 
-//用户视频点赞
-module.exports.getVideosLikes = async (num,vId) => {
-    const sql = "update hot_con set likes=likes+? where category = 'videos' and hcId=?;";
-    return await query(sql,[num,vId]);
+//查询用户是否点赞
+module.exports.getUserLike = async (hcId,uId) => {
+    const sql = "select `like` from users_like ul where hcId=? and uId=?;";
+    return await query(sql,[hcId,uId]);
 }
+
+//用户添加点赞信息
+module.exports.addUserLike = async (hcId,uId,like) => {
+    const sql = "insert into users_like (hcId, uId, `like`) VALUES (?, ?, ?);";
+    return await query(sql,[hcId,uId,like]);
+}
+
+//用户进行点赞
+module.exports.setUserLike = async (hcId,uId) => {
+    const sql = "update users_like set `like`=1 where hcId=? and uId=?;";
+    return await query(sql,[hcId,uId]);
+}
+
+//用户取消点赞
+module.exports.setUserDislike = async (hcId,uId) => {
+    const sql = "update users_like set `like`=0 where hcId=? and uId=?;";
+    return await query(sql,[hcId,uId]);
+}
+
 
 //用户资讯评论
-module.exports.addNewsComment = async (nId,uId,content,commentTime) => {
+module.exports.addConComment = async (hcId,uId,content,commentTime) => {
     const sql = "insert into hc_comment(hcId, uId, content, commentTime) VALUES (?,?,?,?);";
-    return await query(sql,[nId,uId,content,commentTime]);
-}
-
-//用户文章评论
-module.exports.addArticlesComment = async (aId,uId,content,commentTime) => {
-    const sql = "insert into hc_comment(hcId, uId, content, commentTime) VALUES (?,?,?,?);";
-    return await query(sql,[aId,uId,content,commentTime]);
-}
-
-//用户视频评论
-module.exports.addVideosComment = async (vId,uId,content,commentTime) => {
-    const sql = "insert into hc_comment(hcId, uId, content, commentTime) VALUES (?,?,?,?);";
-    return await query(sql,[vId,uId,content,commentTime]);
+    return await query(sql,[hcId,uId,content,commentTime]);
 }
 
 //查询用户详情
