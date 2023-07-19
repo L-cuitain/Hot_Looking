@@ -9,10 +9,16 @@
                 <el-tab-pane label="主页" name="first"
                   ><UsersPageHome @changeTab="handleChangeTab"
                 /></el-tab-pane>
-                <el-tab-pane label="投稿" name="second"
+                <el-tab-pane
+                  label="投稿"
+                  name="second"
+                  v-if="userInfo.category === '用户'"
                   ><UsersPageCon
                 /></el-tab-pane>
                 <el-tab-pane label="订阅" name="third"
+                  ><UsersPageCol
+                /></el-tab-pane>
+                <el-tab-pane label="待审核" name="fourth"
                   ><UsersPageCol
                 /></el-tab-pane>
               </el-tabs>

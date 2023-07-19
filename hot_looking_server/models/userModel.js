@@ -99,14 +99,14 @@ module.exports.addConComment = async (hcId,uId,content,commentTime) => {
 
 //查询用户详情
 module.exports.findUserDetail = async (uId) => {
-    const sql = "select name,avatar from users where uId=?;";
+    const sql = "select name,avatar,category from users where uId=?;";
     return await query(sql,uId);
 }
 
 //查询用户主页投稿的文章
 module.exports.findUserCon = async (uId,offsetNum) => {
     const sql = "select\n" +
-        "     hc.hcId , hc.category ,l.lName,hc.img,hc.title,hc.summary,hc.releaseTime,hc.likes,c.colTitle,c.colSummary,c.colNum,COUNT(vc.content) 'cCount',u.name,u.avatar\n" +
+        "     hc.hcId , hc.category ,l.lName,hc.img,hc.title,hc.summary,hc.releaseTime,hc.likes,hc.review,c.colTitle,c.colSummary,c.colNum,COUNT(vc.content) 'cCount',u.name,u.avatar\n" +
         "from\n" +
         "    hot_con hc Left JOIN hc_comment vc on hc.hcId = vc.hcId\n" +
         "            Left JOIN users u on hc.uId = u.uId\n" +

@@ -2,19 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11694a26-43bd-417f-83a1-584026238adb" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/contribute/ContributePage.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/contribute/components/ContributePageForm.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/getId.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/api/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/api/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/router/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/views/users/UsersPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/users/UsersPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/views/users/components/UsersPageCon.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/users/components/UsersPageCon.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/views/users/components/UsersPageHome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/users/components/UsersPageHome.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/userController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/userModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/userModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/time.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/time.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +45,7 @@
       <option name="presentableId" value="Default" />
       <updated>1689125867087</updated>
       <workItem from="1689125868428" duration="18971000" />
-      <workItem from="1689557201168" duration="27947000" />
+      <workItem from="1689557201168" duration="29667000" />
     </task>
     <servers />
   </component>
