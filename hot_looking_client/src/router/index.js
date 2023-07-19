@@ -27,6 +27,8 @@ const TopPage = () => import("../views/Top/TopPage");
 const UserPage = () => import("../views/users/UsersPage");
 //登录
 const LoginPage = () => import("../views/login/LoginPage");
+//投稿
+const ContributePage = () => import("../views/contribute/ContributePage");
 
 const routes = [
   {
@@ -97,6 +99,11 @@ const routes = [
     path: "/top",
     name: "Top",
     component: TopPage,
+  },
+  {
+    path: "/contribute",
+    name: "Contribute",
+    component: ContributePage,
   },
 ];
 

@@ -23,7 +23,14 @@
       </h2>
       <div v-if="conInfo">
         <div class="emptyContent" v-if="conInfo.total === 0">
-          <span>还没有内容，点击这里添加内容</span>
+          <span
+            >还没有内容，<RouterLink
+              to="/contribute"
+              style="color: #ec625c"
+              target="_blank"
+              >点击这里添加内容</RouterLink
+            ></span
+          >
         </div>
         <el-row v-else>
           <el-col :span="8" v-for="item in conInfo.list" :key="item.hcId">

@@ -33,9 +33,18 @@
                   class="am_card_block profilePage_sidebar_actions"
                   v-if="uId == user.profile.uId"
                 >
+                  <RouterLink
+                    to="/contribute"
+                    style="color: #ec625c"
+                    target="_blank"
+                    class="btn btn-outline-dark btn-ellipse"
+                  >
+                    新增投稿
+                  </RouterLink>
                   <a
                     class="btn btn-outline-dark btn-ellipse"
                     href="#"
+                    style="color: #f0f0f0; background-color: #ec625c"
                     @click="loginOut"
                     >退出登录</a
                   >
@@ -232,6 +241,8 @@ img.avatar_img {
 }
 
 .btn-ellipse {
+  display: block;
+  margin: 10px 0;
   border-radius: 1.28571em;
 }
 .btn-outline-dark {

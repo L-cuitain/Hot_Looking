@@ -14,3 +14,9 @@ module.exports.getTimeHMS = (data) => {
         item.commentTime = moment(item.commentTime).format('LL')
     })
 }
+
+//获取内容发布的当前时间
+module.exports.getRTForNow = () => {
+    const releaseTime = moment().format("YYYY-MM-DD HH:mm:ss");
+    return releaseTime;
+}

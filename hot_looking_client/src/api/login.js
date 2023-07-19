@@ -132,3 +132,12 @@ export function getUserCon(uId, current) {
 export function getUserCol(uId, current) {
   return requestWithToken("/user/col", "post", { uId, current });
 }
+
+/**
+ * 投稿内容
+ * @param form 内容表单信息
+ * @returns {*|AxiosPromise}
+ */
+export function addContent(form) {
+  return requestWithToken("/user/addCon", "post", { form });
+}

@@ -19,8 +19,17 @@ const {
     findUserCon,
     findUserConTotal,
     findUserCol,
-    findUserColTotal
+    findUserColTotal,
+    addHotCon
 } = require('../models/userModel');
+
+const { getNewsByCount } = require('../models/newsModel');
+const { getArticlesTotal } = require('../models/articlesModel');
+const { getVideosTotal } = require('../models/videosModel');
+const { getHcId } = require('../utils/getId');
+const { getRTForNow } = require('../utils/time');
+
+
 //引入jwt
 const jwt = require('jsonwebtoken');
 
@@ -55,7 +64,6 @@ module.exports.userLogin = async (ctx) => {
 //注册
 module.exports.userRegister = async (ctx) => {
     const { name,account,password } = ctx.request.body;
-    console.log(name,account,password);
     if(name.trim() !== '' && account.trim() !== '' && password.trim() !== ''){
         const data = await getUserByNC(name,account);
         if(!data[0]){
@@ -153,7 +161,6 @@ module.exports.getUserLikes = async (ctx) => {
 //用户取消点赞
 module.exports.getUserDisLikes = async (ctx) => {
     const { hcId , uId } = ctx.request.body;
-
     const data = await getUserLike(hcId,uId);
     if(data.length !== 0){
         await setUserDislike(hcId,uId);
@@ -177,8 +184,6 @@ module.exports.getUserDisLikes = async (ctx) => {
 //用户评论
 module.exports.addUserComment = async (ctx) => {
     const { id , uId , content , commentTime } = ctx.request.body;
-    console.log( id , uId , content , commentTime);
-
     await addConComment(id,uId,content,commentTime);
 
     ctx.body = {
@@ -190,7 +195,6 @@ module.exports.addUserComment = async (ctx) => {
 //查询用户详情
 module.exports.getUserInfo = async (ctx) => {
     const { uId } = ctx.request.body;
-    console.log(uId)
     const data = await findUserDetail(uId);
     ctx.body = {
         code: 200,
@@ -238,5 +242,39 @@ module.exports.getUserCol = async (ctx) => {
         code: 200,
         message: "用户投稿获取成功",
         result: collections
+    }
+}
+
+//用户投稿
+module.exports.addUserContent = async (ctx) => {
+    const { form } = ctx.request.body;
+
+    let formData = {...form};
+    //给内容添加id
+    if(formData.category === "news"){
+        //获取资讯数量
+        const count = await getNewsByCount();
+        //更改id格式
+        formData.hcId = getHcId(formData.category, count[0].total);
+
+    }else if(formData.category === "articles"){
+        //获取文章数量
+        const count = await getArticlesTotal();
+        //更改id格式
+        formData.hcId = getHcId(formData.category, count[0].total);
+
+    }else if(formData.category === "videos"){
+        //获取视频数量
+        const count = await getVideosTotal();
+        //更改id格式
+        formData.hcId = getHcId(formData.category, count[0].total);
+    }
+
+    //设置发布时间
+    formData.releaseTime = getRTForNow();
+    await addHotCon(formData);
+    ctx.body = {
+        code: 200,
+        message: "投稿成功",
     }
 }

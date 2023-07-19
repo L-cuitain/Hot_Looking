@@ -136,3 +136,11 @@ module.exports.findUserColTotal = async (uId) => {
     const sql = "select COUNT(*) total from users_sub where uId=? and subInfo='已订阅';";
     return await query(sql,uId);
 }
+
+//用户投稿
+module.exports.addHotCon = async (form) => {
+    const { hcId , img , title , summary , content , contentImg , url , releaseTime , category , uId , label } = form;
+    console.log(hcId , img , title , summary , content , contentImg , url , releaseTime , category , uId , label);
+    const sql = "insert into hot_con(hcId,img,title,summary,content,contentImg,url,releaseTime,category,uId,lId) VALUES (?,?,?,?,?,?,?,?,?,?,?);"
+    return await query(sql,[hcId , img , title , summary , content , contentImg , url , releaseTime , category , uId , label]);
+}
