@@ -2,9 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11694a26-43bd-417f-83a1-584026238adb" name="变更" comment="">
-      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/views/users/UsersPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/users/UsersPage.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hot_looking_client/src/components/ReviewTimeLine.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/views/users/components/UsersPageHome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/users/components/UsersPageHome.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/articlesModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/articlesModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/collectionsModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/collectionsModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/detailModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/detailModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/homeModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/homeModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/labelModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/labelModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/newsModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/newsModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/topModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/topModel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/userModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/userModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/videosModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/videosModel.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +54,7 @@
       <option name="presentableId" value="Default" />
       <updated>1689125867087</updated>
       <workItem from="1689125868428" duration="18971000" />
-      <workItem from="1689557201168" duration="29667000" />
+      <workItem from="1689557201168" duration="39747000" />
     </task>
     <servers />
   </component>

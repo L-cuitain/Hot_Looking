@@ -14,7 +14,7 @@ module.exports.getCollectionByNum = async () => {
 
 //查询推荐视频
 module.exports.getVideoByNum = async () => {
-    const sql = "select * from hot_con where category = 'videos' order by likes desc limit 0,3;";
+    const sql = "select * from hot_con where category = 'videos' and review = 1 order by likes desc limit 0,3;";
     return await query(sql);
 }
 
@@ -26,7 +26,7 @@ module.exports.getNewsByComment = async () => {
         "    hot_con n Left JOIN hc_comment c on n.hcId = c.hcId\n" +
         "            Left JOIN users u on n.uId = u.uId\n" +
         "            Left JOIN label l  on n.lId = l.lId\n" +
-        "where n.category = 'news'\n" +
+        "where n.category = 'news' and review = 1\n" +
         "group by n.hcId\n" +
         "order by COUNT(c.content) desc limit 0,3;";
     return await query(sql);
@@ -40,7 +40,7 @@ module.exports.getNewsByRTime = async () => {
         "    hot_con n Left JOIN hc_comment c on n.hcId = c.hcId\n" +
         "            Left JOIN users u on n.uId = u.uId\n" +
         "            Left JOIN label l  on n.lId = l.lId\n" +
-        "where n.category = 'news'\n" +
+        "where n.category = 'news' and review = 1\n" +
         "group by n.hcId , n.releaseTime\n" +
         "order by n.releaseTime desc limit 0,5;";
     return await query(sql);
@@ -52,9 +52,9 @@ module.exports.getAVByRTime = async () => {
         "from hot_con va Left JOIN hc_comment vc on va.hcId = vc.hcId\n" +
         "            Left JOIN users u on va.uId = u.uId\n" +
         "            Left JOIN label l  on va.lId = l.lId\n" +
-        "where va.category = 'videos' or va.category = 'articles'\n" +
+        "where va.review = 1 and va.category = 'videos' or va.category = 'articles'\n" +
         "group by va.hcId,va.releaseTime\n" +
-        "order by releaseTime desc limit 12 offset 0;";
+        "order by releaseTime desc limit 12 offset 5;";
     return await query(sql);
 }
 
@@ -66,7 +66,7 @@ module.exports.getIframeByRTime = async () => {
         "    hot_con v Left JOIN hc_comment vc on v.hcId = vc.hcId\n" +
         "            Left JOIN users u on v.uId = u.uId\n" +
         "            Left JOIN label l  on v.lId = l.lId\n" +
-        "where v.category = 'videos'\n" +
+        "where v.category = 'videos' and review = 1\n" +
         "group by v.hcId,v.releaseTime\n" +
         "order by v.releaseTime limit 0,4;";
 

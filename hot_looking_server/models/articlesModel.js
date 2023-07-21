@@ -8,7 +8,7 @@ module.exports.getArticlesAll = async (offsetNum) => {
         "    hot_con a Left JOIN hc_comment ac on a.hcId = ac.hcId\n" +
         "            Left JOIN users u on a.uId = u.uId\n" +
         "            Left JOIN label l  on a.lId = l.lId\n" +
-        "where a.category = 'articles'\n" +
+        "where a.category = 'articles' and a.review = 1\n" +
         "group by a.hcId\n" +
         "limit 12 offset ?;";
     return await query(sql,offsetNum);
@@ -16,6 +16,6 @@ module.exports.getArticlesAll = async (offsetNum) => {
 
 //获取文章总数
 module.exports.getArticlesTotal = async () => {
-    const sql = "select COUNT(*) total from hot_con where category = 'articles';";
+    const sql = "select COUNT(*) total from hot_con where category = 'articles' and review = 1;";
     return await query(sql);
 }

@@ -92,6 +92,15 @@
         </el-row>
       </div>
     </div>
+    <el-button text @click="dialogVisible = true"> 审核状态 </el-button>
+    <el-dialog v-model="dialogVisible" title="审核状态" width="30%">
+      <ReviewTimeLine />
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible = false">确定</el-button>
+        </span>
+      </template>
+    </el-dialog>
 
     <div class="ah_section">
       <!--        标题-->
@@ -146,9 +155,11 @@
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { getUserCon, getUserCol } from "@/api/login";
+import ReviewTimeLine from "@/components/ReviewTimeLine";
 
 export default {
   name: "UsersPageHome",
+  components: { ReviewTimeLine },
   emits: ["changeTab"],
   setup(props, { emit }) {
     const page = ref(1);
@@ -159,7 +170,10 @@ export default {
     };
     const { conInfo } = useUserCon(uId, page.value);
     const { colInfo } = useUserCol(uId, page.value);
-    return { onChangeTab, conInfo, colInfo };
+
+    const dialogVisible = ref(false);
+
+    return { onChangeTab, conInfo, colInfo, open, dialogVisible };
   },
 };
 

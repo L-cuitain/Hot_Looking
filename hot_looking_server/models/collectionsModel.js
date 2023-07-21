@@ -28,7 +28,7 @@ module.exports.getDetailAllList = async (colId,offsetNum) => {
         "            Left JOIN users u on hc.uId = u.uId\n" +
         "            Left JOIN label l  on hc.lId = l.lId\n" +
         "            Left JOIN collections c on hc.colId = c.colId\n" +
-        "where c.colId=?\n" +
+        "where hc.review = 1 and c.colId=?\n" +
         "group by hc.hcId , hc.releaseTime , hc.likes\n" +
         "order by likes desc\n" +
         "limit 12 offset ?;";
@@ -36,7 +36,7 @@ module.exports.getDetailAllList = async (colId,offsetNum) => {
 }
 //获取专题详情总数量
 module.exports.getDetailALlTotal = async (colId) => {
-    const sql = "select COUNT(hot_con.hcId) total from hot_con where colId=?;";
+    const sql = "select COUNT(hot_con.hcId) from hot_con where review = 1 and colId=?;";
     return await query(sql,[colId]);
 }
 
@@ -49,7 +49,7 @@ module.exports.getDetailNewsList = async (colId,offsetNum) => {
         "            Left JOIN users u on hc.uId = u.uId\n" +
         "            Left JOIN label l  on hc.lId = l.lId\n" +
         "            Left JOIN collections c on hc.colId = c.colId\n" +
-        "where hc.category = 'news' and  c.colId=?\n" +
+        "where hc.category = 'news' and hc.review = 1 and  c.colId=?\n" +
         "group by hc.hcId , hc.releaseTime\n" +
         "order by hc.releaseTime limit 12 offset ?;";
     return await query(sql,[colId,offsetNum]);
@@ -57,7 +57,7 @@ module.exports.getDetailNewsList = async (colId,offsetNum) => {
 
 //获取专题详情资讯数量
 module.exports.getDetailNewsTotal = async (colId) => {
-    const sql = "select COUNT(*) total from hot_con where category = 'news' and colId=?;";
+    const sql = "select COUNT(*) total from hot_con where category = 'news' and review = 1 and colId='COL001';";
     return await query(sql,colId);
 }
 
@@ -70,14 +70,14 @@ module.exports.getDetailArticlesList = async (colId,offsetNum) => {
         "            Left JOIN users u on hc.uId = u.uId\n" +
         "            Left JOIN label l  on hc.lId = l.lId\n" +
         "            Left JOIN collections c on hc.colId = c.colId\n" +
-        "where hc.category = 'articles' and c.colId=?\n" +
+        "where hc.category = 'articles' and hc.review = 1 and c.colId=?\n" +
         "group by hc.hcId , hc.releaseTime\n" +
         "order by hc.releaseTime limit 12 offset ?;";
     return await query(sql,[colId,offsetNum]);
 }
 //获取专题详情文章数量
 module.exports.getDetailArticlesTotal = async (colId) => {
-    const sql = "select COUNT(*) total from hot_con where category = 'articles' and colId=?;";
+    const sql = "select COUNT(*) total from hot_con where category = 'articles' and review = 1 and colId=?;";
     return await query(sql,colId);
 }
 
@@ -90,13 +90,13 @@ module.exports.getDetailVideosList = async (colId,offsetNum) => {
         "            Left JOIN users u on hc.uId = u.uId\n" +
         "            Left JOIN label l  on hc.lId = l.lId\n" +
         "            Left JOIN collections c on hc.colId = c.colId\n" +
-        "where hc.category = 'videos' and c.colId=?\n" +
+        "where hc.category = 'videos' and hc.review = 1 and c.colId=?\n" +
         "group by hc.hcId , hc.releaseTime\n" +
         "order by hc.releaseTime limit 12 offset ?;";
     return await query(sql,[colId,offsetNum]);
 }
 //获取专题详情视频数量
 module.exports.getDetailVideosTotal = async (colId) => {
-    const sql = "select COUNT(*) total from hot_con where category = 'videos' and colId=?;";
+    const sql = "select COUNT(*) total from hot_con where category = 'videos' and review = 1 and colId=?;";
     return await query(sql,colId);
 }

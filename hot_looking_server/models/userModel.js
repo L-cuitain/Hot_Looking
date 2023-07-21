@@ -112,7 +112,7 @@ module.exports.findUserCon = async (uId,offsetNum) => {
         "            Left JOIN users u on hc.uId = u.uId\n" +
         "            Left JOIN label l  on hc.lId = l.lId\n" +
         "            Left JOIN collections c on hc.colId = c.colId\n" +
-        "where u.uId = ?\n" +
+        "where u.uId = ? and hc.review = 1\n" +
         "group by hc.hcId , hc.releaseTime\n" +
         "order by releaseTime desc\n" +
         "limit 9 offset ?;";
@@ -121,7 +121,7 @@ module.exports.findUserCon = async (uId,offsetNum) => {
 
 //查询用户主页投稿文章的数量
 module.exports.findUserConTotal = async (uId) => {
-    const sql = "select COUNT(hc.hcId) total from hot_con hc where uId = ?;";
+    const sql = "select COUNT(hc.hcId) total from hot_con hc where review = 1 and uId = ?;";
     return await query(sql,[uId]);
 }
 
@@ -140,7 +140,6 @@ module.exports.findUserColTotal = async (uId) => {
 //用户投稿
 module.exports.addHotCon = async (form) => {
     const { hcId , img , title , summary , content , contentImg , url , releaseTime , category , uId , label } = form;
-    console.log(hcId , img , title , summary , content , contentImg , url , releaseTime , category , uId , label);
     const sql = "insert into hot_con(hcId,img,title,summary,content,contentImg,url,releaseTime,category,uId,lId) VALUES (?,?,?,?,?,?,?,?,?,?,?);"
     return await query(sql,[hcId , img , title , summary , content , contentImg , url , releaseTime , category , uId , label]);
 }

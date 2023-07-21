@@ -8,7 +8,7 @@ module.exports.getVideosAll = async (offsetNum) => {
         "    hot_con v Left JOIN hc_comment vc on v.hcId = vc.hcId\n" +
         "            Left JOIN users u on v.uId = u.uId\n" +
         "            Left JOIN label l  on v.lId = l.lId\n" +
-        "where v.category = 'videos'\n" +
+        "where v.category = 'videos' and v.review = 1\n" +
         "group by v.hcId\n" +
         "limit 12 offset ?;";
     return await query(sql,offsetNum);
@@ -16,6 +16,6 @@ module.exports.getVideosAll = async (offsetNum) => {
 
 //获取视频总数
 module.exports.getVideosTotal = async () => {
-    const sql = "select COUNT(*) total from hot_con where category = 'videos';";
+    const sql = "select COUNT(*) total from hot_con where category = 'videos' and review = 1;";
     return await query(sql);
 }

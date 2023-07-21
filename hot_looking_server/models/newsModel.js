@@ -5,7 +5,7 @@ module.exports.getNewsByRTime = async () => {
     const sql = "select\n" +
         "       n.hcId,n.img,n.releaseTime,n.contentImg\n" +
         "from\n" +
-        "    hot_con n where category = 'news' order by releaseTime desc limit 0,3;";
+        "    hot_con n where n.category = 'news' and n.review = 1 order by releaseTime desc limit 0,3;";
 
     return await query(sql);
 }
@@ -14,7 +14,7 @@ module.exports.getNewsByRTime = async () => {
 module.exports.getNewsByLikes = async () => {
     const sql = "select n.hcId,n.title,n.likes , COUNT(nc.content) 'cCount'\n" +
         "from hot_con n Left JOIN hc_comment nc on n.hcId = nc.hcId\n" +
-        "where n.category = 'news'\n" +
+        "where n.category = 'news' and n.review = 1\n" +
         "group by n.hcId , n.likes\n" +
         "order by n.likes desc limit 0,5;";
     return await query(sql);
@@ -28,7 +28,7 @@ module.exports.getNewsAll = async (offsetNum) => {
         "    hot_con n Left JOIN hc_comment c on n.hcId = c.hcId\n" +
         "            Left JOIN users u on n.uId = u.uId\n" +
         "            Left JOIN label l  on n.lId = l.lId\n" +
-        "where n.category = 'news'\n" +
+        "where n.category = 'news' and n.review = 1\n" +
         "group by n.hcId\n" +
         "limit 12 offset ?;";
     return await query(sql,offsetNum);
@@ -36,7 +36,7 @@ module.exports.getNewsAll = async (offsetNum) => {
 
 //查询资讯数量
 module.exports.getNewsByCount = async () => {
-    const sql = "select COUNT(*) total from hot_con where category = 'news';";
+    const sql = "select COUNT(*) total from hot_con where category = 'news' and review = 1;";
     return await query(sql);
 }
 

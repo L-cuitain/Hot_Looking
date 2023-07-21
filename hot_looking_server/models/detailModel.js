@@ -9,8 +9,7 @@ module.exports.getNewsByNId = async (nId) => {
         "            Left JOIN users u on hc.uId = u.uId\n" +
         "            Left JOIN label l  on hc.lId = l.lId\n" +
         "            Left JOIN collections c on hc.colId = c.colId\n" +
-        "where hc.category = 'news' and hc.hcId=?;";
-
+        "where hc.category = 'news' and hc.hcId=? and hc.review = 1;";
     return await query(sql,nId);
 }
 
@@ -20,7 +19,7 @@ module.exports.getHotArticlesByWeek = async () => {
         "     hc.hcId,hc.img,hc.title,hc.releaseTime,hc.likes,COUNT(ac.content) 'cCount'\n" +
         "from\n" +
         "    hot_con hc Left JOIN hc_comment ac on hc.hcId = ac.hcId\n" +
-        "where hc.category = 'articles'\n" +
+        "where hc.category = 'articles' and hc.review = 1\n" +
         "group by hc.hcId , hc.likes\n" +
         "order by hc.likes limit 0,10;";
     return await query(sql);
@@ -47,7 +46,7 @@ module.exports.getArticleByAId = async (aId) => {
         "            Left JOIN users u on hc.uId = u.uId\n" +
         "            Left JOIN label l  on hc.lId = l.lId\n" +
         "            Left JOIN collections c on hc.colId = c.colId\n" +
-        "where hc.category = 'articles' and hc.hcId=?;";
+        "where hc.category = 'articles' and hc.hcId=? and hc.review = 1;";
     return await query(sql,aId);
 }
 
@@ -72,7 +71,7 @@ module.exports.getVideoByVId = async (vId) => {
         "            Left JOIN users u on hc.uId = u.uId\n" +
         "            Left JOIN label l  on hc.lId = l.lId\n" +
         "            Left JOIN collections c on hc.colId = c.colId\n" +
-        "where hc.category='videos' and hc.hcId=?;";
+        "where hc.category='videos' and hc.hcId=? and hc.review = 1;";
     return await query(sql,vId);
 }
 // 根据视频id查询视频评论
