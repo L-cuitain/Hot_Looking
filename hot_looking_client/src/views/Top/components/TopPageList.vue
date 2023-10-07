@@ -39,10 +39,20 @@
           </div>
           <div class="news_info_card">
             <div class="news_info_category">
-              {{ item.category }} / {{ item.lName }}
+              <RouterLink :to="`/category/${item.lId}`">
+                {{ item.lName }}
+              </RouterLink>
             </div>
             <div class="news_info_content">
-              <h3>{{ item.title }}</h3>
+              <RouterLink
+                :to="
+                  item.category === 'videos'
+                    ? `/videos/detail/${item.hcId}`
+                    : `/articles/detail/${item.hcId}`
+                "
+              >
+                <h3>{{ item.title }}</h3>
+              </RouterLink>
             </div>
             <div class="news_info_btm">
               <div class="news_info_btm_user">
@@ -220,7 +230,7 @@ function useTopList() {
   overflow: hidden;
 }
 
-.news_info_content > h3 {
+.news_info_content h3 {
   font-size: 1rem;
   line-height: 1.4rem;
   max-height: 2.8rem;

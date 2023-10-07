@@ -2,7 +2,7 @@ const {query} = require("../db/query");
 
 //查找所有最新文章与视频
 module.exports.getAVALl = async (offsetNum) => {
-    const sql = "select va.hcId , va.category ,l.lName,va.img,va.title,va.summary,va.releaseTime,va.likes,COUNT(vc.content) 'cCount',u.uId,u.name,u.avatar\n" +
+    const sql = "select va.hcId , va.category , l.lId ,l.lName,va.img,va.title,va.summary,va.releaseTime,va.likes,COUNT(vc.content) 'cCount',u.uId,u.name,u.avatar\n" +
         "from hot_con va Left JOIN hc_comment vc on va.hcId = vc.hcId\n" +
         "            Left JOIN users u on va.uId = u.uId\n" +
         "            Left JOIN label l  on va.lId = l.lId\n" +

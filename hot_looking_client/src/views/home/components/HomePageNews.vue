@@ -32,8 +32,8 @@
                   <img :src="item.img" alt="" />
                   <RouterLink
                     class="news_info_img_video_cover"
-                    :to="`/videos/detail/${item.vId}`"
-                    v-if="item.category === 'video'"
+                    :to="`/videos/detail/${item.hcId}`"
+                    v-if="item.category === 'videos'"
                   >
                     <span class="original_imgArea_info">
                       <svg
@@ -56,8 +56,8 @@
 
                   <RouterLink
                     class="news_info_img_article_cover"
-                    :to="`/articles/detail/${item.vId}`"
-                    v-if="item.category === 'article'"
+                    :to="`/articles/detail/${item.hcId}`"
+                    v-if="item.category === 'articles'"
                   >
                     <p>{{ item.summary }}</p>
                   </RouterLink>
@@ -71,9 +71,9 @@
                   <div class="news_info_content">
                     <RouterLink
                       :to="
-                        item.category === 'video'
-                          ? `/videos/detail/${item.vId}`
-                          : `/articles/detail/${item.vId}`
+                        item.category === 'videos'
+                          ? `/videos/detail/${item.hcId}`
+                          : `/articles/detail/${item.hcId}`
                       "
                     >
                       <h3>{{ item.title }}</h3>
