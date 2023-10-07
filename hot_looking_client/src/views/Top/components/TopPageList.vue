@@ -55,13 +55,13 @@
               </RouterLink>
             </div>
             <div class="news_info_btm">
-              <div class="news_info_btm_user">
+              <RouterLink :to="`/users/${item.uId}`" class="news_info_btm_user">
                 <img :src="item.avatar" alt="" />
                 <div class="avatar_text">
                   <h3>{{ item.name }}</h3>
                   <div>{{ item.releaseTime }}</div>
                 </div>
-              </div>
+              </RouterLink>
               <div class="news_info_btm_comment">
                 <svg
                   t="1645747616378"

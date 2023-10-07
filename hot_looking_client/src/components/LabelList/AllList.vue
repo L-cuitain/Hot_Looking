@@ -13,7 +13,7 @@
               <RouterLink
                 class="news_info_img_video_cover"
                 :to="`/videos/detail/${item.hcId}`"
-                v-if="item.category === 'video'"
+                v-if="item.category === 'videos'"
               >
                 <span class="original_imgArea_info">
                   <svg

@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11694a26-43bd-417f-83a1-584026238adb" name="变更" comment="">
+      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/components/LabelList/AllList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/components/LabelList/AllList.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/views/Top/components/TopPageList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/Top/components/TopPageList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/views/home/components/HomePageNews.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/home/components/HomePageNews.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/homeModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/homeModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/topModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/topModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/collectionsModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/collectionsModel.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +52,7 @@
       <workItem from="1696467736818" duration="599000" />
       <workItem from="1696499649855" duration="10000" />
       <workItem from="1696499680842" duration="599000" />
-      <workItem from="1696640650832" duration="2085000" />
+      <workItem from="1696640650832" duration="4381000" />
     </task>
     <servers />
   </component>

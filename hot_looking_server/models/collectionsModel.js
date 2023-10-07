@@ -36,7 +36,7 @@ module.exports.getDetailAllList = async (colId,offsetNum) => {
 }
 //获取专题详情总数量
 module.exports.getDetailALlTotal = async (colId) => {
-    const sql = "select COUNT(hot_con.hcId) from hot_con where review = 1 and colId=?;";
+    const sql = "select COUNT(hot_con.hcId) total from hot_con where review = 1 and colId=?;";
     return await query(sql,[colId]);
 }
 
@@ -57,7 +57,7 @@ module.exports.getDetailNewsList = async (colId,offsetNum) => {
 
 //获取专题详情资讯数量
 module.exports.getDetailNewsTotal = async (colId) => {
-    const sql = "select COUNT(*) total from hot_con where category = 'news' and review = 1 and colId='COL001';";
+    const sql = "select COUNT(*) total from hot_con where category = 'news' and review = 1 and colId=?;";
     return await query(sql,colId);
 }
 
