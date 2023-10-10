@@ -1,6 +1,7 @@
 const {
     logByAcPw ,
     resByNaAcPw,
+    getAllAdmin,
     getUserByNC,
     isSubCol,
     addUserCol,
@@ -20,7 +21,10 @@ const {
     findUserConTotal,
     findUserCol,
     findUserColTotal,
-    addHotCon
+    addHotCon,
+    addAdminAndHc,
+    getAdminHcId,
+    getAdminHcIdTotal
 } = require('../models/userModel');
 
 const { getNewsByCount } = require('../models/newsModel');
@@ -30,8 +34,11 @@ const { getHcId } = require('../utils/getId');
 const { getRTForNow } = require('../utils/time');
 
 
+
 //引入jwt
 const jwt = require('jsonwebtoken');
+const {RandomPicker} = require('@mxssfd/random-picker');
+
 
 //登录
 module.exports.userLogin = async (ctx) => {
@@ -273,8 +280,38 @@ module.exports.addUserContent = async (ctx) => {
     //设置发布时间
     formData.releaseTime = getRTForNow();
     await addHotCon(formData);
+
+    //分配管理员审核该文章
+    const admins = await getAllAdmin();
+    //随机选择其中一名管理员,获取其uId
+    const picker = new RandomPicker(admins);
+    const adminUid = picker.pick().uId;
+    //将管理员id和文章id进行关联
+    await addAdminAndHc(formData.hcId,adminUid);
+
     ctx.body = {
         code: 200,
         message: "投稿成功",
+    }
+}
+
+// 查询管理员需审核文章
+module.exports.getUserReview = async (ctx) => {
+    const { uId , current } = ctx.request.body;
+    const offsetNum = (current-1)*9;
+    const count = await getAdminHcIdTotal(uId);
+    const data = await getAdminHcId(uId,offsetNum);
+
+    const contribute = {
+        list: data,
+        total: count[0].total,
+        pageSize: 9,
+        pageNum: current
+    }
+
+    ctx.body = {
+        code: 200,
+        message: "管理员需审核文章获取成功",
+        result: contribute
     }
 }

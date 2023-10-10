@@ -18,7 +18,16 @@
                 <el-tab-pane label="订阅" name="third"
                   ><UsersPageCol
                 /></el-tab-pane>
-                <el-tab-pane label="待审核" name="fourth"
+                <el-tab-pane
+                  label="待审核"
+                  name="fourth"
+                  v-if="userInfo.category === '用户'"
+                  ><UsersPageCol
+                /></el-tab-pane>
+                <el-tab-pane
+                  label="需审核"
+                  name="fifth"
+                  v-if="userInfo.category === '管理员'"
                   ><UsersPageCol
                 /></el-tab-pane>
               </el-tabs>
@@ -133,6 +142,7 @@ function useUserInfo(uId) {
 }
 .container {
   max-width: 1140px;
+  min-height: 486px;
   margin: 0 15px;
 }
 

@@ -13,7 +13,8 @@ const {
     getUserInfo,
     getUserCon,
     getUserCol,
-    addUserContent
+    addUserContent,
+    getUserReview,
 } = require('../controllers/userController');
 
 
@@ -57,5 +58,8 @@ router.post('/col',getUserCol);
 
 //用户投稿
 router.post('/addCon',addUserContent);
+
+//管理员审核
+router.post('/review',getUserReview);
 
 module.exports = router

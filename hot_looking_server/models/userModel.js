@@ -18,6 +18,12 @@ module.exports.resByNaAcPw = async (name,account,password,category) => {
     return await query(sql,[name,account,password,category]);
 }
 
+//查询所有管理员的uId
+module.exports.getAllAdmin = async () => {
+    const sql = "select uId from users where category='管理员';";
+    return await query(sql);
+}
+
 //查询用户是否订阅专题
 module.exports.isSubCol = async (uId,colId) => {
     const sql = "select subInfo from users_sub where uId=? and colId=?;";
@@ -142,4 +148,22 @@ module.exports.addHotCon = async (form) => {
     const { hcId , img , title , summary , content , contentImg , url , releaseTime , category , uId , label } = form;
     const sql = "insert into hot_con(hcId,img,title,summary,content,contentImg,url,releaseTime,category,uId,lId) VALUES (?,?,?,?,?,?,?,?,?,?,?);"
     return await query(sql,[hcId , img , title , summary , content , contentImg , url , releaseTime , category , uId , label]);
+}
+
+//审核员与文章id进行关联
+module.exports.addAdminAndHc = async (hcId,uId) => {
+    const sql = "insert into admin_review(hcId, uId) values (?,?);";
+    return await query(sql,[hcId,uId]);
+}
+
+//查询管理员需审核的文章id
+module.exports.getAdminHcId = async (uId,offsetNum) => {
+    const sql = "select adr.hcId , hc.title,hc.category from hot_con hc , admin_review adr where adr.uId = ? and adr.hcId = hc.hcId limit 6 offset ?;";
+    return await query(sql,[uId,offsetNum]);
+}
+
+//查询管理员审核文章数量
+module.exports.getAdminHcIdTotal = async(uId) => {
+    const sql = "select Count(*) total from admin_review where uId = ?;";
+    return await query(sql,[uId]);
 }

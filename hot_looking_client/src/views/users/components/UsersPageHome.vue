@@ -2,96 +2,183 @@
   <div>
     <div class="ah_section">
       <!--        标题-->
-      <h2 class="ah_title">
-        <a href="#" @click="onChangeTab('second')"
-          >投稿的文章
-          <span class="pm_2">
-            <svg
-              t="1645494758486"
-              class="title_icon"
-              viewBox="0 0 1024 1024"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              p-id="3356"
+      <div v-if="category === '用户'">
+        <h2 class="ah_title">
+          <a href="#" @click="onChangeTab('second')"
+            >投稿的文章
+            <span class="pm_2">
+              <svg
+                t="1645494758486"
+                class="title_icon"
+                viewBox="0 0 1024 1024"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                p-id="3356"
+              >
+                <path
+                  d="M409.307429 167.789714l304.274285 302.08a61.878857 61.878857 0 0 1 18.285715 45.494857 61.878857 61.878857 0 0 1-18.285715 45.494858l-304.274285 302.08c-24.283429 24.137143-64.073143 24.283429-88.502858 0.146285l0.438858 0.438857-2.925715-3.072a61.659429 61.659429 0 0 1 0.146286-80.310857l3.510857-3.803428 262.729143-260.827429L321.974857 254.537143a61.908114 61.908114 0 0 1-3.657143-84.114286l2.925715-3.218286 3.510857-3.218285c24.576-20.48 61.586286-19.017143 84.553143 3.803428z"
+                  p-id="3357"
+                ></path>
+              </svg> </span
+          ></a>
+        </h2>
+        <div v-if="conInfo">
+          <div class="emptyContent" v-if="conInfo.total === 0">
+            <span
+              >还没有内容，<RouterLink
+                to="/contribute"
+                style="color: #ec625c"
+                target="_blank"
+                >点击这里添加内容</RouterLink
+              ></span
             >
-              <path
-                d="M409.307429 167.789714l304.274285 302.08a61.878857 61.878857 0 0 1 18.285715 45.494857 61.878857 61.878857 0 0 1-18.285715 45.494858l-304.274285 302.08c-24.283429 24.137143-64.073143 24.283429-88.502858 0.146285l0.438858 0.438857-2.925715-3.072a61.659429 61.659429 0 0 1 0.146286-80.310857l3.510857-3.803428 262.729143-260.827429L321.974857 254.537143a61.908114 61.908114 0 0 1-3.657143-84.114286l2.925715-3.218286 3.510857-3.218285c24.576-20.48 61.586286-19.017143 84.553143 3.803428z"
-                p-id="3357"
-              ></path>
-            </svg> </span
-        ></a>
-      </h2>
-      <div v-if="conInfo">
-        <div class="emptyContent" v-if="conInfo.total === 0">
-          <span
-            >还没有内容，<RouterLink
-              to="/contribute"
-              style="color: #ec625c"
-              target="_blank"
-              >点击这里添加内容</RouterLink
-            ></span
-          >
-        </div>
-        <el-row v-else>
-          <el-col :span="8" v-for="item in conInfo.list" :key="item.hcId">
-            <div class="subscription">
-              <RouterLink
-                v-if="item.category === 'news'"
-                :to="`/news/detail/${item.hcId}`"
-                class="subscription_l"
-              >
-                <div>{{ item.title.charAt(0) }}</div>
-              </RouterLink>
-              <RouterLink
-                v-if="item.category === 'articles'"
-                :to="`/articles/detail/${item.hcId}`"
-                class="subscription_l"
-              >
-                <div>{{ item.title.charAt(0) }}</div>
-              </RouterLink>
-              <RouterLink
-                v-if="item.category === 'videos'"
-                :to="`/videos/detail/${item.hcId}`"
-                class="subscription_l"
-              >
-                <div>{{ item.title.charAt(0) }}</div>
-              </RouterLink>
-              <div class="subscription_content">
-                <h3 class="subscription_name">
-                  <RouterLink
-                    v-if="item.category === 'news'"
-                    :to="`/news/detail/${item.hcId}`"
-                  >
-                    {{ item.title }}
-                  </RouterLink>
-                  <RouterLink
-                    v-if="item.category === 'articles'"
-                    :to="`/articles/detail/${item.hcId}`"
-                  >
-                    {{ item.title }}
-                  </RouterLink>
-                  <RouterLink
-                    v-if="item.category === 'videos'"
-                    :to="`/videos/detail/${item.hcId}`"
-                  >
-                    {{ item.title }}
-                  </RouterLink>
-                </h3>
-                <p v-if="item.category === 'news'">
-                  {{ item.category === "news" ? "资讯" : "" }}
-                </p>
-                <p v-if="item.category === 'articles'">
-                  {{ item.category === "articles" ? "文章" : "" }}
-                </p>
-                <p v-if="item.category === 'videos'">
-                  {{ item.category === "videos" ? "视频" : "" }}
-                </p>
+          </div>
+          <el-row v-else>
+            <el-col :span="8" v-for="item in conInfo.list" :key="item.hcId">
+              <div class="subscription">
+                <RouterLink
+                  v-if="item.category === 'news'"
+                  :to="`/news/detail/${item.hcId}`"
+                  class="subscription_l"
+                >
+                  <div>{{ item.title.charAt(0) }}</div>
+                </RouterLink>
+                <RouterLink
+                  v-if="item.category === 'articles'"
+                  :to="`/articles/detail/${item.hcId}`"
+                  class="subscription_l"
+                >
+                  <div>{{ item.title.charAt(0) }}</div>
+                </RouterLink>
+                <RouterLink
+                  v-if="item.category === 'videos'"
+                  :to="`/videos/detail/${item.hcId}`"
+                  class="subscription_l"
+                >
+                  <div>{{ item.title.charAt(0) }}</div>
+                </RouterLink>
+                <div class="subscription_content">
+                  <h3 class="subscription_name">
+                    <RouterLink
+                      v-if="item.category === 'news'"
+                      :to="`/news/detail/${item.hcId}`"
+                    >
+                      {{ item.title }}
+                    </RouterLink>
+                    <RouterLink
+                      v-if="item.category === 'articles'"
+                      :to="`/articles/detail/${item.hcId}`"
+                    >
+                      {{ item.title }}
+                    </RouterLink>
+                    <RouterLink
+                      v-if="item.category === 'videos'"
+                      :to="`/videos/detail/${item.hcId}`"
+                    >
+                      {{ item.title }}
+                    </RouterLink>
+                  </h3>
+                  <p v-if="item.category === 'news'">
+                    {{ item.category === "news" ? "资讯" : "" }}
+                  </p>
+                  <p v-if="item.category === 'articles'">
+                    {{ item.category === "articles" ? "文章" : "" }}
+                  </p>
+                  <p v-if="item.category === 'videos'">
+                    {{ item.category === "videos" ? "视频" : "" }}
+                  </p>
+                </div>
               </div>
-            </div>
-          </el-col>
-        </el-row>
+            </el-col>
+          </el-row>
+        </div>
+      </div>
+      <div v-else>
+        <h2 class="ah_title">
+          <a href="#" @click="onChangeTab('fifth')"
+            >需要审核的文章
+            <span class="pm_2">
+              <svg
+                t="1645494758486"
+                class="title_icon"
+                viewBox="0 0 1024 1024"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                p-id="3356"
+              >
+                <path
+                  d="M409.307429 167.789714l304.274285 302.08a61.878857 61.878857 0 0 1 18.285715 45.494857 61.878857 61.878857 0 0 1-18.285715 45.494858l-304.274285 302.08c-24.283429 24.137143-64.073143 24.283429-88.502858 0.146285l0.438858 0.438857-2.925715-3.072a61.659429 61.659429 0 0 1 0.146286-80.310857l3.510857-3.803428 262.729143-260.827429L321.974857 254.537143a61.908114 61.908114 0 0 1-3.657143-84.114286l2.925715-3.218286 3.510857-3.218285c24.576-20.48 61.586286-19.017143 84.553143 3.803428z"
+                  p-id="3357"
+                ></path>
+              </svg> </span
+          ></a>
+        </h2>
+        <div v-if="conInfo">
+          <div class="emptyContent" v-if="conReview.total === 0">
+            <span>还没有需要审核的内容</span>
+          </div>
+          <el-row v-else>
+            <el-col :span="8" v-for="item in conReview.list" :key="item.hcId">
+              <div class="subscription">
+                <RouterLink
+                  v-if="item.category === 'news'"
+                  :to="`/news/detail/${item.hcId}`"
+                  class="subscription_l"
+                >
+                  <div>{{ item.title.charAt(0) }}</div>
+                </RouterLink>
+                <RouterLink
+                  v-if="item.category === 'articles'"
+                  :to="`/articles/detail/${item.hcId}`"
+                  class="subscription_l"
+                >
+                  <div>{{ item.title.charAt(0) }}</div>
+                </RouterLink>
+                <RouterLink
+                  v-if="item.category === 'videos'"
+                  :to="`/videos/detail/${item.hcId}`"
+                  class="subscription_l"
+                >
+                  <div>{{ item.title.charAt(0) }}</div>
+                </RouterLink>
+                <div class="subscription_content">
+                  <h3 class="subscription_name">
+                    <RouterLink
+                      v-if="item.category === 'news'"
+                      :to="`/news/detail/${item.hcId}`"
+                    >
+                      {{ item.title }}
+                    </RouterLink>
+                    <RouterLink
+                      v-if="item.category === 'articles'"
+                      :to="`/articles/detail/${item.hcId}`"
+                    >
+                      {{ item.title }}
+                    </RouterLink>
+                    <RouterLink
+                      v-if="item.category === 'videos'"
+                      :to="`/videos/detail/${item.hcId}`"
+                    >
+                      {{ item.title }}
+                    </RouterLink>
+                  </h3>
+                  <p v-if="item.category === 'news'">
+                    {{ item.category === "news" ? "资讯" : "" }}
+                  </p>
+                  <p v-if="item.category === 'articles'">
+                    {{ item.category === "articles" ? "文章" : "" }}
+                  </p>
+                  <p v-if="item.category === 'videos'">
+                    {{ item.category === "videos" ? "视频" : "" }}
+                  </p>
+                </div>
+              </div>
+            </el-col>
+          </el-row>
+        </div>
       </div>
     </div>
+    <!--  审核  -->
     <el-button text @click="dialogVisible = true"> 审核状态 </el-button>
     <el-dialog v-model="dialogVisible" title="审核状态" width="30%">
       <ReviewTimeLine />
@@ -154,8 +241,9 @@
 <script>
 import { ref } from "vue";
 import { useRoute } from "vue-router";
-import { getUserCon, getUserCol } from "@/api/login";
+import { getUserCon, getUserCol, getAdminReview } from "@/api/login";
 import ReviewTimeLine from "@/components/ReviewTimeLine";
+import store from "@/store";
 
 export default {
   name: "UsersPageHome",
@@ -165,15 +253,25 @@ export default {
     const page = ref(1);
     const route = useRoute();
     const uId = route.params.id;
+    const category = store.state.user.profile.category;
     const onChangeTab = (tabname) => {
       emit("changeTab", tabname);
     };
     const { conInfo } = useUserCon(uId, page.value);
     const { colInfo } = useUserCol(uId, page.value);
+    const { conReview } = useAdminCon(uId, page.value);
 
     const dialogVisible = ref(false);
 
-    return { onChangeTab, conInfo, colInfo, open, dialogVisible };
+    return {
+      onChangeTab,
+      category,
+      conInfo,
+      colInfo,
+      conReview,
+      open,
+      dialogVisible,
+    };
   },
 };
 
@@ -187,6 +285,18 @@ function useUserCon(uId, current) {
   };
   getData();
   return { conInfo };
+}
+
+//获取管理员需审核文章
+function useAdminCon(uId, current) {
+  const conReview = ref();
+  const getData = () => {
+    getAdminReview(uId, current).then((data) => {
+      conReview.value = data.result;
+    });
+  };
+  getData();
+  return { conReview };
 }
 
 //获取用户订阅

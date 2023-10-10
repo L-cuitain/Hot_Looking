@@ -141,3 +141,12 @@ export function getUserCol(uId, current) {
 export function addContent(form) {
   return requestWithToken("/user/addCon", "post", { form });
 }
+
+/**
+ * 管理员需审核文章
+ * @param uId
+ * @param current
+ */
+export function getAdminReview(uId, current) {
+  return requestWithToken("/user/review", "post", { uId, current });
+}

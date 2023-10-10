@@ -23,6 +23,8 @@ export default function useLoginAfter() {
         account: result.account,
         //用户密码
         password: result.password,
+        //用户类型
+        category: result.category,
         //用户登录凭证
         token: result.token,
       });

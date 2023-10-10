@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11694a26-43bd-417f-83a1-584026238adb" name="变更" comment="">
-      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/components/LabelList/AllList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/components/LabelList/AllList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/views/Top/components/TopPageList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/Top/components/TopPageList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/api/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/api/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/hooks/useLoginAfter.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/hooks/useLoginAfter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/store/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/store/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/views/users/UsersPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/users/UsersPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/views/users/components/UsersPageHome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/users/components/UsersPageHome.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/collectionsModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/collectionsModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/userController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/userModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/userModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +59,8 @@
       <workItem from="1696467736818" duration="599000" />
       <workItem from="1696499649855" duration="10000" />
       <workItem from="1696499680842" duration="599000" />
-      <workItem from="1696640650832" duration="4381000" />
+      <workItem from="1696640650832" duration="4983000" />
+      <workItem from="1696813441169" duration="13363000" />
     </task>
     <servers />
   </component>
