@@ -113,54 +113,22 @@
               </svg> </span
           ></a>
         </h2>
-        <div v-if="conInfo">
+        <div v-if="conReview">
           <div class="emptyContent" v-if="conReview.total === 0">
             <span>还没有需要审核的内容</span>
           </div>
           <el-row v-else>
             <el-col :span="8" v-for="item in conReview.list" :key="item.hcId">
-              <div class="subscription">
-                <RouterLink
-                  v-if="item.category === 'news'"
-                  :to="`/news/detail/${item.hcId}`"
-                  class="subscription_l"
-                >
+              <div
+                class="subscription subscription_show"
+                @click="dialogVisible = true"
+              >
+                <div class="subscription_l">
                   <div>{{ item.title.charAt(0) }}</div>
-                </RouterLink>
-                <RouterLink
-                  v-if="item.category === 'articles'"
-                  :to="`/articles/detail/${item.hcId}`"
-                  class="subscription_l"
-                >
-                  <div>{{ item.title.charAt(0) }}</div>
-                </RouterLink>
-                <RouterLink
-                  v-if="item.category === 'videos'"
-                  :to="`/videos/detail/${item.hcId}`"
-                  class="subscription_l"
-                >
-                  <div>{{ item.title.charAt(0) }}</div>
-                </RouterLink>
+                </div>
                 <div class="subscription_content">
                   <h3 class="subscription_name">
-                    <RouterLink
-                      v-if="item.category === 'news'"
-                      :to="`/news/detail/${item.hcId}`"
-                    >
-                      {{ item.title }}
-                    </RouterLink>
-                    <RouterLink
-                      v-if="item.category === 'articles'"
-                      :to="`/articles/detail/${item.hcId}`"
-                    >
-                      {{ item.title }}
-                    </RouterLink>
-                    <RouterLink
-                      v-if="item.category === 'videos'"
-                      :to="`/videos/detail/${item.hcId}`"
-                    >
-                      {{ item.title }}
-                    </RouterLink>
+                    {{ item.title }}
                   </h3>
                   <p v-if="item.category === 'news'">
                     {{ item.category === "news" ? "资讯" : "" }}
@@ -179,11 +147,11 @@
       </div>
     </div>
     <!--  审核  -->
-    <el-button text @click="dialogVisible = true"> 审核状态 </el-button>
     <el-dialog v-model="dialogVisible" title="审核状态" width="30%">
       <ReviewTimeLine />
       <template #footer>
         <span class="dialog-footer">
+          <el-button v-if="category === '管理员'">文章预览</el-button>
           <el-button @click="dialogVisible = false">确定</el-button>
         </span>
       </template>
@@ -359,6 +327,10 @@ function useUserCol(uId, current) {
   font-size: 0.875rem;
   overflow: hidden;
   margin: 0 1rem 1.25rem 1rem;
+}
+
+.subscription_show {
+  cursor: pointer;
 }
 
 .subscription_l {

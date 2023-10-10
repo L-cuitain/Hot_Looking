@@ -28,7 +28,7 @@
                   label="需审核"
                   name="fifth"
                   v-if="userInfo.category === '管理员'"
-                  ><UsersPageCol
+                  ><UsersPageReview
                 /></el-tab-pane>
               </el-tabs>
             </div>
@@ -84,10 +84,12 @@ import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { getUserInfo } from "@/api/login";
+import UsersPageReview from "@/views/users/components/UsersPageReview";
 
 export default {
   name: "UsersPage",
   components: {
+    UsersPageReview,
     AppLayout,
     AppFooter,
     UsersPageHome,
