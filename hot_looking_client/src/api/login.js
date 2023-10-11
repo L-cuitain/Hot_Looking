@@ -144,9 +144,20 @@ export function addContent(form) {
 
 /**
  * 管理员需审核文章
- * @param uId
- * @param current
+ * @param uId 用户id
+ * @param current 当前页数
+ * @returns {*|AxiosPromise}
  */
 export function getAdminReview(uId, current) {
   return requestWithToken("/user/review", "post", { uId, current });
+}
+
+/**
+ * 用户待审核文章
+ * @param uId 用户id
+ * @param current 当前页数
+ * @returns {*|AxiosPromise}
+ */
+export function getUserWaitReview(uId, current) {
+  return requestWithToken("/user/wait", "post", { uId, current });
 }

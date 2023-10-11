@@ -24,7 +24,9 @@ const {
     addHotCon,
     addAdminAndHc,
     getAdminHcId,
-    getAdminHcIdTotal
+    getAdminHcIdTotal,
+    getUserHcIdByReview,
+    getUserTotalByReview
 } = require('../models/userModel');
 
 const { getNewsByCount } = require('../models/newsModel');
@@ -315,3 +317,26 @@ module.exports.getUserReview = async (ctx) => {
         result: contribute
     }
 }
+
+//查询用户待审核待文章
+module.exports.getReviewConByUser = async (ctx) => {
+    const { uId , current } = ctx.request.body;
+    const offsetNum = (current-1)*9;
+    const count = await getUserTotalByReview(uId);
+    const data = await getUserHcIdByReview(uId,offsetNum);
+
+    const contribute = {
+        list: data,
+        total: count[0].total,
+        pageSize: 9,
+        pageNum: current
+    }
+
+    ctx.body = {
+        code: 200,
+        message: "管理员需审核文章获取成功",
+        result: contribute
+    }
+}
+
+

@@ -15,6 +15,7 @@ const {
     getUserCol,
     addUserContent,
     getUserReview,
+    getReviewConByUser
 } = require('../controllers/userController');
 
 
@@ -61,5 +62,8 @@ router.post('/addCon',addUserContent);
 
 //管理员审核
 router.post('/review',getUserReview);
+
+//用户待审核
+router.post('/wait',getReviewConByUser);
 
 module.exports = router

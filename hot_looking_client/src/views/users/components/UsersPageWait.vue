@@ -2,7 +2,7 @@
   <div class="ah_section">
     <div class="colInfo" v-if="conReview">
       <div class="emptyContent" v-if="conReview.total === 0">
-        <span>还没有需要审核的内容</span>
+        <span>还没有等待审核的内容</span>
       </div>
       <el-row v-else>
         <el-col :span="8" v-for="item in conReview.list" :key="item.hcId">
@@ -38,14 +38,14 @@
 </template>
 
 <script>
-import { ref } from "vue";
-import { useRoute } from "vue-router";
-import { getAdminReview } from "@/api/login";
-import ReviewTimeLine from "@/components/ReviewTimeLine";
 import Pagination from "@/components/Pagination";
+import ReviewTimeLine from "@/components/ReviewTimeLine";
+import { ref } from "vue";
+import { getUserWaitReview } from "@/api/login";
+import { useRoute } from "vue-router";
 
 export default {
-  name: "UsersPageReview",
+  name: "UsersPageWait",
   components: {
     Pagination,
     ReviewTimeLine,
@@ -54,7 +54,7 @@ export default {
     const page = ref(1);
     const route = useRoute();
     const uId = route.params.id;
-    const { conReview, getData } = useAdminCon(uId, page.value);
+    const { conReview, getData } = useWaitReview(uId, page.value);
     const dialogVisible = ref(false);
     return {
       conReview,
@@ -64,11 +64,11 @@ export default {
   },
 };
 
-//获取管理员需审核文章
-function useAdminCon(uId, current) {
+//获取用户待审核文章
+function useWaitReview(uId, current) {
   const conReview = ref();
   const getData = () => {
-    getAdminReview(uId, current).then((data) => {
+    getUserWaitReview(uId, current).then((data) => {
       conReview.value = data.result;
     });
   };

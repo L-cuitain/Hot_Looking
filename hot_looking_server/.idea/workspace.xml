@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11694a26-43bd-417f-83a1-584026238adb" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/users/components/UsersPageReview.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/users/components/UsersPageWait.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/api/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/api/login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/views/users/UsersPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/users/UsersPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/views/users/components/UsersPageHome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/users/components/UsersPageHome.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hot_looking_client/src/views/users/components/UsersPageReview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../hot_looking_client/src/views/users/components/UsersPageReview.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/userController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/userModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/userModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +25,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="2SS2sLPa6ed6i5yhYJFS6wRln4b" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -53,7 +65,7 @@
       <workItem from="1696499649855" duration="10000" />
       <workItem from="1696499680842" duration="599000" />
       <workItem from="1696640650832" duration="4983000" />
-      <workItem from="1696813441169" duration="14328000" />
+      <workItem from="1696813441169" duration="15587000" />
     </task>
     <servers />
   </component>

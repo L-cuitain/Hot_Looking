@@ -22,7 +22,7 @@
                   label="待审核"
                   name="fourth"
                   v-if="userInfo.category === '用户'"
-                  ><UsersPageCol
+                  ><UsersPageWait
                 /></el-tab-pane>
                 <el-tab-pane
                   label="需审核"
@@ -80,15 +80,17 @@ import AppFooter from "@/components/App/AppFooter";
 import UsersPageHome from "@/views/users/components/UsersPageHome";
 import UsersPageCol from "@/views/users/components/UsersPageCol";
 import UsersPageCon from "@/views/users/components/UsersPageCon";
+import UsersPageReview from "@/views/users/components/UsersPageReview";
+import UsersPageWait from "@/views/users/components/UsersPageWait";
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { getUserInfo } from "@/api/login";
-import UsersPageReview from "@/views/users/components/UsersPageReview";
 
 export default {
   name: "UsersPage",
   components: {
+    UsersPageWait,
     UsersPageReview,
     AppLayout,
     AppFooter,

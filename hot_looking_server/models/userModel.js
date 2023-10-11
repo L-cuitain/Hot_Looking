@@ -167,3 +167,15 @@ module.exports.getAdminHcIdTotal = async(uId) => {
     const sql = "select Count(*) total from admin_review where uId = ?;";
     return await query(sql,[uId]);
 }
+
+//查询用户待审核待文章id
+module.exports.getUserHcIdByReview = async (uId,offsetNum) => {
+    const sql = "select hc.hcId, hc.title , hc.category from hot_con hc , users u where u.uId = ? and hc.review = 0 and hc.uId = u.uId limit 6 offset ?;";
+    return await query(sql,[uId,offsetNum]);
+}
+
+//查询用户待审核文章数量
+module.exports.getUserTotalByReview = async(uId) => {
+    const sql = "select Count(*) total from hot_con hc , users u where u.uId = ? and hc.review = 0 and hc.uId = u.uId;";
+    return await query(sql,[uId]);
+}
